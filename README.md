@@ -51,7 +51,8 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 
 1. 請不要隨意改動配置文件，需要引入一些庫文件的時候請告知其他開發者.
 2. 採用 TDD 測試驅動開發，請各位優先編寫測試文件並進行相關注釋. (一定要使用 @author 標明編寫函數、模塊、文件的人)
-3. 爲了防止衝突，請各位完成需求的同時也必須對 readme prd 相關模塊或者功能進行標注
+3. 爲了防止衝突，請各位完成需求的同時也必須對 readme prd 相關模塊或者功能進行標注 
+
   > 例如： 甲同學開始編寫首頁，對 prd 中的 首頁進行標注: [ ] 首頁 --- doing, 甲同學  
   >       甲同學完成後，修改爲: [x] 首頁 --- done, 甲同學
 4. 請使用 feature 分支標明特性，hotfix 分支標明修復，並且 提出 mr 的時候一定要 assign leader (否則他根本不知道你提了 mr)
