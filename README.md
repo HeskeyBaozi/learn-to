@@ -45,6 +45,18 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 - 步骤6 - 重构。
 - 步骤7 - 对下一个代码模块重复步骤1到步骤6。
 
+#### 注意事項
+
+第二期迭代過後大家的開發時間減少了，因此在缺少交流的情況下請大家嚴格堅守開發注意事項
+
+1. 請不要隨意改動配置文件，需要引入一些庫文件的時候請告知其他開發者.
+2. 採用 TDD 測試驅動開發，請各位優先編寫測試文件並進行相關注釋. (一定要使用 @author 標明編寫函數、模塊、文件的人)
+3. 爲了防止衝突，請各位完成需求的同時也必須對 readme prd 相關模塊或者功能進行標注
+  > 例如： 甲同學開始編寫首頁，對 prd 中的 首頁進行標注: [ ] 首頁 --- doing, 甲同學  
+  >       甲同學完成後，修改爲: [x] 首頁 --- done, 甲同學
+4. 請使用 feature 分支標明特性，hotfix 分支標明修復，並且 提出 mr 的時候一定要 assign leader (否則他根本不知道你提了 mr)
+5. 每次提 mr 之前需要 pull 一下解決衝突.
+
 ## Matrix OJ PRD v0.1
 
 - [ ] 首页
@@ -139,5 +151,3 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
     - [ ] 收藏的题目（链接）
     - [ ] 收藏的比赛
   - [ ] 个人数据统计
- 
-
