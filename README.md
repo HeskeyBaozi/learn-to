@@ -62,14 +62,13 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 ## Matrix OJ PRD v0.1
 
 - [ ] 首页
-  - [ ] 公告栏  
-    - [ ] test  
-  - [ ] 全站数据统计 
+  - [ ] 公告栏
+    - [ ] test
+  - [ ] 全站数据统计
     - [ ] test
   - [ ] 注册登录
     - [ ] 未登录状态：显示登录注册按钮
     - [ ] 登录状态：右上角显示头像，点击进入个人中心，hover 可登出
-
     - [ ] 注册
       - [ ] **迁移 Matrix 用户**: 系统不自动帮用户绑定，由用户自行绑定
       - [ ] 邀请码注册
@@ -86,7 +85,6 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
     - [ ] 题目名字，ID
     - [ ] **题目标签**: 题目初始化时分配标签, 一道题可以有多个标签, 但是标签只有一级
     - [ ] 通过率（通过次数 ÷ 提交次数）
-
   - [ ] 题目描述界面
     - [ ] 一个页面展示完题目的所有信息，分容器放置不同板块。页面右侧提供定位功能❓
     - [ ] 题目描述
@@ -103,13 +101,12 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
     - [ ] 按照热度（评论数+回复数）排序
 
 - [ ] 状态
-  - [ ] 状态列表
-    - [ ] 用表格展示，只能按照提交时间排序
-      - [ ] 提交的ID
-      - [ ] 用户ID
-      - [ ] 题目ID
-      - [ ] 状态
-      - [ ] 提交时间
+  - [ ] 状态列表: 用表格展示，只能按照提交时间排序
+    - [ ] 提交的ID
+    - [ ] 用户ID
+    - [ ] 题目ID
+    - [ ] 状态
+    - [ ] 提交时间
   - [ ] 提供搜索功能
     - [ ] 搜索题目ID
     - [ ] 搜索用户ID
