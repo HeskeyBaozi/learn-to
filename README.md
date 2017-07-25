@@ -62,6 +62,7 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 ## Matrix OJ PRD v0.1
 
 - [ ] 首页
+  - [ ] 導航 --- doing 鄧廷禮
   - [ ] 公告栏
       - [ ] test
   - [ ] 全站数据统计
