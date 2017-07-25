@@ -11,6 +11,12 @@ npm install
 # serve with hot reload at localhost:8080
 npm run dev
 
+# mock json server at localhost:3000
+npm run mock
+
+# devserver and mock server
+npm run mock-dev
+
 # build for production with minification
 npm run build
 
