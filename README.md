@@ -11,11 +11,8 @@ npm install
 # serve with hot reload at localhost:8080
 npm run dev
 
-# mock json server at localhost:3000
+# serve with hot reload at localhost:8080 mock server at localhost:8000
 npm run mock
-
-# devserver and mock server
-npm run mock-dev
 
 # build for production with minification
 npm run build
@@ -36,6 +33,15 @@ npm test
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 ## 開發指南
+
+#### mock server
+
+添加 mock server 並不會影響 webpack hot server
+使用 npm run mock 啓動，api 請求會自動代理到本地 mock
+
+請注意：
+mock 只有一般的增刪查改功能, 每個 url 對應一種資源(RESTful)，不能模擬真實環境下服務端的功能，初期開發使用
+如果需要增加 api 請參照 docs 目錄下的 api 文檔格式進行添加，不然 api 會 直接丟出 404
 
 考慮到需求的不明確，不建議採用 BDD 行爲測試驅動開發，使用 TDD 測試驅動開發，具體步驟如下:
 > 以下測試均指單元測試，不考慮 e2e 用戶行爲測試
