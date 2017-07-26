@@ -1,2 +1,1 @@
 parameters:
-  $ref: './pets/main.yaml#/parameters'

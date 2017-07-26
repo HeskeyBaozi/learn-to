@@ -1,2 +1,2 @@
 paths:
-  $ref: './pets/main.yaml#/paths'
+  $ref: './user/main.yaml#/paths'

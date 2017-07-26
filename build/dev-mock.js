@@ -67,14 +67,9 @@ var mockApp = express()
 var mockPort = 8000
 var mockServer
 
-var docsPath = [
-  '../docs/pets.yaml',
-];
-
 swaggerMiddlware(path.resolve(__dirname, '../docs/api.yaml'),
 mockApp,
 function (err, middleware) {
-
   // dev mock server
   mockApp.use(
     middleware.metadata(),
@@ -86,7 +81,7 @@ function (err, middleware) {
 
   mockServer = mockApp.listen(mockPort, function () {
     // proxy api requests
-    app.use(proxyMiddleware('/api/*', {
+    app.use(proxyMiddleware('/api', {
       target: 'http://localhost:' + mockPort,
       changeOrigin: true,
       pathRewrite: {

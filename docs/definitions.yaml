@@ -1,2 +1,2 @@
 definitions:
-  $ref: './pets/main.yaml#/definitions'
+  $ref: './user/main.yaml#/definitions'
