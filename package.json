@@ -6,10 +6,9 @@
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
-    "mock-dev": "npm run mock & npm run dev",
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
-    "mock": "json-server --watch mock/*.json",
+    "mock": "node build/dev-mock.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
@@ -21,7 +20,6 @@
     "bootstrap-vue": "^0.18.0",
     "vue": "^2.3.3",
     "vue-router": "^2.6.0",
-    "vue-strap": "^1.1.37",
     "vuex": "^2.3.1"
   },
   "devDependencies": {
@@ -85,6 +83,7 @@
     "sinon-chai": "^2.8.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
+    "swagger-express-middleware": "^1.0.0-alpha.12",
     "url-loader": "^0.5.8",
     "vue-loader": "^12.1.0",
     "vue-style-loader": "^3.0.1",

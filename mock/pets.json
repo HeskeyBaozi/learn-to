@@ -1,0 +1,12 @@
+[
+  {
+    "collection": "/mock/pets",
+    "name": "/bob%20joc",
+    "modifiedOn": "2017-07-26T07:01:26.903Z",
+    "data": {
+      "name": "bob joc",
+      "type": "dog"
+    },
+    "createdOn": "2017-07-26T06:49:18.892Z"
+  }
+]

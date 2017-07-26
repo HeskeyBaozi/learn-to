@@ -1,0 +1,6 @@
+petName:
+  name: petName
+  in: path
+  description: Name of the pet
+  required: true
+  type: string

@@ -1,0 +1,8 @@
+definitions:
+  $ref: './definitions.yaml'
+
+parameters:
+  $ref: './parameters.yaml'
+
+paths:
+  $ref: './paths.yaml'
