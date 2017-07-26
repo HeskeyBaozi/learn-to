@@ -19,8 +19,9 @@
             .input-group
               input.form-control(type='text' placeholder='Search')
               span.input-group-btn
-                button.btn.btn-secondary Go
-          img.img-fluid.rounded-circle(src='../../assets/logo.png' style='height: 30px; width: 30px; margin-top: 5px; background-color: white;')
+                button.btn.btn-secondary
+                  span.fa.fa-search
+          img.img-fluid.rounded-circle(src='../assets/logo.png' style='height: 30px; width: 30px; margin-top: 5px; background-color: white;')
           b-nav-item-dropdown(right)
 
             <!-- Using button-content slot -->
