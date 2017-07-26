@@ -12,16 +12,17 @@
           b-nav-item 題目
           b-nav-item 狀態
           b-nav-item 排名
+        
+        b-nav-form.search(right)
+          .input-group
+            input.form-control(type='text' placeholder='Search')
+            span.input-group-btn
+              button.btn.btn-secondary
+                span.fa.fa-search
 
 
         b-nav.ml-auto(is-nav-bar)
-          b-nav-form.search(right)
-            .input-group
-              input.form-control(type='text' placeholder='Search')
-              span.input-group-btn
-                button.btn.btn-secondary
-                  span.fa.fa-search
-          img.img-fluid.rounded-circle(src='../assets/logo.png' style='height: 30px; width: 30px; margin-top: 5px; background-color: white;')
+          img.img-fluid.rounded-circle(src='../assets/logo.png' style='height: 30px; width: 30px; background-color: white;')
           b-nav-item-dropdown(right)
 
             <!-- Using button-content slot -->
@@ -39,7 +40,7 @@ export default {}
 
 <style lang="stylus">
 nav.topbar
-  background-color: #749fce !important
+  background: #007FFF !important
   @media (min-width: 576px)
     padding-top: 0
     padding-bottom: 0
@@ -51,17 +52,23 @@ nav.topbar
       margin-right: initial
   .search
     margin-right: 10px
+    .input-group
+      height: 30px
     input
-      background: #548dcc
-      color: #eee
+      background: rgba(255, 255, 255, 1)
+      color: #666
       border: none
       border-radius: 0
+      line-height: 1
+      height: 30px
       &::placeholder
-        color: #eee
+        color: #666
     button
+      padding-top: 6px
+      border-radius: 0
       border: none
-      background: transparent
-      color: white
+      background: rgba(255, 255, 255, 1)
+      color: #ccc
       outline: none
       box-shadow: none
       cursor: pointer
@@ -71,15 +78,17 @@ nav.topbar
     @media (min-width: 576px)
       width: 400px
       margin: 0 1rem
-    .nav-link
-      padding-right: 1rem
-      padding-left: 1rem
-    .nav-link:hover
-      background-color: #548dcc
+      .nav-link
+        padding-right: 1rem
+        padding-left: 1rem
   .navbar-toggler
     right: 0
   .navbar-collapse
-    height: 100%
+    @media (min-width: 576px)
+      height: 30px
+      line-height: 15px
+      margin-top: 5px 
+      margin-bottom: 5px
   .navbar-brand
     margin-top: -1rem
     margin-bottom: -1rem
@@ -88,7 +97,8 @@ nav.topbar
       margin: initial
       padding: .25rem 0
   .navbar-nav.ml-auto
-    padding: 0 1rem
+    @media (min-width: 576px)
+      padding: 0 1rem
   .dropdown
     height: 100%
 </style>

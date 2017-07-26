@@ -1,4 +1,6 @@
 <template lang='pug'>
+.home
+  | {{ msg }}
 </template>
 
 <script>
