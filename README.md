@@ -8,7 +8,7 @@
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
+# serve with hot reload at localhost:8080 (沒有服務端就沒有代理)
 npm run dev
 
 # serve with hot reload at localhost:8080 mock server at localhost:8000
@@ -21,13 +21,13 @@ npm run build
 npm run build --report
 
 # run unit tests
-npm run unit
+npm run unit -s
 
 # run e2e tests
-npm run e2e
+npm run e2e -s
 
 # run all tests
-npm test
+npm test -s
 ```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
@@ -74,7 +74,7 @@ mock 只有一般的增刪查改功能, 每個 url 對應一種資源(RESTful)�
 ## Matrix OJ PRD v0.1
 
 - [ ] 首页
-  - [ ] 導航 --- doing 鄧廷禮
+  - [x] 導航 --- done 鄧廷禮(樣式編寫完成)
   - [ ] 公告栏
       - [ ] test
   - [ ] 全站数据统计
