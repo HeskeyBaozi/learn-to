@@ -1,10 +1,11 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Topbar from '@/components/Topbar'
-import Home from '@/pages/Home'
-import Main from '@/pages/Main'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Topbar from '@/components/Topbar';
+import Home from '@/pages/Home';
+import Main from '@/pages/Main';
+import Problems from '@/pages/Problems';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   mode: 'history',
@@ -19,6 +20,14 @@ export default new Router({
           components: {
             topbar: Topbar,
             main: Home
+          }
+        },
+        {
+          path: 'problems',
+          name: 'Problems',
+          components: {
+            topbar: Topbar,
+            main: Problems
           }
         }
       ]
