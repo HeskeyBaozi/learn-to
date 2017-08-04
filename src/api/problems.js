@@ -1,6 +1,6 @@
 import faker from 'faker/locale/en_US';
 faker.locale = 'en_US';
-faker.seed(123);
+faker.seed(new Date().getTime());
 
 export const fetchProblemsList = async () => {
   const data = [];

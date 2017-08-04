@@ -1,11 +1,12 @@
 <template>
   <div id="oj-problems-list">
-    <b-table :show-empty="true" class="shadow problems-table"
+    <b-table hover :show-empty="true" class="shadow problems-table"
              :items="problems"
              :fields="fields"
              :current-page="currentPage"
              :per-page="perPage"
-             :empty-text="'暂无题目显示'">
+             :empty-text="'暂无题目显示'"
+             @row-clicked="handleRowClick">
       <template slot="pass_rate" scope="data">
         {{data.item.pass_times | percentPipe(data.item.submission_times)}}
       </template>
@@ -61,6 +62,12 @@
         };
       }
     },
+    methods: {
+      handleRowClick(item, index) {
+        console.log(item, index);
+        this.$router.push({name: 'OneProblemHome', params: {problem_id: item.problem_id}});
+      }
+    },
     filters: {
       statusTranslationPipe(value) {
         if (!value) {
@@ -103,13 +110,20 @@
       color $title-color
     }
 
-    tbody td {
-      text-align center
-      font-size 12px
-      color $content-color
+    tbody {
+      td {
+        text-align center
+        font-size 12px
+        color $content-color
+      }
+
+      tr {
+        &:hover {
+          cursor pointer
+        }
+      }
     }
   }
-
 </style>
 
 <style lang="stylus" scoped>
