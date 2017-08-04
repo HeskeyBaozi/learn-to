@@ -16,6 +16,6 @@ describe('ProblemsList.vue', () => {
     const Constructor = Vue.extend(ProblemsList);
     const vm = new Constructor({propsData: {perPage: 20, problems: []}}).$mount();
     const text = vm.$el.querySelector('#oj-problems-list > table > tbody > tr > td > div > div').textContent;
-    expect(text).toBe('暂无题目显示');
+    expect(text).to.equal('暂无题目显示');
   })
 });
