@@ -12,7 +12,7 @@
           b-nav-item 題目
           b-nav-item 狀態
           b-nav-item 排名
-        
+
         b-nav-form.search(right)
           .input-group
             input.form-control(type='text' placeholder='Search')
@@ -30,7 +30,7 @@
               span(style="font-weight: bold;") User
             template
 
-            b-dropdown-item(to="#") Profile
+            b-dropdown-item(to="user") Profile
             b-dropdown-item(to="#") Signout
 </template>
 
@@ -41,6 +41,7 @@ export default {}
 <style lang="stylus">
 nav.topbar
   background: #007FFF !important
+  position: relative
   @media (min-width: 576px)
     padding-top: 0
     padding-bottom: 0
@@ -87,7 +88,7 @@ nav.topbar
     @media (min-width: 576px)
       height: 30px
       line-height: 15px
-      margin-top: 5px 
+      margin-top: 5px
       margin-bottom: 5px
   .navbar-brand
     margin-top: -1rem

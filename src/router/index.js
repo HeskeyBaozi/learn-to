@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Topbar from '@/components/Topbar'
 import Home from '@/pages/Home'
 import Main from '@/pages/Main'
-
+import User from '@/pages/User'
 Vue.use(Router)
 
 export default new Router({
@@ -19,6 +19,13 @@ export default new Router({
           components: {
             topbar: Topbar,
             main: Home
+          }
+        }, {
+          path: 'user',
+          name: 'User',
+          components: {
+            topbar: Topbar,
+            main: User
           }
         }
       ]
