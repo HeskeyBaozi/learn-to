@@ -1,0 +1,26 @@
+[
+  {
+    "collection": "/mock/user",
+    "name": "/matrix2",
+    "modifiedOn": "2017-07-26T08:50:36.753Z",
+    "data": {
+      "username": "matrix2",
+      "password": "matrix13331314",
+      "realname": "matrix",
+      "nickname": "matrix"
+    },
+    "createdOn": "2017-07-26T08:50:36.753Z"
+  },
+  {
+    "collection": "/mock/user",
+    "name": "/matrix",
+    "modifiedOn": "2017-07-26T08:51:04.254Z",
+    "data": {
+      "username": "matrix",
+      "password": "matrix13331314",
+      "realname": "matrix",
+      "nickname": "matrix"
+    },
+    "createdOn": "2017-07-26T08:51:04.254Z"
+  }
+]

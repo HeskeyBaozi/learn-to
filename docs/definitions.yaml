@@ -1,0 +1,2 @@
+definitions:
+  $ref: './user/main.yaml#/definitions'
