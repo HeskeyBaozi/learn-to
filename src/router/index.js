@@ -20,7 +20,14 @@ export default new Router({
             topbar: Topbar,
             main: Home
           }
-<<<<<<< HEAD
+        },
+        {
+          path: 'user',
+          name: 'User',
+          components: {
+            topbar: Topbar,
+            main: User
+          }
         },
         {
           path: 'problems',
@@ -58,15 +65,6 @@ export default new Router({
               component: () => import('@/components/OneProblem/OneProblemDiscuss')
             }
           ]
-=======
-        }, {
-          path: 'user',
-          name: 'User',
-          components: {
-            topbar: Topbar,
-            main: User
-          }
->>>>>>> master
         }
       ]
     }
