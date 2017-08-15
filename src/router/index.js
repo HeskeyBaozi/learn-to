@@ -1,10 +1,10 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import Topbar from '@/components/Topbar';
-import Home from '@/pages/Home';
-import Main from '@/pages/Main';
-
-Vue.use(Router);
+import Vue from 'vue'
+import Router from 'vue-router'
+import Topbar from '@/components/Topbar'
+import Home from '@/pages/Home'
+import Main from '@/pages/Main'
+import User from '@/pages/User'
+Vue.use(Router)
 
 export default new Router({
   mode: 'history',
@@ -20,6 +20,7 @@ export default new Router({
             topbar: Topbar,
             main: Home
           }
+<<<<<<< HEAD
         },
         {
           path: 'problems',
@@ -57,6 +58,15 @@ export default new Router({
               component: () => import('@/components/OneProblem/OneProblemDiscuss')
             }
           ]
+=======
+        }, {
+          path: 'user',
+          name: 'User',
+          components: {
+            topbar: Topbar,
+            main: User
+          }
+>>>>>>> master
         }
       ]
     }
