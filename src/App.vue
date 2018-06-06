@@ -19,11 +19,10 @@
   }
 </script>
 
+<style src="normalize.css"></style>
 
 <style lang="scss">
   // 全局引入ElementUI样式 请勿删除
-  @import "~normalize.css";
-
   $--font-path: "~element-ui/lib/theme-chalk/fonts";
   @import "~element-ui/packages/theme-chalk/src/index";
 </style>
