@@ -1,21 +1,34 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <div id="nav">
+      <router-link to="/">Home</router-link>
+      |
+      <router-link to="/about">About</router-link>
+    </div>
+    <router-view/>
   </div>
 </template>
 
-<script>
-import 'font-awesome/css/font-awesome.min.css'
+<script lang="ts">
+  import { Component, Vue } from 'vue-property-decorator';
 
-export default {
-  name: 'app'
-}
+  @Component({
+    name: 'app'
+  })
+  export default class App extends Vue {
+  }
 </script>
 
-<style lang='stylus'>
-#app
-  font-family: 'Avenir', Helvetica, Arial, sans-serif
-  -webkit-font-smoothing: antialiased
-  -moz-osx-font-smoothing: grayscale
-  color: #2c3e50
+<style src="normalize.css"></style>
+
+<style lang="scss">
+  // 全局引入ElementUI样式 请勿删除
+  $--font-path: "~element-ui/lib/theme-chalk/fonts";
+  @import "~element-ui/packages/theme-chalk/src/index";
+</style>
+
+<style lang="scss">
+  #app {
+    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  }
 </style>
