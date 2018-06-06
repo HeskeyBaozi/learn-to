@@ -2,17 +2,17 @@
 
 ## 开发环境搭建
 
-1. 安装`Node.js`、`yarn`、`vscode`、`python 2.7`。
+安装`Node.js`、`yarn`、`vscode`、`python 2.7`。
 
-`Node.js`：https://nodejs.org/en/，安装`LTS`版本即可。
+`Node.js`：https://nodejs.org/en/ 安装`LTS`版本即可。
 
 `yarn`：https://yarn.bootcss.com/docs/install.html
 
-`vscode`：https://code.visualstudio.com/
+`vscode`：https://code.visualstudio.com/ 请注意安装相关`Vetur`、`TSLint`、`TSLint Vue`三个插件
 
 `python 2.7`：https://www.python.org/ 用于解决安装`node-sass`失败问题
 
-2. 项目命令
+### 项目命令
 
 ```bash
 yarn install # 安装依赖
