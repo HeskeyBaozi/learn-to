@@ -5835,6 +5835,12 @@ trim-newlines@^1.0.0:
   dependencies:
     glob "^6.0.4"
 
+ts-import-plugin@^1.5.2:
+  version "1.5.2"
+  resolved "http://registry.npm.taobao.org/ts-import-plugin/download/ts-import-plugin-1.5.2.tgz#ec2a135a9e1d75f08d7ed01b239ad41b977418db"
+  dependencies:
+    tslib "^1.9.0"
+
 ts-loader@^4.3.0:
   version "4.3.1"
   resolved "http://registry.npm.taobao.org/ts-loader/download/ts-loader-4.3.1.tgz#345298df9a5019be7a3e86cd7b8b1aefef4bbd79"
@@ -5845,7 +5851,7 @@ ts-loader@^4.3.0:
     micromatch "^3.1.4"
     semver "^5.0.1"
 
-tslib@^1.8.0, tslib@^1.8.1:
+tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0:
   version "1.9.2"
   resolved "http://registry.npm.taobao.org/tslib/download/tslib-1.9.2.tgz#8be0cc9a1f6dc7727c38deb16c2ebd1a2892988e"
 
@@ -5911,7 +5917,7 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "http://registry.npm.taobao.org/typedarray/download/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript@^2.8.3:
+typescript@^2.8.3, typescript@^2.9.1:
   version "2.9.1"
   resolved "http://registry.npm.taobao.org/typescript/download/typescript-2.9.1.tgz#fdb19d2c67a15d11995fd15640e373e09ab09961"
 
@@ -6273,7 +6279,7 @@ webpack-sources@^1.0.1, webpack-sources@^1.1.0:
     source-list-map "^2.0.0"
     source-map "~0.6.1"
 
-webpack@^4.8.2:
+webpack@^4.11.0, webpack@^4.8.2:
   version "4.11.0"
   resolved "http://registry.npm.taobao.org/webpack/download/webpack-4.11.0.tgz#b7b68b4fe8a8963a18370a05f84d38d59ada4fbf"
   dependencies:
