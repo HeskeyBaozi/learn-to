@@ -1,9 +1,11 @@
+import Element from 'element-ui';
 import Vue from 'vue';
 import App from './App.vue';
 import './registerServiceWorker';
 import router from './router';
 import store from './store';
 
+Vue.use(Element, { size: 'default' });
 Vue.config.productionTip = false;
 
 new Vue({

@@ -9,6 +9,13 @@
 </template>
 
 <style lang="scss">
+  // 全局引入ElementUI样式 请勿删除
+  @import "~normalize.css";
+  $--font-path: "~element-ui/lib/theme-chalk/fonts";
+  @import "~element-ui/packages/theme-chalk/src/index";
+</style>
+
+<style lang="scss">
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
