@@ -5,7 +5,7 @@ import './registerServiceWorker';
 import router from './router';
 import store from './store';
 
-Vue.use(Element, { size: 'default' });
+Vue.use(Element, { size: 'small' });
 Vue.config.productionTip = false;
 
 new Vue({
