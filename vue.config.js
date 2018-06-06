@@ -1,4 +1,5 @@
 const merge = require('webpack-merge');
+const fs = require('fs');
 
 module.exports = {
   chainWebpack: config => {
