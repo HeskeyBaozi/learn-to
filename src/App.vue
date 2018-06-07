@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <el-container>
-      <el-header class="header" height="60px">
+      <el-header class="header">
         <top-nav></top-nav>
       </el-header>
-      <el-main>
+      <el-main class="main">
         <router-view></router-view>
       </el-main>
       <el-footer>
@@ -68,7 +68,12 @@ body {
 <style lang="scss" scoped>
 #app {
   .header {
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+    box-shadow: $--box-shadow-base;
+    z-index: $--index-normal;
+  }
+
+  .main {
+    background-color: $--background-color-base;
   }
 }
 </style>
