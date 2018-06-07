@@ -1,4 +1,4 @@
-import { RootState } from '@/store';
+import { RootState } from '@/stores';
 import { Module } from 'vuex';
 
 export interface ITodo {
@@ -40,8 +40,10 @@ export default {
   actions: {
     async [FETCH_TODO_LIST](
       { dispatch, commit, state, getters },
-      payload: any
+      payload: { page: number } | string
     ) {
+      // tslint:disable-next-line:no-console
+      console.log('Received payload', payload);
       const list = await new Promise<ITodo[]>((resolve) => {
         setTimeout(() => {
           resolve([{ title: 'TestTitle', done: false }]);
