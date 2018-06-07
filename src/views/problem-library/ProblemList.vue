@@ -1,6 +1,6 @@
 <template>
-  <el-container id="home">
-    <h1>这是主页</h1>
+  <el-container id="problem-list">
+    <h1>这个是问题列表页面</h1>
   </el-container>
 </template>
 
@@ -8,13 +8,13 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component({
-  name: 'home'
+  name: 'problem-list'
 })
-export default class Ranks extends Vue {}
+export default class ProblemList extends Vue {}
 </script>
 
 <style lang="scss" scoped>
-#home {
+#problem-list {
 }
 </style>
 

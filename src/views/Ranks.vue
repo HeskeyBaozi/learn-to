@@ -1,6 +1,6 @@
 <template>
-  <el-container id="home">
-    <h1>这是主页</h1>
+  <el-container id="ranks">
+    <h1>排名页面</h1>
   </el-container>
 </template>
 
@@ -8,13 +8,13 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component({
-  name: 'home'
+  name: 'ranks'
 })
 export default class Ranks extends Vue {}
 </script>
 
 <style lang="scss" scoped>
-#home {
+#ranks {
 }
 </style>
 

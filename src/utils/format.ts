@@ -1,7 +1,7 @@
 import { format as f, formatDistance as fd } from 'date-fns/esm';
-import { enUS, zhCN } from 'date-fns/esm/locale';
+import zhCN from 'date-fns/esm/locale/zh-CN';
 
-const locales = { enUS, zhCN };
+const locales = { zhCN };
 const localeId: keyof typeof locales = 'zhCN'; // 修改此处以全局修改日期格式化语言
 
 /**
@@ -11,7 +11,7 @@ const localeId: keyof typeof locales = 'zhCN'; // 修改此处以全局修改日
 export function format(
   date: Date | string | number,
   formatStr: string,
-  options: Options = {}
+  options: object = {}
 ) {
   return f(date, formatStr, { ...options, locale: locales[localeId] });
 }
@@ -23,7 +23,7 @@ export function format(
 export function formatDistance(
   date: Date | string | number,
   baseDate: Date | string | number,
-  options: Options = {}
+  options: object = {}
 ) {
   return fd(date, baseDate, { ...options, locale: locales[localeId] });
 }

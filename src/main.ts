@@ -8,6 +8,7 @@ import './font-awesome';
 import './registerServiceWorker';
 import router from './router';
 import store from './store';
+import './utils';
 
 Vue.config.productionTip = false;
 
