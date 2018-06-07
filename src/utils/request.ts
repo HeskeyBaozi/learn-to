@@ -1,11 +1,16 @@
+/**
+ * 请求用的函数工具，使用axios
+ */
 import axios, { AxiosResponse } from 'axios';
 import { Notification } from 'element-ui';
 
+// 可添加其他相关配置，如csrf等
 export const request = axios.create({
   timeout: 5000,
   baseURL: '/api'
 });
 
+// 请求拦截器
 request.interceptors.response.use(
   (response) => response,
   (error): Promise<AxiosResponse<any>> => {
