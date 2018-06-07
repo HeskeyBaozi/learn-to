@@ -3,12 +3,12 @@
     <div class="logo-wrapper" @click="backToHome">
       MOJ Logo
     </div>
-    <el-menu id="menu" mode="horizontal" :router="true">
-      <el-menu-item index="1">
+    <el-menu id="menu" mode="horizontal" :default-active="$route.path" :router="true">
+      <el-menu-item index="/problems">
         <fa-icon :icon="['far', 'list-alt']"></fa-icon>
         <span class="menu-item-text">题库</span>
       </el-menu-item>
-      <el-menu-item index="/about">
+      <el-menu-item index="/ranks">
         <fa-icon icon="signal"></fa-icon>
         <span class="menu-item-text">排名</span>
       </el-menu-item>

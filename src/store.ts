@@ -1,16 +1,24 @@
 import Vue from 'vue';
-import Vuex from 'vuex';
+import Vuex, { Module, Store } from 'vuex';
+import todos from './stores/example';
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
-  state: {
+const modules = {
+  todos
+};
 
-  },
-  mutations: {
+type ModuleState<M> = M extends Module<infer S, any> ? S : {};
 
-  },
-  actions: {
+export type RootState = {
+  [P in keyof typeof modules]: ModuleState<(typeof modules)[P]>
+};
 
-  }
+const rootStore = new Vuex.Store<RootState>({
+  modules,
+  strict: process.env.NODE_ENV !== 'production'
 });
+
+export type RootStore = typeof rootStore;
+
+export default rootStore;

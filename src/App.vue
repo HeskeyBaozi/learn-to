@@ -17,6 +17,9 @@
 </template>
 
 <script lang="ts">
+import { RootStore } from '@/store';
+import { ITodo } from '@/stores/example';
+import { FETCH_TODO_LIST, FINISHED_LIST } from '@/stores/example';
 import TopNav from '@/views/global/TopNav.vue';
 import { Component, Vue } from 'vue-property-decorator';
 
@@ -26,7 +29,24 @@ import { Component, Vue } from 'vue-property-decorator';
     TopNav
   }
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  get todos() {
+    return (this.$store as RootStore).state.todos.todos;
+  }
+
+  get finishedTodos(): ITodo[] {
+    return (this.$store as RootStore).getters[`todos/${FINISHED_LIST}`];
+  }
+
+  async mounted() {
+    await this.$store.dispatch(
+      `todos/${FETCH_TODO_LIST}`,
+      { page: 1 } /* payload */
+    );
+    // tslint:disable-next-line:no-console
+    console.log(this.todos);
+  }
+}
 </script>
 
 <style src="normalize.css"></style>
