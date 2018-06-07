@@ -1,6 +1,7 @@
 /**
  * 按需引入 Font-Awesome 免费图标
- * 所有可用图标 https://fontawesome.com/icons?d=gallery&s=brands,regular,solid&m=free
+ * 所有可用图标
+ * https://fontawesome.com/icons?d=gallery&s=brands,regular,solid&m=free
  * 图标大部分分为以下三类
  * solid：大部分是黑底图标
  * regular：大部分是白底图标
@@ -12,13 +13,13 @@
 import fontawesome from '@fortawesome/fontawesome';
 import { faGithub, faWeibo } from '@fortawesome/fontawesome-free-brands';
 import { faBell, faListAlt } from '@fortawesome/fontawesome-free-regular';
-import { faLock, faUser } from '@fortawesome/fontawesome-free-solid';
+import { faList, faSignal } from '@fortawesome/fontawesome-free-solid';
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
 import Vue from 'vue';
 
 // 添加 solid 图标，可以不用传数组，直接传入名称即可
 // e.g. <fa-icon icon="user"/>
-fontawesome.library.add(...[faUser, faLock]);
+fontawesome.library.add(...[faList, faSignal]);
 
 // 添加 regular 图标，需要传入数组
 // e.g. <fa-icon :icon="['far', 'list-alt']"/>

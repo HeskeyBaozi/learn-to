@@ -12,6 +12,8 @@ import {
   Input,
   Loading,
   Main,
+  Menu,
+  MenuItem,
   Notification
 } from 'element-ui';
 import Vue from 'vue';
@@ -27,6 +29,7 @@ const components = [
   Footer,
   Header,
   Main,
+  Menu, MenuItem,
   (Loading as any).directive
 ];
 for (const component of components) {
