@@ -1,7 +1,10 @@
 import axios, { AxiosResponse } from 'axios';
 import { Notification } from 'element-ui';
 
-export const request = axios.create({ timeout: 5000 });
+export const request = axios.create({
+  timeout: 5000,
+  baseURL: '/api'
+});
 
 request.interceptors.response.use(
   (response) => response,

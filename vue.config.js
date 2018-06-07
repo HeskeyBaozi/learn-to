@@ -10,14 +10,28 @@ module.exports = {
         merge(options, {
           getCustomTransformers: () => ({
             before: [
-              require("ts-import-plugin")({
-                libraryName: "element-ui",
-                styleLibraryName: "theme-chalk"
-              })
+              require("ts-import-plugin")([
+                {
+                  libraryName: "element-ui",
+                  styleLibraryName: "theme-chalk"
+                }
+              ])
             ]
           })
         })
       );
+    config.resolve.alias.set(
+      "@fortawesome/fontawesome-free-regular$",
+      "@fortawesome/fontawesome-free-regular/shakable.es.js"
+    );
+    config.resolve.alias.set(
+      "@fortawesome/fontawesome-free-solid$",
+      "@fortawesome/fontawesome-free-solid/shakable.es.js"
+    );
+    config.resolve.alias.set(
+      "@fortawesome/fontawesome-free-brands$",
+      "@fortawesome/fontawesome-free-brands/shakable.es.js"
+    );
   },
   css: {
     loaderOptions: {
@@ -30,6 +44,6 @@ module.exports = {
     name: "matrix-online-judge"
   },
   devServer: {
-    proxy: {}
+    proxy: null
   }
 };
