@@ -32,7 +32,7 @@ yarn run test:unit # 单元测试
 
 在UI界面中构建，可以可视化依赖相关情况。
 
-![build](./docs/image/build.jpg)
+![build](./docs/images/build.jpg)
 
 ## 脚手架配置
 
