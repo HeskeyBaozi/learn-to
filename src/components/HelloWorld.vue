@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <fa-icon :icon="['far', 'list-alt']"/>
     <p>
       For guide and recipes on how to configure / customize this project,<br>
       check out the
@@ -61,6 +62,6 @@
   }
 
   a {
-    color: #42b983;
+    color: $--color-primary;
   }
 </style>

@@ -8,7 +8,8 @@
 
 `yarn`：https://yarn.bootcss.com/docs/install.html
 
-`vscode`：https://code.visualstudio.com/ 请注意安装相关`Vetur`、`TSLint`、`TSLint Vue`三个插件
+`vscode`：https://code.visualstudio.com/ 请注意安装相关`Vetur`、`TSLint`、`TSLint Vue`、`EditorConfig for VS Code
+`四个插件
 
 `python 2.7`：https://www.python.org/ 用于解决安装`node-sass`失败问题
 

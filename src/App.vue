@@ -1,11 +1,20 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link>
-      |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <el-container>
+      <el-header height="60px">
+        <div>
+          Top Nav
+        </div>
+      </el-header>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
+      <el-footer>
+        <div>
+          Footer
+        </div>
+      </el-footer>
+    </el-container>
   </div>
 </template>
 
@@ -28,7 +37,8 @@
 </style>
 
 <style lang="scss">
-  #app {
+  // 其他全局样式设定写在这里
+  body {
     font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   }
 </style>

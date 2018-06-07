@@ -1,11 +1,14 @@
-import Element from 'element-ui';
+/**
+ * App 应用入口
+ */
 import Vue from 'vue';
 import App from './App.vue';
+import './element-ui';
+import './font-awesome';
 import './registerServiceWorker';
 import router from './router';
 import store from './store';
 
-Vue.use(Element, { size: 'small' });
 Vue.config.productionTip = false;
 
 new Vue({
