@@ -17,11 +17,14 @@
 </template>
 
 <script lang="ts">
-import { RootStore } from '@/store';
-import { ITodo } from '@/stores/example';
+import { RootStore } from '@/stores';
+import { IState, ITodo } from '@/stores/example';
 import { FETCH_TODO_LIST, FINISHED_LIST } from '@/stores/example';
 import TopNav from '@/views/global/TopNav.vue';
 import { Component, Vue } from 'vue-property-decorator';
+import { namespace } from 'vuex-class';
+
+const moduled = namespace('todos');
 
 @Component({
   name: 'app',
@@ -30,6 +33,7 @@ import { Component, Vue } from 'vue-property-decorator';
   }
 })
 export default class App extends Vue {
+  // 获取状态
   get todos() {
     return (this.$store as RootStore).state.todos.todos;
   }
@@ -38,11 +42,24 @@ export default class App extends Vue {
     return (this.$store as RootStore).getters[`todos/${FINISHED_LIST}`];
   }
 
+  // 获取状态 第二种写法
+  @moduled.State((state: IState) => state.todos)
+  todos2!: ITodo[];
+
+  @moduled.Getter(FINISHED_LIST) finishedTodos2!: ITodo[]; // 感叹号代表赋值断言，此值不为空
+
+  // 发送Action
+  @moduled.Action(FETCH_TODO_LIST) fetchTodos!: (payload: any) => Promise<void>;
+
   async mounted() {
+
+    // 也是发送Action的写法
     await this.$store.dispatch(
       `todos/${FETCH_TODO_LIST}`,
       { page: 1 } /* payload */
     );
+
+    await this.fetchTodos('example_payload');
     // tslint:disable-next-line:no-console
     console.log(this.todos);
   }

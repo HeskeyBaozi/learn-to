@@ -7,7 +7,7 @@ import './element-ui';
 import './font-awesome';
 import './registerServiceWorker';
 import router from './router';
-import store from './store';
+import store from './stores';
 import './utils';
 
 Vue.config.productionTip = false;

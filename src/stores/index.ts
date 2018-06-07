@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex, { Module, Store } from 'vuex';
-import todos from './stores/example';
+import todos from './example';
 
 Vue.use(Vuex);
 
