@@ -19,7 +19,7 @@ export const SET_TODOS_LIST = 'SET_TODOS_LIST';
 export const FINISHED_LIST = 'FINISHED_LIST';
 
 export default {
-  namespaced: true,
+  namespaced: true, // 启用命名空间
   state: () => ({
     todos: [],
     filter: {
@@ -33,6 +33,7 @@ export default {
     }
   },
   getters: {
+    // getters['todos/FINISHED_LIST']
     [FINISHED_LIST](state, getters) {
       return state.todos.filter(({ done }) => done);
     }
@@ -52,4 +53,4 @@ export default {
       commit(SET_TODOS_LIST, { list });
     }
   }
-} as Module<IState, any>;
+} as Module<IState, any>; // 指定为模块类型，增强编辑器自动提示
