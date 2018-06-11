@@ -36,6 +36,7 @@ yarn run test:unit # 单元测试
 - `Typescript`文档：https://www.tslang.cn/docs/handbook/modules.html 了解什么是接口（interface），如何导入模块，如何标注一个函数的类型？接口写法通常在其他静态语言中以字母`I`开头，此命名方式不同人各有所爱。特别地，在本项目中，模块名中的`@/`是路径语法糖，表示`src/`。
 - `Sass`语法：https://www.sass.hk/docs/ 了解嵌套规则、父选择器`&`、变量`$`
 - 发起请求通常是在`Vuex Action`中，请求到的数据通过`commit mutation`，将数据和状态（state）“融合”，反应到当前视图（view）中
+- 本项目中一个写`Vuex`模块的例子todo：[example.ts](./src/stores/example.ts)
 - 谷歌浏览器可安装`vue-devtool`开发工具：https://github.com/vuejs/vue-devtools
 
 ## 脚手架配置
