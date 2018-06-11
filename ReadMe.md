@@ -34,8 +34,8 @@ yarn run test:unit # 单元测试
 
 ### 知识点
 
-- `Vue`组件类式写法：https://github.com/vuejs/vue-class-component 了解对象式写法到类式写法的转换，计算属性，方法，生命周期的转换。
-- `Vue`属性装饰器：https://github.com/kaorun343/vue-property-decorator 重点了解`@Prop(...)`，什么是类型反射（type reflect）？
+- `Vue`组件类式写法：https://github.com/vuejs/vue-class-component 了解对象式写法到类式写法的转换，计算属性，方法，生命周期的转换。官方文档的解释：https://cn.vuejs.org/v2/guide/typescript.html#Class-%E9%A3%8E%E6%A0%BC%E7%9A%84-Vue-%E7%BB%84%E4%BB%B6
+- `Vue`属性装饰器：https://github.com/kaorun343/vue-property-decorator 了解`@Prop(...)`，知道写法即可。有余力可以了解什么是类型反射（type reflect）？
     该库的`@Prop(...)`原理为[此行](https://github.com/kaorun343/vue-property-decorator/blob/19136ea9dcdf31e2d8fa93a0997bb6b1869bf8d8/src/vue-property-decorator.ts#L77)获取到了`Typescript`的标注类型
 - `Vuex`的组件类式写法：https://github.com/ktsn/vuex-class 语法糖
 - `Typescript`文档：https://www.tslang.cn/docs/handbook/modules.html
