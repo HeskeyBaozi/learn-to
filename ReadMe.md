@@ -30,9 +30,7 @@ yarn run test:unit # 单元测试
 ```
 特别注意构建的时候推荐使用`vue-cli UI`构建。首先安装`vue-cli`，运行命令`yarn global add @vue/cli`，然后再当前项目目录下运行`vue ui`。
 
-在UI界面中构建，可以可视化依赖相关情况。
-
-![build](./docs/images/build.jpg)
+在UI界面中构建，可以可视化依赖相关情况。[预览界面](./docs/images/build.jpg)
 
 ### 知识点
 
