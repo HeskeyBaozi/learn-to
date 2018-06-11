@@ -34,11 +34,11 @@ yarn run test:unit # 单元测试
 
 ### 知识点
 
-- `Vue`组件类式写法：https://github.com/vuejs/vue-class-component 了解对象式写法到类式写法的转换，计算属性，方法，生命周期的转换。官方文档的解释：https://cn.vuejs.org/v2/guide/typescript.html#Class-%E9%A3%8E%E6%A0%BC%E7%9A%84-Vue-%E7%BB%84%E4%BB%B6
+- `Vue`组件类式写法：https://github.com/vuejs/vue-class-component 了解对象式写法到类式写法的转换，计算属性，方法，生命周期的转换。[官方文档的解释](https://cn.vuejs.org/v2/guide/typescript.html#Class-%E9%A3%8E%E6%A0%BC%E7%9A%84-Vue-%E7%BB%84%E4%BB%B6)
 - `Vue`属性装饰器：https://github.com/kaorun343/vue-property-decorator 了解`@Prop(...)`，知道写法即可。有余力可以了解什么是类型反射（type reflect）？
     该库的`@Prop(...)`原理为[此行](https://github.com/kaorun343/vue-property-decorator/blob/19136ea9dcdf31e2d8fa93a0997bb6b1869bf8d8/src/vue-property-decorator.ts#L77)获取到了`Typescript`的标注类型
 - `Vuex`的组件类式写法：https://github.com/ktsn/vuex-class 语法糖
-- `Typescript`文档：https://www.tslang.cn/docs/handbook/modules.html 了解什么是接口（interface），如何导入模块，模块名中的`@/`是路径语法糖，表示`src/`。如何标注一个函数的类型？接口写法通常在其他静态语言中以字母`I`开头，此命名方式不同人各有所爱
+- `Typescript`文档：https://www.tslang.cn/docs/handbook/modules.html 了解什么是接口（interface），如何导入模块，如何标注一个函数的类型？接口写法通常在其他静态语言中以字母`I`开头，此命名方式不同人各有所爱。模块名中的`@/`是路径语法糖，表示`src/`。
 - `Sass`语法：https://www.sass.hk/docs/ 了解嵌套规则、父选择器`&`、变量`$`
 - 发起请求通常是在`Vuex Action`中，请求到的数据通过`commit mutation`，将数据和状态（state）“融合”，反应到当前视图（view）中
 - 谷歌浏览器可安装`vue-devtool`开发工具：https://github.com/vuejs/vue-devtools
