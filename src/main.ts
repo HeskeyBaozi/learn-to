@@ -17,3 +17,19 @@ new Vue({
   store,
   render: (h) => h(App)
 }).$mount('#app');
+
+Vue.extend({
+  data() {
+    return {
+      count: 1
+    };
+  },
+  props: {
+    content: { type: String }
+  },
+  computed: {
+    str(): string {
+      return this.content;
+    }
+  }
+});
