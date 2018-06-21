@@ -14,13 +14,14 @@ export interface IState {
   };
 }
 
+// 类型常量通常需要被导出，因为组件里会直接用到
 export const FETCH_TODO_LIST = 'FETCH_TODO_LIST';
 export const SET_TODOS_LIST = 'SET_TODOS_LIST';
 export const FINISHED_LIST = 'FINISHED_LIST';
 
 export default {
   namespaced: true, // 启用命名空间
-  state: () => ({
+  state: () => ({ // 写成函数形式防止某些情况下的共用污染，参考Vue的data
     todos: [],
     filter: {
       unfinishedOnly: false,
@@ -41,7 +42,7 @@ export default {
   actions: {
     async [FETCH_TODO_LIST](
       { dispatch, commit, state, getters },
-      payload: { page: number } | string
+      payload: { page: number } | string // 负载通常需要类型标注
     ) {
       // tslint:disable-next-line:no-console
       console.log('Received payload', payload);
