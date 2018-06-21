@@ -18,8 +18,8 @@
 
 <script lang="ts">
 import { RootStore } from '@/stores';
-import { IState, ITodo } from '@/stores/example';
-import { FETCH_TODO_LIST, FINISHED_LIST } from '@/stores/example';
+import { IState, ITodo } from '@/stores/modules/example';
+import { FETCH_TODO_LIST, FINISHED_LIST } from '@/stores/modules/example';
 import TopNav from '@/views/global/TopNav.vue';
 import { Component, Vue } from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
