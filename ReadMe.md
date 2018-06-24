@@ -1,5 +1,9 @@
 # Online Judge FE
 
+**[更新日志 ChangeLog.md](./ChangeLog.md)**
+
+以后系统更新日志写在此处，较新的更新写在前面
+
 ## 开发环境搭建
 
 安装`Node.js`、`yarn`、`vscode`、`python 2.7`。
