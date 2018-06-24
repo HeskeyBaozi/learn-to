@@ -10,7 +10,7 @@
 
 `Node.js`：https://nodejs.org/en/ 安装`LTS`版本即可。
 
-`yarn`：[安装地址](https://yarnpkg.com/zh-Hans/docs/install#windows-stable)，[如何使用](https://yarnpkg.com/zh-Hans/docs/usage)
+`yarn`：安装地址：https://yarnpkg.com/zh-Hans/docs/install#windows-stable 如何使用：https://yarnpkg.com/zh-Hans/docs/usage
 
 `vscode`：https://code.visualstudio.com/ 请注意安装相关`Vetur`、`TSLint`、`TSLint Vue`、`EditorConfig for VS Code`四个插件
 
@@ -26,7 +26,7 @@
 
 代理：https://cli.vuejs.org/config/#devserver-proxy
 
-### 项目命令
+## 项目命令
 
 ```bash
 yarn install # 安装依赖
@@ -40,7 +40,7 @@ yarn run test:unit # 单元测试
 
 在UI界面中构建，可以可视化依赖相关情况。[预览界面](./docs/images/build.jpg)
 
-### 知识点
+## 知识点
 
 - `Vue`组件类式写法：https://github.com/vuejs/vue-class-component 了解对象式写法到类式写法的转换，计算属性，方法，生命周期的转换。[官方文档的解释](https://cn.vuejs.org/v2/guide/typescript.html#Class-%E9%A3%8E%E6%A0%BC%E7%9A%84-Vue-%E7%BB%84%E4%BB%B6)
 - `Vue`属性装饰器：https://github.com/kaorun343/vue-property-decorator 了解`@Prop(...)`，知道写法即可。有余力可以了解什么是类型反射（type reflect）？
