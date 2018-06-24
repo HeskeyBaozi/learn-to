@@ -3,4 +3,4 @@ declare module '*.vue' {
   export default Vue;
 }
 
-declare module '@fortawesome/*';
+declare module '@fortawesome/vue-fontawesome';

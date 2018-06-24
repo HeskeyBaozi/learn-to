@@ -10,23 +10,23 @@
  * !!请注意
  * !!所有图标必须通过 fontawesome.library.add(...) 引入了才能使用
  */
-import fontawesome from '@fortawesome/fontawesome';
-import { faGithub, faWeibo } from '@fortawesome/fontawesome-free-brands';
-import { faBell, faListAlt } from '@fortawesome/fontawesome-free-regular';
-import { faList, faSignal } from '@fortawesome/fontawesome-free-solid';
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faGithub, faWeibo } from '@fortawesome/free-brands-svg-icons';
+import { faBell, faListAlt } from '@fortawesome/free-regular-svg-icons';
+import { faList, faSignal } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import Vue from 'vue';
 
 // 添加 solid 图标，可以不用传数组，直接传入名称即可
 // e.g. <fa-icon icon="user"/>
-fontawesome.library.add(...[faList, faSignal]);
+library.add(...[faList, faSignal]);
 
 // 添加 regular 图标，需要传入数组
 // e.g. <fa-icon :icon="['far', 'list-alt']"/>
-fontawesome.library.add(...[faListAlt, faBell]);
+library.add(...[faListAlt, faBell]);
 
 // 添加 brands 图标，需要传入数组
 // e.g. <fa-icon :icon="['fab', 'github']"/>
-fontawesome.library.add(...[faGithub, faWeibo]);
+library.add(...[faGithub, faWeibo]);
 
 Vue.component('fa-icon', FontAwesomeIcon);
