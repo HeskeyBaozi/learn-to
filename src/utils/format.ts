@@ -1,6 +1,7 @@
 import fd from 'date-fns/distance_in_words';
 import f from 'date-fns/format';
 import zhCN from 'date-fns/locale/zh_cn';
+import { VueConstructor } from 'vue';
 
 const locales = { zhCN };
 const localeId: keyof typeof locales = 'zhCN'; // 修改此处以全局修改日期格式化语言
@@ -28,3 +29,10 @@ export function formatDistance(
 ) {
   return fd(dateToCompare, date, { ...options, locale: locales[localeId], addSuffix: true });
 }
+
+export default {
+  install(Vue: VueConstructor, options = {}) {
+    Vue.filter('format', format); // 组建内可以使用日期格式化过滤器
+    Vue.filter('formatDistance', formatDistance);
+  }
+};

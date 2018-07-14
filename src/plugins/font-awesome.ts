@@ -15,18 +15,23 @@ import { faGithub, faWeibo } from '@fortawesome/free-brands-svg-icons';
 import { faBell, faListAlt } from '@fortawesome/free-regular-svg-icons';
 import { faList, faSignal } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import Vue from 'vue';
 
-// 添加 solid 图标，可以不用传数组，直接传入名称即可
-// e.g. <fa-icon icon="user"/>
-library.add(...[faList, faSignal]);
+import { VueConstructor } from 'vue';
 
-// 添加 regular 图标，需要传入数组
-// e.g. <fa-icon :icon="['far', 'list-alt']"/>
-library.add(...[faListAlt, faBell]);
+export default {
+  install(Vue: VueConstructor, options = {}) {
+    // 添加 solid 图标，可以不用传数组，直接传入名称即可
+    // e.g. <fa-icon icon="user"/>
+    library.add(...[faList, faSignal]);
 
-// 添加 brands 图标，需要传入数组
-// e.g. <fa-icon :icon="['fab', 'github']"/>
-library.add(...[faGithub, faWeibo]);
+    // 添加 regular 图标，需要传入数组
+    // e.g. <fa-icon :icon="['far', 'list-alt']"/>
+    library.add(...[faListAlt, faBell]);
 
-Vue.component('fa-icon', FontAwesomeIcon);
+    // 添加 brands 图标，需要传入数组
+    // e.g. <fa-icon :icon="['fab', 'github']"/>
+    library.add(...[faGithub, faWeibo]);
+
+    Vue.component('fa-icon', FontAwesomeIcon);
+  }
+};
