@@ -1,5 +1,0 @@
-definitions:
-  $ref: './definitions.yaml'
-
-paths:
-  $ref: './paths.yaml'
