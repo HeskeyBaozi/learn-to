@@ -9,7 +9,8 @@
       </el-main>
       <el-footer>
         <div>
-          Footer
+          <p>现在是 {{ Date.now() | format }}</p>
+          <p>2017年10月1日距离现在 {{ Date.now() | formatDistance(new Date(2017, 10, 1)) }}</p>
         </div>
       </el-footer>
     </el-container>
