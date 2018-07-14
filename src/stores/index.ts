@@ -1,11 +1,11 @@
 /**
  * 全局状态模块汇总
  */
+import todos from '@/stores/modules/example';
+import loading, { FINISHED_RUNNING, START_RUNNING } from '@/stores/modules/loading';
 import { enhanceWithLoadingModule } from '@/stores/plugins/enhanceAction';
 import Vue from 'vue';
 import Vuex, { Module, Store } from 'vuex';
-import todos from './modules/example';
-import loading, { FINISHED_RUNNING, START_RUNNING } from './modules/loading';
 
 Vue.use(Vuex);
 
