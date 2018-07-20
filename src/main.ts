@@ -4,9 +4,9 @@
 import ElementUI from '@/plugins/element-ui';
 import FontAwesome from '@/plugins/font-awesome';
 import '@/registerServiceWorker';
-import router from '@/router';
 import store from '@/stores';
 import DateFormat from '@/utils/format';
+import router from '@/views/router';
 import Vue from 'vue';
 import App from './App.vue';
 
