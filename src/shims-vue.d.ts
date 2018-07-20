@@ -4,3 +4,4 @@ declare module '*.vue' {
 }
 
 declare module '@fortawesome/vue-fontawesome';
+declare module 'vue-codemirror-lite';
