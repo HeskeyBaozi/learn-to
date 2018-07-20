@@ -3,7 +3,7 @@
  */
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './Home.vue';
+import Home from './TheHome.vue';
 
 Vue.use(Router);
 
@@ -65,7 +65,7 @@ export default new Router({
     {
       path: '/ranks',
       name: 'ranks',
-      component: () => import('./Ranks.vue')
+      component: () => import('./TheRanks.vue')
     }
   ]
 });
