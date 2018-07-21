@@ -14,7 +14,8 @@ import {
   Main,
   Menu,
   MenuItem,
-  Notification
+  Notification,
+  Aside
 } from 'element-ui';
 import { VueConstructor } from 'vue';
 
@@ -33,6 +34,7 @@ export default {
       Main,
       Menu,
       MenuItem,
+      Aside,
       (Loading as any).directive
     ];
     for (const component of components) {

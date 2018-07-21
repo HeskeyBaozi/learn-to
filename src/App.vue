@@ -8,6 +8,7 @@
         <el-aside width="200px">Aside</el-aside>
           <el-container>
             <el-main class="main">
+              <NavList style="float: left" role="管理员"></NavList>
               <router-view></router-view>
             </el-main>
             <el-footer>
@@ -24,12 +25,14 @@
 
 <script lang="ts">
 import TopNav from '@/views/global/TopNav.vue';
+import NavList from '@/components/NavList.vue'
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component({
   name: 'app',
   components: {
-    TopNav
+    TopNav,
+    NavList
   }
 })
 export default class App extends Vue {}
