@@ -1,0 +1,16 @@
+stages:
+  - lint
+  - test
+
+before_script:
+  - yarn install
+
+lint:
+  stage: lint
+  script:
+    - yarn run lint
+
+unit:
+  stage: test
+  script:
+    - yarn run test:unit
