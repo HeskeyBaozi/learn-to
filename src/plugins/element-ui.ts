@@ -14,7 +14,9 @@ import {
   Main,
   Menu,
   MenuItem,
-  Notification
+  Notification,
+  Option,
+  Select
 } from 'element-ui';
 import { VueConstructor } from 'vue';
 
@@ -33,6 +35,8 @@ export default {
       Main,
       Menu,
       MenuItem,
+      Option,
+      Select,
       (Loading as any).directive
     ];
     for (const component of components) {
