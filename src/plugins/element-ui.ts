@@ -6,6 +6,7 @@
 
 import {
   Button,
+  ButtonGroup,
   Container,
   Footer,
   Header,
@@ -14,7 +15,9 @@ import {
   Main,
   Menu,
   MenuItem,
-  Notification
+  Notification,
+  Option,
+  Select
 } from 'element-ui';
 import { VueConstructor } from 'vue';
 
@@ -26,6 +29,7 @@ export default {
     // 引入组件
     const components = [
       Button,
+      ButtonGroup,
       Container,
       Input,
       Footer,
@@ -33,6 +37,8 @@ export default {
       Main,
       Menu,
       MenuItem,
+      Option,
+      Select,
       (Loading as any).directive
     ];
     for (const component of components) {
