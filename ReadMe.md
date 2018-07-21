@@ -31,7 +31,7 @@
 ```bash
 yarn install # 安装依赖
 yarn run serve # 启用开发环境
-yarn start # 等同于 yarn run serve
+yarn start # 启用开发环境 并且开启假数据模拟
 yarn run build # 构建项目
 yarn run lint # 代码风格检查
 yarn run test:unit # 单元测试
@@ -50,3 +50,11 @@ yarn run test:unit # 单元测试
 - `Sass`语法：https://www.sass.hk/docs/ 了解嵌套规则、父选择器`&`、变量`$`
 - 发起请求通常是在`Vuex Action`中，请求到的数据通过`commit mutation`，将数据和状态（state）“融合”，反应到当前视图（view）中
 - 本项目中一个写`Vuex`模块的例子todo：[example.ts](./src/stores/example.ts)
+
+## 开发风格
+
+### 分支命名风格
+
+命名遵循最小化描述原则，若新增一个组件A，则分支命名通常为`feature/component/A`。
+
+新增特性前缀用`feature/`，`bug`修复前缀用`hotfix/`。
