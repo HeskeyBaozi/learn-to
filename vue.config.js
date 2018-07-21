@@ -36,7 +36,9 @@ module.exports = {
   devServer: {
     proxy: null,
     before(app) {
-      apiMocker(app, path.resolve(__dirname, './mock/index.js'));
+      if (process.env.MOCK_DATA) {
+        apiMocker(app, path.resolve(__dirname, './mock/index.js'));
+      }
     }
   }
 };

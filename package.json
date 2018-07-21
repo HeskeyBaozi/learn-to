@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "vue-cli-service serve",
+    "start": "cross-env MOCK_DATA=true vue-cli-service serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
@@ -37,6 +37,7 @@
     "@vue/cli-service": "^3.0.0-rc.3",
     "@vue/test-utils": "^1.0.0-beta.20",
     "chai": "^4.1.2",
+    "cross-env": "^5.2.0",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.3",
     "ts-import-plugin": "^1.5.4",
