@@ -42,7 +42,8 @@
     "ts-import-plugin": "^1.5.4",
     "typescript": "^2.9.2",
     "vue-template-compiler": "^2.5.16",
-    "webpack": "^4.16.0"
+    "webpack": "^4.16.0",
+    "webpack-api-mocker": "^1.5.7"
   },
   "browserslist": [
     "> 1%",
