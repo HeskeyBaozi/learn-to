@@ -3,7 +3,7 @@
     <el-container id="problem-list">
       <h1>这个是问题列表页面</h1>
     </el-container>
-    <code-editor codeTemplate="public void main () {}"></code-editor>
+    <code-editor :codeTemplate="{lang: 'c', code: 'public void main () {}'}"></code-editor>
   </div>
 </template>
 

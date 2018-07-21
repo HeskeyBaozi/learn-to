@@ -6,6 +6,7 @@
 
 import {
   Button,
+  ButtonGroup,
   Container,
   Footer,
   Header,
@@ -28,6 +29,7 @@ export default {
     // 引入组件
     const components = [
       Button,
+      ButtonGroup,
       Container,
       Input,
       Footer,
