@@ -32,8 +32,7 @@ import { Component, Vue } from 'vue-property-decorator';
     TopNav
   }
 })
-export default class App extends Vue {
-}
+export default class App extends Vue {}
 </script>
 
 <style src="normalize.css"></style>
@@ -46,6 +45,9 @@ $--font-path: "~element-ui/lib/theme-chalk/fonts";
 
 <style lang="scss">
 // 其他全局样式设定写在这里
+html {
+  font-size: $--font-size-base;
+}
 body {
   font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
     "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
