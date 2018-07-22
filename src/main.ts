@@ -3,6 +3,7 @@
  */
 import ElementUI from '@/plugins/element-ui';
 import FontAwesome from '@/plugins/font-awesome';
+import G2 from '@/plugins/g2';
 import '@/registerServiceWorker';
 import store from '@/stores';
 import DateFormat from '@/utils/format';
@@ -15,6 +16,7 @@ Vue.config.productionTip = false;
 Vue.use(ElementUI);
 Vue.use(FontAwesome);
 Vue.use(DateFormat);
+Vue.use(G2);
 
 const app = new Vue({
   router,

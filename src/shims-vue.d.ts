@@ -5,3 +5,5 @@ declare module '*.vue' {
 
 declare module '@fortawesome/vue-fontawesome';
 declare module 'vue-codemirror-lite';
+declare module '@antv/g2/*';
+declare module '@antv/data-set/*';

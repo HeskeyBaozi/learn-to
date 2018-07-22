@@ -66,6 +66,10 @@ export default new Router({
       path: '/ranks',
       name: 'ranks',
       component: () => import('./TheRanks.vue')
+    },
+    {
+      path: '/g2-example',
+      component: () => import('./G2Example.vue')
     }
   ]
 });

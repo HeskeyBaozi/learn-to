@@ -10,6 +10,8 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "@antv/data-set": "^0.8.9",
+    "@antv/g2": "^3.2.4",
     "@fortawesome/fontawesome-svg-core": "^1.2.0",
     "@fortawesome/free-brands-svg-icons": "^5.1.0",
     "@fortawesome/free-regular-svg-icons": "^5.1.0",
