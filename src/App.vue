@@ -1,24 +1,6 @@
 <template>
   <div id="app">
-    <el-container>
-      <el-header class="header">
-        <top-nav></top-nav>
-      </el-header>
-      <el-container>
-        <el-aside width="200px">Aside</el-aside>
-          <el-container>
-            <el-main class="main">
-              <router-view></router-view>
-            </el-main>
-            <el-footer>
-              <div>
-                <p>现在是 {{ Date.now() | format }}</p>
-                <p>2017年10月1日距离现在 {{ Date.now() | formatDistance(new Date(2017, 10, 1)) }}</p>
-              </div>
-            </el-footer>
-           </el-container>
-      </el-container>
-    </el-container>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -27,10 +9,7 @@ import TopNav from '@/views/global/TopNav.vue';
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component({
-  name: 'app',
-  components: {
-    TopNav
-  }
+  name: 'app'
 })
 export default class App extends Vue {}
 </script>
@@ -46,24 +25,10 @@ $--font-path: "~element-ui/lib/theme-chalk/fonts";
 <style lang="scss">
 // 其他全局样式设定写在这里
 html {
-  font-size: $--font-size-base;
+  font-size: $--font-size-base; // 正文文本 14px
 }
 body {
   font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
     "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
 }
 </style>
-
-<style lang="scss" scoped>
-#app {
-  .header {
-    box-shadow: $--box-shadow-base;
-    z-index: $--index-normal;
-  }
-
-  .main {
-    background-color: $--background-color-base;
-  }
-}
-</style>
-

@@ -21,6 +21,8 @@ export default class TopNav extends Vue {
 
 <style lang="scss" scoped>
 #top-nav {
+  background-color: $--color-primary;
+
   .logo-wrapper {
     display: flex;
     align-items: center;
