@@ -1,6 +1,7 @@
 /**
  * App 应用入口
  */
+import CommonComponents from '@/plugins/common';
 import ElementUI from '@/plugins/element-ui';
 import FontAwesome from '@/plugins/font-awesome';
 import G2 from '@/plugins/g2';
@@ -17,6 +18,8 @@ Vue.use(ElementUI);
 Vue.use(FontAwesome);
 Vue.use(DateFormat);
 Vue.use(G2);
+Vue.use(CommonComponents);
+
 
 const app = new Vue({
   router,

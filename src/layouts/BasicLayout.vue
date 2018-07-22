@@ -38,6 +38,7 @@ export default class BasicLayout extends Vue {}
 <style lang="scss" scoped>
 #basic-layout {
   .header {
+    background-color: $--color-primary;
     box-shadow: $--box-shadow-base;
     z-index: $--index-normal;
   }
