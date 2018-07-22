@@ -5,6 +5,7 @@
  */
 
 import {
+  Aside,
   Button,
   ButtonGroup,
   Container,
@@ -28,6 +29,7 @@ export default {
 
     // 引入组件
     const components = [
+      Aside,
       Button,
       ButtonGroup,
       Container,
