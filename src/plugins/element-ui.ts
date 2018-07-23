@@ -8,6 +8,7 @@ import {
   Aside,
   Button,
   ButtonGroup,
+  Col,
   Container,
   Footer,
   Header,
@@ -18,7 +19,14 @@ import {
   MenuItem,
   Notification,
   Option,
-  Select
+  Pagination,
+  Radio,
+  RadioGroup,
+  Row,
+  Select,
+  Table,
+  TableColumn,
+  Tag
 } from 'element-ui';
 import { VueConstructor } from 'vue';
 
@@ -32,6 +40,7 @@ export default {
       Aside,
       Button,
       ButtonGroup,
+      Col,
       Container,
       Input,
       Footer,
@@ -40,7 +49,14 @@ export default {
       Menu,
       MenuItem,
       Option,
+      Pagination,
+      Radio,
+      RadioGroup,
+      Row,
       Select,
+      Table,
+      TableColumn,
+      Tag,
       (Loading as any).directive
     ];
     for (const component of components) {
