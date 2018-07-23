@@ -7,7 +7,7 @@
           <el-option v-for="item in modeOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
         </el-select>
       </div>
-      <codemirror v-model="code" :options="editorOptions"></codemirror>
+      <codemirror v-model="code" :options="editorOptions" class="code-mirror"></codemirror>
       <el-button-group style="float: right;">
         <el-button type="primary" size="medium" class="submitBtn" @click="onSubmit()">提交</el-button>
         <el-button type="default" size="medium" class="submitBtn" @click="onRestoreTemplate()">还原</el-button>
@@ -25,7 +25,7 @@
   import 'codemirror/mode/clike/clike';
   import 'codemirror/mode/javascript/javascript';
   import 'codemirror/mode/python/python';
-  import 'codemirror/theme/mdn-like.css';
+  import 'codemirror/theme/idea.css';
   import { codemirror } from 'vue-codemirror-lite';
   import { Component, Prop, Vue } from 'vue-property-decorator';
 
@@ -62,7 +62,7 @@
         tabSize: 2,
         keyMap: 'sublime',
         gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-        theme: 'mdn-like'
+        theme: 'idea'
       };
     }
 
@@ -114,6 +114,11 @@
   }
   button:hover {
     box-shadow: $--box-shadow-dark;
+  }
+
+  .code-mirror {
+    border: 1px solid #eeeeee;
+    border-radius: 5px;
   }
 </style>
 

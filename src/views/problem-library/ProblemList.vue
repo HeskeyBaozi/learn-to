@@ -18,7 +18,7 @@
         <el-table-column prop="submissionNumber" label="提交数" min-width="100"></el-table-column>
         <el-table-column prop="passRate" label="通过率" min-width="100"></el-table-column>
         <el-table-column prop="publishDate" label="发布时间" min-width="100"></el-table-column>
-        <el-table-column label="AC状态" width="180">
+        <el-table-column label="AC状态" width="100">
           <template slot-scope="scope">
             <el-tag v-if="scope.row.ACState === 1" size="medium" type="success">编译通过</el-tag>
             <el-tag v-else-if="scope.row.ACState === 2" size="medium" type="warning">编译错误</el-tag>
