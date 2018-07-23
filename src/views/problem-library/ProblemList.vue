@@ -12,7 +12,7 @@
       </el-row>
     </el-header>
     <el-main>
-      <el-table :data="tableData" stripe style="width: 100%; margin-bottom: 60px;">
+      <el-table :data="tableData" stripe style="width: 100%; margin-bottom: 60px;" @row-click="handleProblemClick">
         <el-table-column prop="problemId" label="题号" min-width="100"></el-table-column>
         <el-table-column prop="problemName" label="题目名称" min-width="100"></el-table-column>
         <el-table-column prop="submissionNumber" label="提交数" min-width="100"></el-table-column>
@@ -44,6 +44,15 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
+interface ProblemItem {
+  problemId: number;
+  problemName: string;
+  submissionNumber: number;
+  passRate: string;
+  publishDate: string;
+  ACState: number;
+}
+
 @Component({
   name: 'problem-list',
   components: {
@@ -54,14 +63,14 @@ export default class ProblemList extends Vue {
   sortKey: string = '';
   pageSize: number = 50;
   currentPage: number = 1;
-  problemListData: any[] = [];
-  tableData: any[] = [];
+  problemListData: ProblemItem[] = [];
+  tableData: ProblemItem[] = [];
 
   handleCurrentPageChange(val: number) {
     this.tableData = this.pagination(val, this.pageSize, this.problemListData);
   }
 
-  pagination(pageNo: number, pageSize: number, array: any[]) {
+  pagination(pageNo: number, pageSize: number, array: ProblemItem[]) {
     const offset: number = (pageNo - 1) * pageSize;
     return (offset + pageSize >= array.length) ?
       array.slice(offset, array.length) : array.slice(offset, offset + pageSize);
@@ -1151,6 +1160,10 @@ export default class ProblemList extends Vue {
       }
     ];
     this.tableData = this.pagination(1, this.pageSize, this.problemListData);
+  }
+
+  handleProblemClick(row: ProblemItem) {
+    this.$router.push({ path: `/problem/${row.problemId}`});
   }
 }
 </script>
