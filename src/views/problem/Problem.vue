@@ -1,17 +1,17 @@
 <template>
   <div id="problem">
     <h1>题目</h1>
-    <el-card class="problem-card">
+    <el-card class="card">
       <div>
-        <div class="problem-card-item">
-          <img src="" class="problem-bg"/>
+        <div class="card-item">
+          <img src="" class="bg"/>
         </div>
-        <div class="problem-card-item">
-          <div class="problem-info">发布时间：{{ problem.publish }}</div>
-          <div class="problem-info">提交次数：{{ problem.submit }} </div>
-          <div class="problem-info">通过人数：{{ problem.passNum }}</div>
-          <div class="problem-info">空间限制：{{ problem.spaceLimit }}MB</div>
-          <div class="problem-info">时间限制：{{ problem.timeLimit }}S</div>
+        <div class="card-item">
+          <div class="info">发布时间：{{ problem.publish }}</div>
+          <div class="info">提交次数：{{ problem.submit }} </div>
+          <div class="info">通过人数：{{ problem.passNum }}</div>
+          <div class="info">空间限制：{{ problem.spaceLimit }}MB</div>
+          <div class="info">时间限制：{{ problem.timeLimit }}S</div>
         </div>
         <div style="float: right;">
           <el-button>上一题</el-button>
@@ -19,8 +19,8 @@
         </div>
       </div>
     </el-card>
-    <el-card class="problem-detail-card">
-      <el-menu :default-active="'description'" mode="horizontal" @select="handleSelect" class="problem-menu">
+    <el-card class="detail-card">
+      <el-menu :default-active="'description'" mode="horizontal" @select="handleSelect" class="menu">
         <el-menu-item index="description">题目描述</el-menu-item>
         <el-menu-item index="solution">答题区域</el-menu-item>
         <el-menu-item index="records">提交记录</el-menu-item>
@@ -67,7 +67,7 @@ export default class Problem extends Vue {
     };
   }
 
-  handleSelect(key: any, keyPath: any) {
+  handleSelect(key: string, keyPath: string[]) {
     this.$router.push({ name: key, params: { problemId: this.$route.params.problemId }});
   }
 }
@@ -75,34 +75,33 @@ export default class Problem extends Vue {
 
 <style lang="scss" scoped>
 #problem {
-}
+  .card {
+    width: 100%;
+  }
 
-.problem-card {
-  width: 100%;
-}
+  .card-item {
+    display: inline-block;
+    margin-right: 1.5rem;
+  }
 
-.problem-card-item {
-  display: inline-block;
-  margin-right: 20px;
-}
+  .bg {
+    background: #999;
+    width: 13.5rem;
+    height: 13.5rem;
+  }
 
-.problem-bg {
-  background: #999;
-  width: 192px;
-  height: 192px;
-}
+  .info {
+    font-size: 1.1rem;
+    margin-bottom: 1.7rem;
+  }
 
-.problem-info {
-  font-size: 16px;
-  margin-bottom: 24px;
-}
+  .detail-card {
+    margin-top: 2.9rem;
+  }
 
-.problem-detail-card {
-  margin-top: 32px;
-}
-
-.problem-menu {
-  display: flex;
-  justify-content: flex-end;
+  .menu {
+    display: flex;
+    justify-content: flex-end;
+  }
 }
 </style>

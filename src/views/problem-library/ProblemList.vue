@@ -1170,20 +1170,19 @@ export default class ProblemList extends Vue {
 
 <style lang="scss" scoped>
   #problem-list {
-  }
+    .col-item {
+      height: 49px;
+      line-height: 49px;
+    }
 
-  .col-item {
-    height: 49px;
-    line-height: 49px;
-  }
-
-  .fixed-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    height: 64px;
-    width: 100%;
-    background: #fff;
+    .fixed-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 64px;
+      width: 100%;
+      background: #fff;
+    }
   }
 </style>
 

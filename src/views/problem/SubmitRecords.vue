@@ -17,7 +17,7 @@
         :total="recordData.length"
         :page-size="pageSize"
         @current-change="handleCurrentPageChange"
-        class="record-paging">
+        class="paging">
       </el-pagination>
     </div>
   </el-container>
@@ -37,7 +37,7 @@ interface IRecord {
 export default class SubmitRecords extends Vue {
   recordData: IRecord[] = [];
   tableData: IRecord[] = [];
-  pageSize: number = 7;
+  pageSize: number = 10;
 
   handleCurrentPageChange(val: number) {
     this.tableData = this.pagination(val, this.pageSize, this.recordData);
@@ -90,10 +90,9 @@ export default class SubmitRecords extends Vue {
 
 <style lang="scss" scoped>
 #submit-records {
-}
-
-.record-paging {
-  margin-top: 20px;
-  text-align: center;
+  .paging {
+    margin-top: 20px;
+    text-align: center;
+  }
 }
 </style>
