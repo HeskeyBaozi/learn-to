@@ -2,16 +2,22 @@
   <div id="problem">
     <h1>题目</h1>
     <el-card class="problem-card">
-      <el-row>
-        <el-col :span="6"><img src="" class="problem-bg"/></el-col>
-        <el-col :span="12" class="problem-info">
-          <div>发布时间：2018-07-18</div>
-        </el-col>
-        <el-col :span="6">
+      <div>
+        <div class="problem-card-item">
+          <img src="" class="problem-bg"/>
+        </div>
+        <div class="problem-card-item">
+          <div class="problem-info">发布时间：{{ problem.publish }}</div>
+          <div class="problem-info">提交次数：{{ problem.submit }} </div>
+          <div class="problem-info">通过人数：{{ problem.passNum }}</div>
+          <div class="problem-info">空间限制：{{ problem.spaceLimit }}MB</div>
+          <div class="problem-info">时间限制：{{ problem.timeLimit }}S</div>
+        </div>
+        <div style="float: right;">
           <el-button>上一题</el-button>
           <el-button type="primary">下一题</el-button>
-        </el-col>
-      </el-row>
+        </div>
+      </div>
     </el-card>
     <el-card class="problem-detail-card">
       <el-menu :default-active="'description'" mode="horizontal" @select="handleSelect" class="problem-menu">
@@ -28,14 +34,37 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
+interface ProblemItem {
+  publish: string;
+  submit: number;
+  passNum: number;
+  spaceLimit: number;
+  timeLimit: number;
+}
+
 @Component({
   name: 'problem'
 })
 export default class Problem extends Vue {
   problemId: string = '';
+  problem: ProblemItem = {
+    publish: '',
+    submit: 0,
+    passNum: 0,
+    spaceLimit: 0,
+    timeLimit: 0
+  };
 
   mounted() {
     this.problemId = this.$route.params.problemId;
+    // 获取当前题目的详细数据
+    this.problem = {
+      publish: '2018-07-18',
+      submit: 200,
+      passNum: 100,
+      spaceLimit: 32,
+      timeLimit: 2
+    };
   }
 
   handleSelect(key: any, keyPath: any) {
@@ -52,6 +81,11 @@ export default class Problem extends Vue {
   width: 100%;
 }
 
+.problem-card-item {
+  display: inline-block;
+  margin-right: 20px;
+}
+
 .problem-bg {
   background: #999;
   width: 192px;
@@ -60,6 +94,7 @@ export default class Problem extends Vue {
 
 .problem-info {
   font-size: 16px;
+  margin-bottom: 24px;
 }
 
 .problem-detail-card {
