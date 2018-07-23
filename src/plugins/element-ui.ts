@@ -5,7 +5,9 @@
  */
 
 import {
+  Aside,
   Button,
+  ButtonGroup,
   Container,
   Footer,
   Header,
@@ -15,7 +17,8 @@ import {
   Menu,
   MenuItem,
   Notification,
-  Aside
+  Option,
+  Select
 } from 'element-ui';
 import { VueConstructor } from 'vue';
 
@@ -26,7 +29,9 @@ export default {
 
     // 引入组件
     const components = [
+      Aside,
       Button,
+      ButtonGroup,
       Container,
       Input,
       Footer,
@@ -34,7 +39,12 @@ export default {
       Main,
       Menu,
       MenuItem,
+<<<<<<< HEAD
       Aside,
+=======
+      Option,
+      Select,
+>>>>>>> 445277bb26bab78a773c3998fed37eb98f3ebdbc
       (Loading as any).directive
     ];
     for (const component of components) {

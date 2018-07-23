@@ -1,6 +1,9 @@
 <template>
   <el-container id="home">
-    <h1>这是主页</h1>
+    <el-main>
+      <h1>这是主页</h1>
+      <!-- <div class="placeholder"></div> -->
+    </el-main>
   </el-container>
 </template>
 
@@ -15,6 +18,11 @@ export default class Ranks extends Vue {}
 
 <style lang="scss" scoped>
 #home {
+  .placeholder {
+    background-color: lightcoral;
+    width: 5rem;
+    height: 100rem;
+  }
 }
 </style>
 

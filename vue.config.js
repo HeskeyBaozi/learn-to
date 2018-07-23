@@ -1,5 +1,7 @@
 const merge = require("webpack-merge");
 const fs = require("fs");
+const path = require("path");
+const apiMocker = require('webpack-api-mocker');
 
 module.exports = {
   chainWebpack: config => {
@@ -32,6 +34,11 @@ module.exports = {
     name: "matrix-online-judge"
   },
   devServer: {
-    proxy: null
+    proxy: null,
+    before(app) {
+      if (process.env.MOCK_DATA) {
+        apiMocker(app, path.resolve(__dirname, './mock/index.js'));
+      }
+    }
   }
 };
