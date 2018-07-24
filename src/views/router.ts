@@ -75,6 +75,10 @@ export default new Router({
         {
           path: 'g2-example',
           component: () => import('./G2Example.vue')
+        },
+        {
+          path: 'markdown',
+          component: () => import('./MarkdownExample.vue')
         }
       ]
     }
