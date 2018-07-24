@@ -1,7 +1,9 @@
 <template>
   <div>
     <div id='topInfo'>
-      <div id="background"></div>
+      <div id="background">
+        <img id="backgroundImg" src="https://img-blog.csdn.net/20180724162042996?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0VtaWx5Qmx1c2U=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+      </div>
       <div class="profilePhoto">
         <img id="photo"/>
       </div>
@@ -77,12 +79,15 @@ export default class UserInformation extends Vue {
     display: block;
   }
 
+
+
   #background{
+    width: calc(100% - 202px);
+    height: 220px;
     position: absolute;
     margin-top: -20px;
     margin-left: -20px;
-    width: calc(100% - 202px);
-    height: 220px;
+    clip-path: polygon(100% 0%, 50% 50%, 0% 100%, 0% 0%);
   }
 
 </style>
