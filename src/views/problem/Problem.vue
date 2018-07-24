@@ -2,21 +2,22 @@
   <div id="problem">
     <h1>题目</h1>
     <el-card class="card">
+      <div class="group">
+        <div class="background">
+          <div>{{ problemId }}</div>
+          <div class="name">{{ problem.name }}</div>
+        </div>
+        <div class="information">
+          <div class="info-item">发布时间：{{ problem.publish }}</div>
+          <div class="info-item">提交次数：{{ problem.submit }} </div>
+          <div class="info-item">通过人数：{{ problem.passNum }}</div>
+          <div class="info-item">空间限制：{{ problem.spaceLimit }}MB</div>
+          <div>时间限制：{{ problem.timeLimit }}s</div>
+        </div>
+      </div>
       <div>
-        <div class="card-item">
-          <img src="" class="bg"/>
-        </div>
-        <div class="card-item">
-          <div class="info">发布时间：{{ problem.publish }}</div>
-          <div class="info">提交次数：{{ problem.submit }} </div>
-          <div class="info">通过人数：{{ problem.passNum }}</div>
-          <div class="info">空间限制：{{ problem.spaceLimit }}MB</div>
-          <div class="info">时间限制：{{ problem.timeLimit }}S</div>
-        </div>
-        <div style="float: right;">
-          <el-button>上一题</el-button>
-          <el-button type="primary">下一题</el-button>
-        </div>
+        <el-button>上一题</el-button>
+        <el-button type="primary">下一题</el-button>
       </div>
     </el-card>
     <el-card class="detail-card">
@@ -36,6 +37,7 @@ import { httpRequest } from '@/utils/httpRequest.ts';
 import { Component, Vue } from 'vue-property-decorator';
 
 interface ProblemItem {
+  name: string;
   publish: string;
   submit: number;
   passNum: number;
@@ -49,6 +51,7 @@ interface ProblemItem {
 export default class Problem extends Vue {
   problemId: string = '';
   problem: ProblemItem = {
+    name: '',
     publish: '',
     submit: 0,
     passNum: 0,
@@ -58,13 +61,10 @@ export default class Problem extends Vue {
 
   async mounted() {
     this.problemId = this.$route.params.problemId;
-    const result = await httpRequest.get('/problem', {
-      params: {
-        id: this.problemId
-      }
-    });
+    // const result = await httpRequest.get('/problem/201');
     // 获取当前题目的详细数据
     this.problem = {
+      name: 'Hello World',
       publish: '2018-07-18',
       submit: 200,
       passNum: 100,
@@ -83,22 +83,36 @@ export default class Problem extends Vue {
 #problem {
   .card {
     width: 100%;
-  }
+    font-size: 16px;
 
-  .card-item {
-    display: inline-block;
-    margin-right: 1.5rem;
-  }
+    .group {
+      display: inline-flex;
+      flex-direction:row;
+    }
 
-  .bg {
-    background: #999;
-    width: 13.5rem;
-    height: 13.5rem;
-  }
+    .background {
+      width: 164px;
+      height: 164px;
+      background: #ddd;
+      padding: 1rem;
+      font-weight: bold;
+      display: inline-block;
 
-  .info {
-    font-size: 1.1rem;
-    margin-bottom: 1.7rem;
+      .name {
+        font-size: 1.5rem;
+        margin-top: 3.7rem;
+        text-align: center;
+      }
+    }
+
+    .information {
+      margin-left: 2rem;
+      display: inline-block;
+
+      .info-item {
+        margin-bottom: 1.8rem;
+      }
+    }
   }
 
   .detail-card {
@@ -108,6 +122,19 @@ export default class Problem extends Vue {
   .menu {
     display: flex;
     justify-content: flex-end;
+  }
+}
+</style>
+
+<style lang="scss">
+#problem {
+  .card {
+    .el-card__body {
+      align-items: flex-start;
+      justify-items: flex-start;
+      display: flex;
+      justify-content: space-between;
+    }
   }
 }
 </style>

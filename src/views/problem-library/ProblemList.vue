@@ -1231,9 +1231,9 @@ export default class ProblemList extends Vue {
     .fixed-footer {
       position: fixed;
       bottom: 0;
-      left: 0;
+      right: 0;
       height: 64px;
-      width: 100%;
+      width: calc(100% - 200px);
       background: #fff;
     }
   }
