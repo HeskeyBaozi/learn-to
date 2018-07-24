@@ -1183,8 +1183,14 @@ export default class ProblemList extends Vue {
           this.currentPage = Math.floor(i / this.pageSize + 1);
           this.handleCurrentPageChange(this.currentPage);
           // 高亮当前行
-          this.$refs.problemTable.setCurrentRow(this.problemListData[i]);
+          (this.$refs.problemTable as any).setCurrentRow(this.problemListData[i]);
           // TODO: 滚动到当前行
+          const targetTop = (this.$refs.problemTable as any).$el.querySelectorAll('.el-table__body tr')[i % 50]
+            .getBoundingClientRect().top;
+          const containerTop = (this.$refs.problemTable as any).$el.querySelector('.el-table__body')
+            .getBoundingClientRect().top;
+          const scrollParent = (this.$refs.problemTable as any).$el.querySelector('.el-table__body-wrapper');
+          window.scrollBy(0, targetTop - containerTop);
           return;
         }
       }
@@ -1234,3 +1240,10 @@ export default class ProblemList extends Vue {
   }
 </style>
 
+<style lang="scss">
+#problem-list {
+  .el-table__row:hover {
+    cursor: pointer;
+  }
+}
+</style>
