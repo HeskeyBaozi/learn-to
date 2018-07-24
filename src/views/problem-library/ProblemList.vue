@@ -1,18 +1,23 @@
 <template>
   <el-container id="problem-list">
     <el-header>
-      <el-row type="flex" class="row-bg" justify="space-between">
-        <el-col :span="4"><el-input placeholder="请输入内容" prefix-icon="el-icon-search" v-model="searchKey" clearable class="col-item"></el-input></el-col>
-        <el-col :span="6">
-          <el-radio-group v-model="sortKey" class="col-item">
-            <el-radio label="1">按题号排序</el-radio>
-            <el-radio label="2">按热度排序</el-radio>
-          </el-radio-group>
+      <el-row>
+        <div class="col-item" style="display: inline-block;">
+          <el-input placeholder="请输入内容" prefix-icon="el-icon-search" v-model="searchKey" clearable style="width: 240px;"></el-input>
+          <el-button type="primary" style="margin-left: 1rem;" @click="searchProblem">搜索</el-button>
+        </div>
         </el-col>
+        <div style="float: right">
+          <el-radio-group v-model="sortKey" class="col-item" @change="sortTable">
+            <el-radio label="problemId">按题号排序</el-radio>
+            <el-radio label="submitNum">按热度排序</el-radio>
+          </el-radio-group>
+        </div>
       </el-row>
     </el-header>
     <el-main>
-      <el-table :data="tableData" stripe style="width: 100%; margin-bottom: 60px;" @row-click="handleProblemClick">
+      <el-table :data="tableData" stripe style="width: 100%; margin-bottom: 60px;" @row-click="handleProblemClick"
+        highlight-current-row ref="problemTable">
         <el-table-column prop="problemId" label="题号" min-width="100"></el-table-column>
         <el-table-column prop="problemName" label="题目名称" min-width="100"></el-table-column>
         <el-table-column prop="submissionNumber" label="提交数" min-width="100"></el-table-column>
@@ -42,6 +47,7 @@
 </template>
 
 <script lang="ts">
+import { Message } from 'element-ui';
 import { Component, Vue } from 'vue-property-decorator';
 
 interface ProblemItem {
@@ -65,6 +71,7 @@ export default class ProblemList extends Vue {
   currentPage: number = 1;
   problemListData: ProblemItem[] = [];
   tableData: ProblemItem[] = [];
+
 
   handleCurrentPageChange(val: number) {
     this.tableData = this.pagination(val, this.pageSize, this.problemListData);
@@ -1152,7 +1159,7 @@ export default class ProblemList extends Vue {
       },
       {
         problemId: 203,
-        problemName: '简单乘法',
+        problemName: 'xxxxxxx',
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
@@ -1165,6 +1172,42 @@ export default class ProblemList extends Vue {
   handleProblemClick(row: ProblemItem) {
     this.$router.push({ path: `/problem/${row.problemId}`});
   }
+
+  searchProblem() {
+    if (!!this.searchKey) {
+      for (let i = 0; i < this.problemListData.length; i++) {
+        // 这里的problemId为int 进行了转换
+        if (this.problemListData[i].problemName.indexOf(this.searchKey) !== -1
+          || this.problemListData[i].problemId.toString() === this.searchKey) {
+          // 获取题目所在页数
+          this.currentPage = Math.floor(i / this.pageSize + 1);
+          this.handleCurrentPageChange(this.currentPage);
+          // 高亮当前行
+          this.$refs.problemTable.setCurrentRow(this.problemListData[i]);
+          // TODO: 滚动到当前行
+          return;
+        }
+      }
+      Message({
+        message: '>.< 找不到相关题目~',
+        type: 'warning'
+      });
+    } else {
+      Message({
+        message: '请输入查找信息:)'
+      });
+    }
+  }
+
+  sortTable(method: string) {
+    if (method === 'problemId') {
+      this.problemListData.sort((problem1, problem2) => problem1.problemId - problem2.problemId);
+    } else {
+      this.problemListData.sort((problem1, problem2) => problem2.submissionNumber - problem1.submissionNumber);
+    }
+    this.currentPage = 1;
+    this.handleCurrentPageChange(1);
+  }
 }
 </script>
 
@@ -1173,6 +1216,11 @@ export default class ProblemList extends Vue {
     .col-item {
       height: 49px;
       line-height: 49px;
+
+      label {
+        vertical-align: middle;
+        display: inline-block;
+      }
     }
 
     .fixed-footer {
