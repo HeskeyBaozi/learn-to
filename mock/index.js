@@ -17,6 +17,17 @@ module.exports = {
       sex: 6
     }
   ],
+  'GET /api/problem/:id': (req, res) => {
+    console.log(req.body);
+    console.log(req.params);
+    res.send({
+      publish: '2018-07-18',
+      submit: 200,
+      passNum: 100,
+      spaceLimit: 32,
+      timeLimit: 2
+    })
+  },
   'POST /api/login/account': (req, res) => {
     const { password, username } = req.body;
     if (password === '888888' && username === 'admin') {

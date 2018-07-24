@@ -6,7 +6,6 @@
           <el-input placeholder="请输入内容" prefix-icon="el-icon-search" v-model="searchKey" clearable style="width: 240px;"></el-input>
           <el-button type="primary" style="margin-left: 1rem;" @click="searchProblem">搜索</el-button>
         </div>
-        </el-col>
         <div style="float: right">
           <el-radio-group v-model="sortKey" class="col-item" @change="sortTable">
             <el-radio label="problemId">按题号排序</el-radio>

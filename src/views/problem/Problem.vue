@@ -32,6 +32,7 @@
 </template>
 
 <script lang="ts">
+import { httpRequest } from '@/utils/httpRequest.ts';
 import { Component, Vue } from 'vue-property-decorator';
 
 interface ProblemItem {
@@ -55,8 +56,13 @@ export default class Problem extends Vue {
     timeLimit: 0
   };
 
-  mounted() {
+  async mounted() {
     this.problemId = this.$route.params.problemId;
+    const result = await httpRequest.get('/problem', {
+      params: {
+        id: this.problemId
+      }
+    });
     // 获取当前题目的详细数据
     this.problem = {
       publish: '2018-07-18',
