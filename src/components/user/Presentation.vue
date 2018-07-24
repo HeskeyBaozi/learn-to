@@ -1,14 +1,14 @@
 <template>
   <el-card class="box-card">
     <div slot="header" class="clearfix">
-      <span id="title">个人信息</span>
+      <span id="title">个人展示</span>
       <el-button style="float: right" type="primary" icon="el-icon-edit">编辑</el-button>
     </div>
     <div class="text-item">
-      <span>手机:</span>{{mobile}}
+      <span>个人网站:</span>{{webIP}}
     </div>
     <div class="text-item">
-      <span>专业:</span>{{major}}
+      <span>个人签名:</span>{{idiograph}}
     </div>
   </el-card>
 </template>
@@ -17,11 +17,11 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component({
-  name: 'profile'
+  name: 'presentation'
 })
-export default class Profile extends Vue {
-  mobile = '1777777';
-  major = '软件工程';
+export default class Presentation extends Vue {
+  webIP = '';
+  idiograph = '';
 }
 </script>
 
