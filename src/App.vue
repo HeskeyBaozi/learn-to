@@ -18,7 +18,7 @@ export default class App extends Vue {}
 <style src="normalize.css"></style>
 
 <style lang="scss">
-$--font-path: "";
+$--font-path: "~element-ui/lib/theme-chalk/fonts";
 @import "~element-ui/packages/theme-chalk/src/index";
 
 html {
