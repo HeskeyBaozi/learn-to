@@ -17,6 +17,11 @@ export default new Router({
       children: [
         {
           path: '',
+          name: '',
+          component: Home
+        },
+        {
+          path: 'home',
           name: 'home',
           component: Home
         },
@@ -52,25 +57,26 @@ export default new Router({
           ]
         },
         {
-          path: 'space',
-          component: () => import('./space/User.vue'),
+          path: 'user',
+          component: () => import('./user/User.vue'),
           children: [
             {
               path: '',
               name: 'information',
-              component: () => import('./space/UserInformation.vue')
-            },
-            {
-              path: 'statistic',
-              name: 'statistic',
-              component: () => import('./space/UserStatistic.vue')
+              component: () => import('./user/UserInformation.vue')
             }
           ]
         },
         {
-          path: 'ranks',
-          name: 'ranks',
-          component: () => import('./TheRanks.vue')
+          path: 'statistic',
+          component: () => import('./statistic/Statistic.vue'),
+          children: [
+            {
+              path: 'ranks',
+              name: 'ranks',
+              component: () => import('./statistic/TheRanks.vue')
+            }
+          ]
         },
         {
           path: 'g2-example',

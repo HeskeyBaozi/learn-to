@@ -3,14 +3,16 @@ stages:
   - test
 
 before_script:
-  - yarn install
+  - node -v
+  - npm -v
+  - npm install
 
 lint:
   stage: lint
   script:
-    - yarn run lint
+    - npm run lint
 
 unit:
   stage: test
   script:
-    - yarn run test:unit
+    - npm run test:unit

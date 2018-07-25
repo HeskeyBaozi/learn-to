@@ -2,11 +2,14 @@
   <div id="basic-layout">
     <el-container>
       <el-header class="header">
-        <top-nav></top-nav>
+        <top-nav @showDialog="showDialog"></top-nav>
       </el-header>
       <el-container>
-        <el-aside width="200px">Aside</el-aside>
+        <el-aside width="240px" class="aside">
+          <NavList></NavList>
+        </el-aside>
           <el-container>
+            <LoginForm :dialogFormVisible="dialogFormVisible" @hideDialog="hideDialog"></LoginForm>
             <el-main class="main">
               <router-view></router-view>
             </el-main>
@@ -23,16 +26,28 @@
 </template>
 
 <script lang="ts">
+import NavList from '@/components/NavList.vue';
+import LoginForm from '@/components/user/LoginForm.vue';
 import TopNav from '@/views/global/TopNav.vue';
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component({
   name: 'basic-layout',
   components: {
-    TopNav
+    LoginForm,
+    TopNav,
+    NavList
   }
 })
-export default class BasicLayout extends Vue {}
+export default class BasicLayout extends Vue {
+  dialogFormVisible = false;
+  showDialog() {
+    this.dialogFormVisible = true;
+  }
+  hideDialog() {
+    this.dialogFormVisible = false;
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -40,11 +55,20 @@ export default class BasicLayout extends Vue {}
   .header {
     background-color: $--color-primary;
     box-shadow: $--box-shadow-base;
-    z-index: $--index-normal;
+    z-index: 1;
+    position: fixed;
+    width: 100%;
+    padding: 0px;
   }
 
   .main {
     background-color: $--background-color-base;
+    z-index: 0;
+    padding-top: 60px;
+  }
+  .aside {
+    padding-top: 60px;
+    z-index: 0;
   }
 }
 </style>
