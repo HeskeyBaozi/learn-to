@@ -1,6 +1,5 @@
 <template>
   <div id="user">
-    <h1>用户空间</h1>
      <router-view></router-view>
   </div>
 </template>

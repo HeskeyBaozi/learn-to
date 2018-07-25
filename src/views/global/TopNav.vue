@@ -9,8 +9,9 @@
         background-color="#409EFF"
         text-color="white"
         active-text-color="white"
+        @select="showLogin"
       >
-        <el-menu-item index="login">
+        <el-menu-item index="login" >
           <icon-text icon="user-circle" text="登录/注册"/>
         </el-menu-item>
       </el-menu>
@@ -27,6 +28,9 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 export default class TopNav extends Vue {
   backToHome() {
     this.$router.push('/');
+  }
+  showLogin() {
+    this.$emit('showDialog');
   }
 }
 </script>
