@@ -1,4 +1,5 @@
 import G2 from '@antv/g2/lib/core';
+import '@antv/g2/lib/geom/area';
 import '@antv/g2/lib/geom/interval';
 import '@antv/g2/lib/geom/line';
 import '@antv/g2/lib/geom/point';
