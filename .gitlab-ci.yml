@@ -3,6 +3,9 @@ stages:
   - test
 
 before_script:
+  - node -v
+  - npm -v
+  - npm install -g yarn
   - yarn install
 
 lint:
