@@ -55,7 +55,7 @@ export default Vue.extend({
   }
 });
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
   .el-dialog {
     position:fixed;
     margin: 0 auto;
@@ -71,7 +71,7 @@ export default Vue.extend({
     color: rgb(64, 158, 255);
   }
 </style>
-<style lang="scss">
+<style lang="less">
  #login-form .el-dialog__body {
     // padding: 32px;
     //padding-bottom: 0px;

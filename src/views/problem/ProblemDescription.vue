@@ -28,7 +28,7 @@ export default class ProblemDescription extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 #problem-description {
 
 }

@@ -137,7 +137,7 @@ export default class G2Example extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 #g2-example {
 }
 </style>

@@ -78,7 +78,7 @@ export default class Problem extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 #problem {
   .card {
     width: 100%;
@@ -126,7 +126,7 @@ export default class Problem extends Vue {
 }
 </style>
 
-<style lang="scss">
+<style lang="less">
 #problem {
   .card {
     .el-card__body {

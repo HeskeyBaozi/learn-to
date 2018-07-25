@@ -1149,7 +1149,7 @@ export default class ProblemList extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
   #problem-list {
     .col-item {
       height: 49px;
@@ -1172,7 +1172,7 @@ export default class ProblemList extends Vue {
   }
 </style>
 
-<style lang="scss">
+<style lang="less">
 #problem-list {
   .el-header {
     .el-input  {

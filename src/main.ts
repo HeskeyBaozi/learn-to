@@ -11,6 +11,7 @@ import DateFormat from '@/utils/format';
 import router from '@/views/router';
 import Vue from 'vue';
 import App from './App.vue';
+import './global-variables.less';
 
 Vue.config.productionTip = false;
 

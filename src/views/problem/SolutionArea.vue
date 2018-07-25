@@ -21,7 +21,7 @@ export default class SolutionArea extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 #solution-area {
 }
 </style>

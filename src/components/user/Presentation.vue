@@ -25,7 +25,7 @@ export default class Presentation extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
   .clearfix:before,
   .clearfix:after {
     display: table;

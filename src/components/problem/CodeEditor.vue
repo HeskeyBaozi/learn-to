@@ -103,7 +103,7 @@
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
   .settings {
     margin-bottom: 1rem;
   }
@@ -113,7 +113,7 @@
     margin-left: 1rem;
   }
   button:hover {
-    box-shadow: $--box-shadow-dark;
+    box-shadow: @box-shadow-dark;
   }
 
   .code-mirror {

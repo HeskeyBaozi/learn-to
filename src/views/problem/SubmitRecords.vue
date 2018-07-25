@@ -112,7 +112,7 @@ export default class SubmitRecords extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 #submit-records {
   .paging {
     margin-top: 20px;

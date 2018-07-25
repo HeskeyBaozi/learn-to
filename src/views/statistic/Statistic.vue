@@ -14,7 +14,7 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class Statistic extends Vue {}
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 #statistic {
 }
 </style>

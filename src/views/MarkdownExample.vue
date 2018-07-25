@@ -24,7 +24,7 @@ export default class MarkdownExample extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 #markdown-example {
   .markdown {
     border: 1px solid lightcoral;

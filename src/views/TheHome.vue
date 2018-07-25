@@ -45,7 +45,7 @@
           </el-table>
         </el-main>
       </el-container>
-      
+
     </el-main>
   </el-container>
 </template>
@@ -211,7 +211,7 @@ export default class Ranks extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 #home {
   .placeholder {
     background-color: lightcoral;
@@ -223,7 +223,7 @@ export default class Ranks extends Vue {
   }
 }
 </style>
-<style lang="scss">
+<style lang="less">
   .el-carousel__item h3 {
     color: #475669;
     font-size: 14px;
@@ -241,15 +241,15 @@ export default class Ranks extends Vue {
   .home-module-1 .el-main {
     padding: 0px;
     padding-left: 10px;
-  } 
+  }
   .home-module-2 .el-main {
     padding: 0px;
     padding-left: 10px;
-  } 
+  }
   .home-module-3 .el-main {
     padding: 0px;
     padding-left: 10px;
-  } 
+  }
   .home-module-1 .el-aside {
     padding-top: 16px;
   }

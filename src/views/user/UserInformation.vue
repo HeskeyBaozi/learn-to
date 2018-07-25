@@ -43,7 +43,7 @@ export default class UserInformation extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
   #inline{
     position: relative;
     height: 32px;
