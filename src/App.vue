@@ -5,8 +5,8 @@
 </template>
 
 <script lang="ts">
+import NavList from '@/components/NavList.vue';
 import TopNav from '@/views/global/TopNav.vue';
-import NavList from '@/components/NavList.vue'
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component({

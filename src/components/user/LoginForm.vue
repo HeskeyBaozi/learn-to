@@ -1,6 +1,7 @@
 <template>
 <div id="login-form">
-  <el-dialog :visible.sync="show" :show-close="false" width="720px">
+  <el-dialog :visible.sync="show" :show-close="true" width="720px" 
+  @close="$emit('hideDialog');">
     <el-container style="float: left; width: 720px; height: 480px">
       <el-aside width="360px">
         <img src="@/assets/logo.png"/>
@@ -8,7 +9,7 @@
     <el-main width="360px">
       <el-form :model="form">
         <el-form-item style="text-align: center;">
-          <img src="@/assets/logo.png" id="login-userlogo"/>
+          <img src="@/assets/test.jpg" id="login-userlogo"/>
         </el-form-item>
         <el-form-item>
           <el-input :model="form.name" placeholder="请输入账号"></el-input>
@@ -20,7 +21,7 @@
           <p id="forget-password">忘记密码</p>
         </el-form-item>
       </el-form>
-      <el-button @click="$emit('hideDialog')" id="register">快速注册</el-button>
+      <el-button id="register">快速注册</el-button>
       <el-button>进入MOJ</el-button>
       </el-main>
     </el-container>
@@ -46,6 +47,9 @@ export default Vue.extend({
     show: {
       get(): boolean {
         return this.dialogFormVisible;
+      },
+      set(newValue: boolean): void {
+        this.$emit('closeOrOpen');
       }
     }
   }
