@@ -34,23 +34,23 @@ export default class IconText extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 @import url('~prismjs/themes/prism.css');
 #matrix-markdown-text {
   width: 100%;
 }
 </style>
 
-<style lang="scss">
+<style lang="less">
 #matrix-markdown-text {
   .markdown {
     a {
-      color: $--link-color;
+      color: @link-color;
       text-decoration: none;
     }
     a:hover,
     a:focus {
-      color: $--link-hover-color;
+      color: @link-hover-color;
       text-decoration: underline;
     }
     a:focus {
@@ -641,7 +641,7 @@ export default class IconText extends Vue {
       color: #555;
     }
 
-    @mixin normal-elements {
+    .normal-elements {
       margin-top: 0;
       margin-bottom: 1rem;
       &:last-child {
@@ -649,11 +649,11 @@ export default class IconText extends Vue {
       }
     }
 
-    @mixin list($style) {
+    .list(@style) {
       padding-left: 2rem;
-      list-style: $style;
+      list-style: @style;
       > * {
-        @include normal-elements;
+        .normal-elements;
       }
     }
 
@@ -662,15 +662,15 @@ export default class IconText extends Vue {
     }
 
     ul {
-      @include list(circle);
+      .list(circle);
     }
 
     ol {
-      @include list(decimal);
+      .list(decimal);
     }
 
     dl {
-      @include list(none);
+      .list(none);
     }
   }
 }

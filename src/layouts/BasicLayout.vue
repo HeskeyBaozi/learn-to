@@ -50,11 +50,11 @@ export default class BasicLayout extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 #basic-layout {
   .header {
-    background-color: $--color-primary;
-    box-shadow: $--box-shadow-base;
+    background-color: @color-primary;
+    box-shadow: @box-shadow-base;
     z-index: 1;
     position: fixed;
     width: 100%;
@@ -62,7 +62,7 @@ export default class BasicLayout extends Vue {
   }
 
   .main {
-    background-color: $--background-color-base;
+    background-color: @background-color-base;
     z-index: 0;
     padding-top: 60px;
   }

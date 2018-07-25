@@ -1,6 +1,7 @@
 const merge = require("webpack-merge");
 const fs = require("fs");
 const path = require("path");
+const lessToJs = require('less-vars-to-js');
 const apiMocker = require('webpack-api-mocker');
 
 module.exports = {
@@ -25,8 +26,8 @@ module.exports = {
   },
   css: {
     loaderOptions: {
-      sass: {
-        data: fs.readFileSync("src/global-variables.scss", "utf-8")
+      less: {
+        modifyVars: lessToJs(fs.readFileSync("src/global-variables.less", "utf-8"))
       }
     }
   },

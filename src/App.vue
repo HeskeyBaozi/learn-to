@@ -16,13 +16,12 @@ export default class App extends Vue {}
 </script>
 
 <style src="normalize.css"></style>
+<style src="element-ui/lib/theme-chalk/index.css"></style>
 
-<style lang="scss">
-$--font-path: "~element-ui/lib/theme-chalk/fonts";
-@import "~element-ui/packages/theme-chalk/src/index";
+<style lang="less">
 
 html {
-  font-size: $--font-size-base; // 正文文本 14px
+  font-size: @font-size-base; // 正文文本 14px
 }
 body {
   font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",

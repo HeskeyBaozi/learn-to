@@ -35,7 +35,7 @@ export default class TopNav extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 #top-nav {
   height: 100%;
   justify-content: space-between;

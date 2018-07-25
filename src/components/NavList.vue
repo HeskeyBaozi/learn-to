@@ -23,7 +23,7 @@ import { Component, Vue } from 'vue-property-decorator';
 })
 export default class NavList extends Vue {}
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
   #NavList {
     position: fixed;
     width: 240px;
@@ -35,7 +35,7 @@ export default class NavList extends Vue {}
     margin: 0 auto;
   }
 </style>
-<style lang="scss">
+<style lang="less">
   #NavList .el-main {
     padding-left: 0px;
     padding-right: 0px;

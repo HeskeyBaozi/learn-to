@@ -13,7 +13,7 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class ScoreReport extends Vue {}
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 #score-report {
 }
 </style>
