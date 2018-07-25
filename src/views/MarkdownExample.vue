@@ -2,7 +2,7 @@
   <el-container id="markdown-example">
     <el-main>
       <h1>markdown-example</h1>
-      <textarea with="100%" :value="input" @input="update"></textarea>
+      <textarea width="100%" :value="input" @input="update"></textarea>
       <markdown-text class="markdown" :source="input"/>
     </el-main>
   </el-container>
