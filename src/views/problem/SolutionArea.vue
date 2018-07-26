@@ -1,7 +1,7 @@
 <template>
   <el-container id="solution-area">
     <keep-alive>
-      <code-editor :codeTemplate="{ lang: 'c', code: 'int main () { return 0; }'}"></code-editor>
+      <code-editor :codeTemplate="{ lang: 'c', code: 'int main () { return 0; }'}" style="margin-top: 1rem;"></code-editor>
     </keep-alive>
   </el-container>
 </template>

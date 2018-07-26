@@ -1,6 +1,8 @@
 <template>
   <el-container id="score-report">
-    <h1>成绩报告</h1>
+    <div class="sub-containter">
+      <h1>成绩报告</h1>
+    </div>
   </el-container>
 </template>
 

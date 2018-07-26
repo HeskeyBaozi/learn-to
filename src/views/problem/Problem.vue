@@ -1,6 +1,5 @@
 <template>
   <div id="problem">
-    <h1>题目</h1>
     <el-card class="card">
       <div class="group">
         <div class="background">
@@ -84,6 +83,7 @@ export default class Problem extends Vue {
   .card {
     width: 100%;
     font-size: 16px;
+    margin-top: 2rem;
 
     .group {
       display: inline-flex;
@@ -135,6 +135,20 @@ export default class Problem extends Vue {
       display: flex;
       justify-content: space-between;
     }
+  }
+
+  .sub-containter {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    -ms-flex-preferred-size: auto;
+    flex-basis: auto;
+    overflow: auto;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-top: 32px;
+    padding-left: 24px;
+    padding-right: 24px;
   }
 }
 </style>
