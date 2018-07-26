@@ -5,7 +5,9 @@
         <div class="info">
           <el-card>
             <div class="title">近8周AC数</div>
-            <div id="chart-1"></div>
+            <el-tooltip effect="dark" content="点击查看最近做的题目" placement="top">
+              <div id="chart-1" @click="jumpToRecentTests"></div>
+            </el-tooltip>
           </el-card>
         </div>
         <div class="info">
@@ -37,7 +39,9 @@
         <div class="info">
           <el-card>
             <div class="title">金字塔图</div>
-            <div id="chart-2"></div>
+            <el-tooltip effect="dark" content="点击查看完整排行榜" placement="top">
+              <div id="chart-2" @click="jumpToRanks"></div>
+            </el-tooltip>
           </el-card>
         </div>
         <div class="info">
@@ -188,7 +192,15 @@ export default class Statistic extends Vue {
     this.chart1.render();
     this.chart2.render();
     // 高亮当前所在行
-    (this.$refs.rankTable as any).setCurrentRow(this.personalRankData[this.curRank -1]);
+    (this.$refs.rankTable as any).setCurrentRow(this.personalRankData[this.curRank - 1]);
+  }
+
+  jumpToRanks() {
+    this.$router.push({ name: 'ranks'});
+  }
+
+  jumpToRecentTests() {
+    this.$router.push({ name: 'recent'});
   }
 }
 </script>

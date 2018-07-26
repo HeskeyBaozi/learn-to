@@ -33,7 +33,8 @@ import {
   Select,
   Table,
   TableColumn,
-  Tag
+  Tag,
+  Tooltip
 } from 'element-ui';
 import { VueConstructor } from 'vue';
 
@@ -72,6 +73,7 @@ export default {
       Table,
       TableColumn,
       Tag,
+      Tooltip,
       (Loading as any).directive
     ];
     for (const component of components) {

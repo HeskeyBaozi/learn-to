@@ -2,7 +2,7 @@
 <div id="NavList">
   <el-container>
     <el-header height="180px">
-      <img src="@/assets/test.jpg" id="nav-logo"/>
+      <router-link to="/user"><img src="@/assets/test.jpg" id="nav-logo"/></router-link>
       <p style="text-align: center;font-size: 16px;">好同学</p>
       <p style="text-align: center;font-size: 14px;">学生</p>
     </el-header>
@@ -30,7 +30,7 @@ export default class NavList extends Vue {}
   }
   #nav-logo {
     border-radius: 50% 50% 50% 50%;
-    width: 100px; 
+    width: 100px;
     display: block;
     margin: 0 auto;
   }
