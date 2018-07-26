@@ -92,12 +92,12 @@ export default class UserInformation extends Vue {
   }
 
   #background{
-    width: 84%;
+    width: 80%;
     height: 14rem;
     position: absolute;
-    margin-top: -1.5rem;
+    //margin-top: -1.5rem;
     margin-left: -1.5rem;
-    clip-path: polygon(100% 0%, 50% 50%, 0% 100%, 0% 0%);
+    clip-path: polygon(100% 0%, 100% 20%, 0% 100%, 0% 0%);
   }
 </style>
 

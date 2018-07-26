@@ -85,6 +85,10 @@ export default new Router({
         {
           path: 'markdown',
           component: () => import('./MarkdownExample.vue')
+        },
+        {
+          path: 'notification',
+          component: () => import('./notification/UserNotification.vue')
         }
       ]
     }
