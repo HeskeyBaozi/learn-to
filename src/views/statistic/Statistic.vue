@@ -3,7 +3,9 @@
     <el-container>
       <div class="row">
         <div class="info">
-          <ac-chart :chartData="AcChartData" v-on:jump="jumpToRecentTests"></ac-chart>
+          <el-tooltip effect="dark" content="点击查看最近做的题目" placement="top">
+            <ac-chart :chartData="AcChartData" v-on:jump="jumpToRecentTests"></ac-chart>
+          </el-tooltip>
         </div>
         <div class="info">
           <data-statistic :statisticInfo="statisticInfo"></data-statistic>

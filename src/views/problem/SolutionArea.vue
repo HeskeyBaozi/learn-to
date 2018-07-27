@@ -16,9 +16,7 @@ import { Component, Vue } from 'vue-property-decorator';
     CodeEditor
   }
 })
-export default class SolutionArea extends Vue {
-
-}
+export default class SolutionArea extends Vue {}
 </script>
 
 <style lang="less" scoped>

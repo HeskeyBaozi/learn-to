@@ -2,9 +2,7 @@
   <el-container id="ac-chart">
     <el-card style="width: 100%;">
       <div class="title">近60天AC题数</div>
-      <el-tooltip effect="dark" content="点击查看最近做的题目" placement="top">
-        <div id="chart-1" @click="handleClick"></div>
-      </el-tooltip>
+      <div id="chart-1" @click="handleClick"></div>
     </el-card>
   </el-container>
 </template>
