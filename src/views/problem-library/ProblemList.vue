@@ -3,15 +3,27 @@
     <el-header>
       <el-row>
         <div class="col-item" style="display: inline-block;">
-          <el-input placeholder="请输入内容" prefix-icon="el-icon-search" v-model="searchKey" clearable style="width: 240px;"></el-input>
-          <el-button type="primary" style="margin-left: 1rem;" @click="searchProblem">搜索</el-button>
+          <el-input placeholder="请输入内容" prefix-icon="el-icon-search" v-model="searchKey" clearable></el-input>
+          <el-select v-model="sortKey" placeholder="请选择排序方式" @change="sortTable">
+            <el-option label="题号" value="problemId"></el-option>
+            <el-option label="热度" value="submitNum"></el-option>
+          </el-select>
+          <el-select v-model="filterKey" placeholder="请选择评测状态" clearable  @change="filterTable">
+            <el-option label="Accepted" value="Accepted"></el-option>
+            <el-option label="Compile Error" value="Compile Error"></el-option>
+            <el-option label="Wrong Answer" value="Wrong Answer"></el-option>
+            <el-option label="Time Limit Exceeded" value="Time Limit Exceeded"></el-option>
+            <el-option label="Memory Limit Exceeded" value="Memory Limit Exceeded"></el-option>
+            <el-option label="Runtime Error" value="Runtime Error"></el-option>
+          </el-select>
+          <el-button type="primary" @click="searchProblem">搜索</el-button>
         </div>
-        <div style="float: right">
+        <!-- <div style="float: right">
           <el-radio-group v-model="sortKey" class="col-item" @change="sortTable">
             <el-radio label="problemId">按题号排序</el-radio>
             <el-radio label="submitNum">按热度排序</el-radio>
           </el-radio-group>
-        </div>
+        </div> -->
       </el-row>
     </el-header>
     <el-main>
@@ -22,22 +34,23 @@
         <el-table-column prop="submissionNumber" label="提交数" min-width="100"></el-table-column>
         <el-table-column prop="passRate" label="通过率" min-width="100"></el-table-column>
         <el-table-column prop="publishDate" label="发布时间" min-width="100"></el-table-column>
-        <el-table-column label="AC状态" width="100">
+        <el-table-column label="评测状态" width="180">
           <template slot-scope="scope">
-            <el-tag v-if="scope.row.ACState === 1" size="medium" type="success">编译通过</el-tag>
-            <el-tag v-else-if="scope.row.ACState === 2" size="medium" type="warning">编译错误</el-tag>
-            <el-tag v-else size="medium" type="danger">运行错误</el-tag>
+            <el-tag v-if="scope.row.meterState === 'Accepted'" size="medium" type="success">{{ scope.row.meterState }}</el-tag>
+            <el-tag v-else-if="scope.row.meterState === 'Compile Error'" size="medium" type="warning">{{ scope.row.meterState }}</el-tag>
+            <el-tag v-else size="medium" type="danger">{{ scope.row.meterState }}</el-tag>
           </template>
         </el-table-column>
       </el-table>
     </el-main>
     <el-footer class="fixed-footer">
       <el-pagination
-        background
-        layout="prev, pager, next"
-        :total="problemListData.length"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="problemFilterData.length"
         :page-size="pageSize"
+        :page-sizes="[10, 20, 50, 100]"
         @current-change="handleCurrentPageChange"
+        @size-change="handleSizeChange"
         :current-page.sync="currentPage"
         style="text-align: center; height: 100%; display: flex;align-items:center; justify-content:center;">
       </el-pagination>
@@ -55,7 +68,7 @@ interface ProblemItem {
   submissionNumber: number;
   passRate: string;
   publishDate: string;
-  ACState: number;
+  meterState: string;
 }
 
 @Component({
@@ -66,14 +79,32 @@ interface ProblemItem {
 export default class ProblemList extends Vue {
   searchKey: string = '';
   sortKey: string = '';
-  pageSize: number = 50;
+  pageSize: number = 100;
   currentPage: number = 1;
   problemListData: ProblemItem[] = [];
+  problemFilterData: ProblemItem[] = [];
   tableData: ProblemItem[] = [];
+  filterKey: string = '';
+
+  // get problemFilterData(): ProblemItem[] {
+  //   return this.problemListData.filter((item) => {
+  //     if (!!this.filterKey) {
+  //       return item.meterState === this.filterKey;
+  //     } else {
+  //       return item;
+  //     }
+  //   });
+  // }
 
 
   handleCurrentPageChange(val: number) {
-    this.tableData = this.pagination(val, this.pageSize, this.problemListData);
+    this.tableData = this.pagination(val, this.pageSize, this.problemFilterData);
+  }
+
+  handleSizeChange(val: number) {
+    this.pageSize = val;
+    this.currentPage = 1;
+    this.handleCurrentPageChange(1);
   }
 
   pagination(pageNo: number, pageSize: number, array: ProblemItem[]) {
@@ -85,12 +116,20 @@ export default class ProblemList extends Vue {
   mounted() {
     this.problemListData = [
       {
-        problemId: 201,
+        problemId: 211,
         problemName: 'HelloWorld',
-        submissionNumber: 200,
-        passRate: '50%',
+        submissionNumber: 210,
+        passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Accepted'
+      },
+      {
+        problemId: 221,
+        problemName: 'HelloWorld',
+        submissionNumber: 220,
+        passRate: '80%',
+        publishDate: '2018-7-7',
+        meterState: 'Accepted'
       },
       {
         problemId: 202,
@@ -98,7 +137,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Compile Error'
       },
       {
         problemId: 203,
@@ -106,7 +145,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Wrong Answer'
       },
       {
         problemId: 201,
@@ -114,7 +153,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Time Limit Exceeded'
       },
       {
         problemId: 202,
@@ -122,7 +161,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Memory Limit Exceeded'
       },
       {
         problemId: 203,
@@ -130,15 +169,15 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Runtime Error'
       },
       {
         problemId: 201,
         problemName: 'HelloWorld',
-        submissionNumber: 200,
-        passRate: '50%',
+        submissionNumber: 230,
+        passRate: '70%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Accepted'
       },
       {
         problemId: 202,
@@ -146,7 +185,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Compile Error'
       },
       {
         problemId: 203,
@@ -154,7 +193,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Wrong Answer'
       },
       {
         problemId: 201,
@@ -162,7 +201,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Time Limit Exceeded'
       },
       {
         problemId: 202,
@@ -170,7 +209,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Memory Limit Exceeded'
       },
       {
         problemId: 203,
@@ -178,15 +217,15 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Runtime Error'
       },
       {
         problemId: 201,
         problemName: 'HelloWorld',
-        submissionNumber: 200,
-        passRate: '50%',
+        submissionNumber: 240,
+        passRate: '60%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Accepted'
       },
       {
         problemId: 202,
@@ -194,7 +233,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Compile Error'
       },
       {
         problemId: 203,
@@ -202,7 +241,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Wrong Answer'
       },
       {
         problemId: 201,
@@ -210,7 +249,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Time Limit Exceeded'
       },
       {
         problemId: 202,
@@ -218,7 +257,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Memory Limit Exceeded'
       },
       {
         problemId: 203,
@@ -226,15 +265,15 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Runtime Error'
       },
       {
         problemId: 201,
         problemName: 'HelloWorld',
-        submissionNumber: 200,
+        submissionNumber: 250,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Accepted'
       },
       {
         problemId: 202,
@@ -242,7 +281,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Compile Error'
       },
       {
         problemId: 203,
@@ -250,7 +289,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Wrong Answer'
       },
       {
         problemId: 201,
@@ -258,7 +297,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Time Limit Exceeded'
       },
       {
         problemId: 202,
@@ -266,7 +305,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Memory Limit Exceeded'
       },
       {
         problemId: 203,
@@ -274,7 +313,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Runtime Error'
       },
       {
         problemId: 201,
@@ -282,7 +321,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Accepted'
       },
       {
         problemId: 202,
@@ -290,7 +329,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Compile Error'
       },
       {
         problemId: 203,
@@ -298,7 +337,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Wrong Answer'
       },
       {
         problemId: 201,
@@ -306,7 +345,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Time Limit Exceeded'
       },
       {
         problemId: 202,
@@ -314,7 +353,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Memory Limit Exceeded'
       },
       {
         problemId: 203,
@@ -322,7 +361,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Runtime Error'
       },
       {
         problemId: 201,
@@ -330,7 +369,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Accepted'
       },
       {
         problemId: 202,
@@ -338,7 +377,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Compile Error'
       },
       {
         problemId: 203,
@@ -346,7 +385,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Wrong Answer'
       },
       {
         problemId: 201,
@@ -354,7 +393,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Time Limit Exceeded'
       },
       {
         problemId: 202,
@@ -362,7 +401,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Memory Limit Exceeded'
       },
       {
         problemId: 203,
@@ -370,7 +409,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Runtime Error'
       },
       {
         problemId: 201,
@@ -378,7 +417,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Accepted'
       },
       {
         problemId: 202,
@@ -386,7 +425,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Compile Error'
       },
       {
         problemId: 203,
@@ -394,7 +433,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Wrong Answer'
       },
       {
         problemId: 201,
@@ -402,7 +441,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Time Limit Exceeded'
       },
       {
         problemId: 202,
@@ -410,7 +449,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Memory Limit Exceeded'
       },
       {
         problemId: 203,
@@ -418,7 +457,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Runtime Error'
       },
       {
         problemId: 201,
@@ -426,7 +465,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Accepted'
       },
       {
         problemId: 202,
@@ -434,7 +473,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Compile Error'
       },
       {
         problemId: 203,
@@ -442,7 +481,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Wrong Answer'
       },
       {
         problemId: 201,
@@ -450,7 +489,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Time Limit Exceeded'
       },
       {
         problemId: 202,
@@ -458,7 +497,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Memory Limit Exceeded'
       },
       {
         problemId: 203,
@@ -466,7 +505,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Runtime Error'
       },
       {
         problemId: 201,
@@ -474,7 +513,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Accepted'
       },
       {
         problemId: 202,
@@ -482,7 +521,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Compile Error'
       },
       {
         problemId: 203,
@@ -490,7 +529,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Wrong Answer'
       },
       {
         problemId: 201,
@@ -498,7 +537,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Time Limit Exceeded'
       },
       {
         problemId: 202,
@@ -506,7 +545,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Memory Limit Exceeded'
       },
       {
         problemId: 203,
@@ -514,7 +553,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Runtime Error'
       },
       {
         problemId: 201,
@@ -522,7 +561,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Accepted'
       },
       {
         problemId: 202,
@@ -530,7 +569,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Compile Error'
       },
       {
         problemId: 203,
@@ -538,7 +577,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Wrong Answer'
       },
       {
         problemId: 201,
@@ -546,7 +585,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Time Limit Exceeded'
       },
       {
         problemId: 202,
@@ -554,7 +593,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Memory Limit Exceeded'
       },
       {
         problemId: 203,
@@ -562,7 +601,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Runtime Error'
       },
       {
         problemId: 201,
@@ -570,7 +609,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Accepted'
       },
       {
         problemId: 202,
@@ -578,7 +617,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Compile Error'
       },
       {
         problemId: 203,
@@ -586,7 +625,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Wrong Answer'
       },
       {
         problemId: 201,
@@ -594,7 +633,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Time Limit Exceeded'
       },
       {
         problemId: 202,
@@ -602,7 +641,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Memory Limit Exceeded'
       },
       {
         problemId: 203,
@@ -610,7 +649,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Runtime Error'
       },
       {
         problemId: 201,
@@ -618,7 +657,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Accepted'
       },
       {
         problemId: 202,
@@ -626,7 +665,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Compile Error'
       },
       {
         problemId: 203,
@@ -634,7 +673,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Wrong Answer'
       },
       {
         problemId: 201,
@@ -642,7 +681,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Time Limit Exceeded'
       },
       {
         problemId: 202,
@@ -650,7 +689,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Memory Limit Exceeded'
       },
       {
         problemId: 203,
@@ -658,7 +697,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Runtime Error'
       },
       {
         problemId: 201,
@@ -666,7 +705,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Accepted'
       },
       {
         problemId: 202,
@@ -674,7 +713,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Compile Error'
       },
       {
         problemId: 203,
@@ -682,7 +721,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Wrong Answer'
       },
       {
         problemId: 201,
@@ -690,7 +729,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Time Limit Exceeded'
       },
       {
         problemId: 202,
@@ -698,7 +737,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Memory Limit Exceeded'
       },
       {
         problemId: 203,
@@ -706,7 +745,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Runtime Error'
       },
       {
         problemId: 201,
@@ -714,7 +753,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Accepted'
       },
       {
         problemId: 202,
@@ -722,7 +761,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Compile Error'
       },
       {
         problemId: 203,
@@ -730,7 +769,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Wrong Answer'
       },
       {
         problemId: 201,
@@ -738,7 +777,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Time Limit Exceeded'
       },
       {
         problemId: 202,
@@ -746,7 +785,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Memory Limit Exceeded'
       },
       {
         problemId: 203,
@@ -754,7 +793,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Runtime Error'
       },
       {
         problemId: 201,
@@ -762,7 +801,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Accepted'
       },
       {
         problemId: 202,
@@ -770,7 +809,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Compile Error'
       },
       {
         problemId: 203,
@@ -778,7 +817,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Wrong Answer'
       },
       {
         problemId: 201,
@@ -786,7 +825,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Time Limit Exceeded'
       },
       {
         problemId: 202,
@@ -794,7 +833,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Memory Limit Exceeded'
       },
       {
         problemId: 203,
@@ -802,7 +841,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Runtime Error'
       },
       {
         problemId: 201,
@@ -810,7 +849,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Accepted'
       },
       {
         problemId: 202,
@@ -818,7 +857,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Compile Error'
       },
       {
         problemId: 203,
@@ -826,7 +865,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Wrong Answer'
       },
       {
         problemId: 201,
@@ -834,7 +873,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Time Limit Exceeded'
       },
       {
         problemId: 202,
@@ -842,7 +881,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Memory Limit Exceeded'
       },
       {
         problemId: 203,
@@ -850,7 +889,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Runtime Error'
       },
       {
         problemId: 201,
@@ -858,7 +897,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Accepted'
       },
       {
         problemId: 202,
@@ -866,7 +905,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Compile Error'
       },
       {
         problemId: 203,
@@ -874,7 +913,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Wrong Answer'
       },
       {
         problemId: 201,
@@ -882,7 +921,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Time Limit Exceeded'
       },
       {
         problemId: 202,
@@ -890,7 +929,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Memory Limit Exceeded'
       },
       {
         problemId: 203,
@@ -898,7 +937,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Runtime Error'
       },
       {
         problemId: 201,
@@ -906,7 +945,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Accepted'
       },
       {
         problemId: 202,
@@ -914,7 +953,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Compile Error'
       },
       {
         problemId: 203,
@@ -922,7 +961,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Wrong Answer'
       },
       {
         problemId: 201,
@@ -930,7 +969,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Time Limit Exceeded'
       },
       {
         problemId: 202,
@@ -938,7 +977,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Memory Limit Exceeded'
       },
       {
         problemId: 203,
@@ -946,7 +985,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Runtime Error'
       },
       {
         problemId: 201,
@@ -954,7 +993,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Accepted'
       },
       {
         problemId: 202,
@@ -962,7 +1001,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Compile Error'
       },
       {
         problemId: 203,
@@ -970,7 +1009,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Wrong Answer'
       },
       {
         problemId: 201,
@@ -978,7 +1017,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Time Limit Exceeded'
       },
       {
         problemId: 202,
@@ -986,7 +1025,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Memory Limit Exceeded'
       },
       {
         problemId: 203,
@@ -994,7 +1033,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Runtime Error'
       },
       {
         problemId: 201,
@@ -1002,7 +1041,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Accepted'
       },
       {
         problemId: 202,
@@ -1010,7 +1049,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Compile Error'
       },
       {
         problemId: 203,
@@ -1018,7 +1057,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Wrong Answer'
       },
       {
         problemId: 201,
@@ -1026,7 +1065,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '50%',
         publishDate: '2018-7-7',
-        ACState: 1
+        meterState: 'Time Limit Exceeded'
       },
       {
         problemId: 202,
@@ -1034,127 +1073,7 @@ export default class ProblemList extends Vue {
         submissionNumber: 220,
         passRate: '90%',
         publishDate: '2018-7-7',
-        ACState: 2
-      },
-      {
-        problemId: 203,
-        problemName: '简单乘法',
-        submissionNumber: 200,
-        passRate: '56%',
-        publishDate: '2018-7-7',
-        ACState: 3
-      },
-      {
-        problemId: 201,
-        problemName: 'HelloWorld',
-        submissionNumber: 200,
-        passRate: '50%',
-        publishDate: '2018-7-7',
-        ACState: 1
-      },
-      {
-        problemId: 202,
-        problemName: 'A+B',
-        submissionNumber: 220,
-        passRate: '90%',
-        publishDate: '2018-7-7',
-        ACState: 2
-      },
-      {
-        problemId: 203,
-        problemName: '简单乘法',
-        submissionNumber: 200,
-        passRate: '56%',
-        publishDate: '2018-7-7',
-        ACState: 3
-      },
-      {
-        problemId: 201,
-        problemName: 'HelloWorld',
-        submissionNumber: 200,
-        passRate: '50%',
-        publishDate: '2018-7-7',
-        ACState: 1
-      },
-      {
-        problemId: 202,
-        problemName: 'A+B',
-        submissionNumber: 220,
-        passRate: '90%',
-        publishDate: '2018-7-7',
-        ACState: 2
-      },
-      {
-        problemId: 203,
-        problemName: '简单乘法',
-        submissionNumber: 200,
-        passRate: '56%',
-        publishDate: '2018-7-7',
-        ACState: 3
-      },
-      {
-        problemId: 201,
-        problemName: 'HelloWorld',
-        submissionNumber: 200,
-        passRate: '50%',
-        publishDate: '2018-7-7',
-        ACState: 1
-      },
-      {
-        problemId: 202,
-        problemName: 'A+B',
-        submissionNumber: 220,
-        passRate: '90%',
-        publishDate: '2018-7-7',
-        ACState: 2
-      },
-      {
-        problemId: 203,
-        problemName: '简单乘法',
-        submissionNumber: 200,
-        passRate: '56%',
-        publishDate: '2018-7-7',
-        ACState: 3
-      },
-      {
-        problemId: 201,
-        problemName: 'HelloWorld',
-        submissionNumber: 200,
-        passRate: '50%',
-        publishDate: '2018-7-7',
-        ACState: 1
-      },
-      {
-        problemId: 202,
-        problemName: 'A+B',
-        submissionNumber: 220,
-        passRate: '90%',
-        publishDate: '2018-7-7',
-        ACState: 2
-      },
-      {
-        problemId: 203,
-        problemName: '简单乘法',
-        submissionNumber: 200,
-        passRate: '56%',
-        publishDate: '2018-7-7',
-        ACState: 3
-      },
-      {
-        problemId: 201,
-        problemName: 'HelloWorld',
-        submissionNumber: 200,
-        passRate: '50%',
-        publishDate: '2018-7-7',
-        ACState: 1
-      },
-      {
-        problemId: 202,
-        problemName: 'A+B',
-        submissionNumber: 220,
-        passRate: '90%',
-        publishDate: '2018-7-7',
-        ACState: 2
+        meterState: 'Memory Limit Exceeded'
       },
       {
         problemId: 203,
@@ -1162,10 +1081,12 @@ export default class ProblemList extends Vue {
         submissionNumber: 200,
         passRate: '56%',
         publishDate: '2018-7-7',
-        ACState: 3
+        meterState: 'Runtime Error'
       }
     ];
-    this.tableData = this.pagination(1, this.pageSize, this.problemListData);
+
+    this.problemFilterData = this.problemListData;
+    this.tableData = this.pagination(1, this.pageSize, this.problemFilterData);
   }
 
   handleProblemClick(row: ProblemItem) {
@@ -1174,18 +1095,18 @@ export default class ProblemList extends Vue {
 
   searchProblem() {
     if (!!this.searchKey) {
-      for (let i = 0; i < this.problemListData.length; i++) {
+      for (let i = 0; i < this.problemFilterData.length; i++) {
         // 这里的problemId为int 进行了转换
-        if (this.problemListData[i].problemName.indexOf(this.searchKey) !== -1
-          || this.problemListData[i].problemId.toString() === this.searchKey) {
+        if (this.problemFilterData[i].problemName.indexOf(this.searchKey) !== -1
+          || this.problemFilterData[i].problemId.toString() === this.searchKey) {
           // 获取题目所在页数
           this.currentPage = Math.floor(i / this.pageSize + 1);
           this.handleCurrentPageChange(this.currentPage);
           // 高亮当前行
-          (this.$refs.problemTable as any).setCurrentRow(this.problemListData[i]);
+          (this.$refs.problemTable as any).setCurrentRow(this.problemFilterData[i]);
           // TODO: 滚动到当前行
-          const targetTop = (this.$refs.problemTable as any).$el.querySelectorAll('.el-table__body tr')[i % 50]
-            .getBoundingClientRect().top;
+          const targetTop = (this.$refs.problemTable as any).$el
+            .querySelectorAll('.el-table__body tr')[i % this.pageSize].getBoundingClientRect().top;
           const containerTop = (this.$refs.problemTable as any).$el.querySelector('.el-table__body')
             .getBoundingClientRect().top;
           const scrollParent = (this.$refs.problemTable as any).$el.querySelector('.el-table__body-wrapper');
@@ -1206,10 +1127,22 @@ export default class ProblemList extends Vue {
 
   sortTable(method: string) {
     if (method === 'problemId') {
-      this.problemListData.sort((problem1, problem2) => problem1.problemId - problem2.problemId);
+      this.problemFilterData.sort((problem1, problem2) => problem1.problemId - problem2.problemId);
     } else {
-      this.problemListData.sort((problem1, problem2) => problem2.submissionNumber - problem1.submissionNumber);
+      this.problemFilterData.sort((problem1, problem2) => problem2.submissionNumber - problem1.submissionNumber);
     }
+    this.currentPage = 1;
+    this.handleCurrentPageChange(1);
+  }
+
+  filterTable(key: string) {
+    this.problemFilterData = this.problemListData.filter((item) => {
+      if (!!this.filterKey) {
+        return item.meterState === this.filterKey;
+      } else {
+        return item;
+      }
+    });
     this.currentPage = 1;
     this.handleCurrentPageChange(1);
   }
@@ -1241,6 +1174,13 @@ export default class ProblemList extends Vue {
 
 <style lang="less">
 #problem-list {
+  .el-header {
+    .el-input  {
+      width: 180px;
+      margin-right: 1rem;
+    }
+  }
+
   .el-table__row:hover {
     cursor: pointer;
   }

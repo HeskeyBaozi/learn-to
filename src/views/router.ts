@@ -69,14 +69,17 @@ export default new Router({
         },
         {
           path: 'statistic',
-          component: () => import('./statistic/Statistic.vue'),
-          children: [
-            {
-              path: 'ranks',
-              name: 'ranks',
-              component: () => import('./statistic/TheRanks.vue')
-            }
-          ]
+          component: () => import('./statistic/Statistic.vue')
+        },
+        {
+          path: 'statistic/ranks',
+          name: 'ranks',
+          component: () => import('./statistic/TheRanks.vue')
+        },
+        {
+          path: 'statistic/recent',
+          name: 'recent',
+          component: () => import('./statistic/RecentTests.vue')
         },
         {
           path: 'g2-example',

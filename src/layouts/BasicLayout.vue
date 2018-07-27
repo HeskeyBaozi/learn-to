@@ -64,7 +64,7 @@ export default class BasicLayout extends Vue {
   .main {
     background-color: @background-color-base;
     z-index: 0;
-    padding-top: 60px;
+    margin-top: 60px;
   }
   .aside {
     padding-top: 60px;
