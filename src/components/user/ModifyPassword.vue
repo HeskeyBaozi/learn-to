@@ -1,20 +1,20 @@
 <template>
 <div id="modify-password">
-  <el-dialog :visible.sync="showModify" :show-close="true"  @close="$emit('hideDialog');" center>
-      <el-form :model="form" status-icon :rules="rules" ref="form">
-        <el-form-item>
-          <el-input :model="form.oldpass" placeholder="请输入原密码" type="password" auto-complete="off"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-input :model="form.password" placeholder="请输入新密码" type="password" auto-complete="off"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-input :model="form.checkpass" placeholder="请确认新密码" type="password" auto-complete="off"></el-input>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="resetForm('passForm')">取消</el-button>
-        <el-button type="primary" @click="submitForm('passForm')">确认修改</el-button>
+  <el-dialog :visible.sync="dialogVisible" :show-close="true" width="30rem" @close="$emit('hideDialog');" center>
+    <el-form :model="passForm" status-icon :rules="rules" ref="passForm"  class="demo-ruleForm">
+      <el-form-item prop="oldPass">
+        <el-input placeholder="请输入原密码" type="password" v-model="passForm.oldPass" auto-complete="off"></el-input>
+      </el-form-item>
+      <el-form-item prop="password">
+        <el-input placeholder="请输入新密码" type="password" v-model="passForm.password" auto-complete="off"></el-input>
+      </el-form-item>
+      <el-form-item prop="checkPass">
+        <el-input placeholder="请确认新密码" type="password" v-model="passForm.checkPass" auto-complete="off"></el-input>
+      </el-form-item>
+    </el-form>
+    <div slot="footer" class="dialog-footer">
+      <el-button @click="resetForm">取消</el-button>
+      <el-button type="primary" @click="submitForm('passForm')">确认修改</el-button>
     </div>
   </el-dialog>
 </div>
@@ -25,7 +25,7 @@ export default Vue.extend({
   props: {
     dialogVisible: Boolean
   },
-  data: () => {
+  data() {
     const checkOld = (rule: any, value: any, callback: any) => {
       if (!value) {
         return callback(new Error('未输入原密码'));
@@ -48,12 +48,11 @@ export default Vue.extend({
       }
     };
     return {
-      form: {
-        oldpass: '',
+      passForm: {
+        oldPass: '',
         password: '',
-        checkpass: ''
+        checkPass: ''
       },
-      formLabelWidth: '120px',
       rules: {
         oldPass: [
           { validator: checkOld, trigger: 'blur' }
@@ -76,16 +75,15 @@ export default Vue.extend({
         this.$emit('closeOrOpen');
       }
     }
+  },
+  methods: {
+    resetForm() {
+      this.$data.passForm.oldPass = '';
+      this.$data.passForm.password = '';
+      this.$data.passForm.checkPass = '';
+    }
   }
 });
 </script>
 <style lang="less" scoped>
-  .el-dialog {
-    position:fixed;
-    margin: 0 auto;
-  }
-
-</style>
-<style lang="less">
-
 </style>

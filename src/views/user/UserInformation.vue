@@ -2,10 +2,9 @@
   <div>
     <div id='topInfo'>
       <div id="background">
-        <img id="backgroundImg" src="https://github.com/EmilyBlues/Unity-learning/blob/master/Images/z3327.jpg">
       </div>
       <div class="profilePhoto">
-        <img id="photo"/>
+        <img id="photo" src="@/assets/test.jpg"/>
       </div>
       <div class="simpleInfo">
         <span id="student">{{student}}</span>
@@ -50,12 +49,11 @@ export default class UserInformation extends Vue {
   hideDialog() {
     this.dialogVisible = false;
   }
+
 }
 </script>
 
 <style lang="less" scoped>
-@import url("//unpkg.com/element-ui@2.4.4/lib/theme-chalk/index.css");
-
   #inline{
     position: relative;
     height: 32px;
@@ -65,10 +63,14 @@ export default class UserInformation extends Vue {
     position: relative;
     width: 200px;
     height: 200px;
-    border: solid 1px #333;
     border-radius: 50%;
     margin-left: 10%;
-    background-color: aliceblue;
+  }
+
+  #photo{
+    border-radius: 50% 50% 50% 50%;
+    width: 200px;
+    height: 200px;
   }
 
   .simpleInfo{
@@ -96,13 +98,14 @@ export default class UserInformation extends Vue {
   }
 
   #background{
-    width: calc(100% - 17.2rem);
+    width: calc(100% - 17rem);
     height: 14rem;
     position: absolute;
     margin-top: -1.5rem;
     margin-left: -1.5rem;
-    border: solid 1px black;
     clip-path: polygon(100% 0%, 100% 20%, 0% 100%, 0% 0%);
+    background-image: url('../../assets/u367.png');
+    background-size: cover;
   }
 </style>
 
