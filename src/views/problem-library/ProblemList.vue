@@ -60,6 +60,7 @@
 
 <script lang="ts">
 import { Message } from 'element-ui';
+import { setTimeout } from 'timers';
 import { Component, Vue } from 'vue-property-decorator';
 
 interface ProblemItem {
@@ -1104,13 +1105,20 @@ export default class ProblemList extends Vue {
           this.handleCurrentPageChange(this.currentPage);
           // 高亮当前行
           (this.$refs.problemTable as any).setCurrentRow(this.problemFilterData[i]);
-          // TODO: 滚动到当前行
-          const targetTop = (this.$refs.problemTable as any).$el
-            .querySelectorAll('.el-table__body tr')[i % this.pageSize].getBoundingClientRect().top;
-          const containerTop = (this.$refs.problemTable as any).$el.querySelector('.el-table__body')
-            .getBoundingClientRect().top;
-          const scrollParent = (this.$refs.problemTable as any).$el.querySelector('.el-table__body-wrapper');
-          window.scrollBy(0, targetTop - containerTop);
+
+          // 确保页面tableData渲染完才进行滚动
+          setTimeout(() => {
+            // TODO: 滚动到当前行
+            const targetTop = (this.$refs.problemTable as any).$el
+              .querySelectorAll('.el-table__body tr')[i % this.pageSize].getBoundingClientRect().top;
+            const containerTop = (this.$refs.problemTable as any).$el.querySelector('.el-table__body')
+              .getBoundingClientRect().top;
+            const scrollParent = (this.$refs.problemTable as any).$el.querySelector('.el-table__body-wrapper');
+            // 不知道为什么不会滚动
+            // window.scrollBy(0, targetTop - containerTop);
+            (this.$refs.problemTable as any).$el
+              .querySelectorAll('.el-table__body tr')[i % this.pageSize].scrollIntoView(true);
+          }, 0);
           return;
         }
       }

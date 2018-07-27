@@ -3,57 +3,22 @@
     <el-container>
       <div class="row">
         <div class="info">
-          <el-card>
-            <div class="title">近8周AC数</div>
-            <el-tooltip effect="dark" content="点击查看最近做的题目" placement="top">
-              <div id="chart-1" @click="jumpToRecentTests"></div>
-            </el-tooltip>
-          </el-card>
+          <el-tooltip effect="dark" content="点击查看最近做的题目" placement="top">
+            <ac-chart :chartData="AcChartData" v-on:jump="jumpToRecentTests"></ac-chart>
+          </el-tooltip>
         </div>
         <div class="info">
-          <div class="detail">
-            <el-card class="item">
-              <div class="title">AC数</div>
-              <div class="count">12</div>
-            </el-card>
-            <el-card class="item">
-              <div class="title">AC率</div>
-              <el-progress type="circle" :percentage="25" :width="80" style="display: flex; justify-content: center; "></el-progress>
-            </el-card>
-          </div>
-          <div class="detail">
-            <el-card class="item">
-              <div class="title">最高排名</div>
-              <div class="count">12</div>
-            </el-card>
-            <el-card class="item">
-              <div class="title">做题总数</div>
-              <div class="count">12</div>
-            </el-card>
-          </div>
+          <data-statistic :statisticInfo="statisticInfo"></data-statistic>
         </div>
       </div>
     </el-container>
     <el-container style="margin-top: 2rem;">
       <div class="row">
         <div class="info">
-          <el-card>
-            <div class="title">金字塔图</div>
-            <el-tooltip effect="dark" content="点击查看完整排行榜" placement="top">
-              <div id="chart-2" @click="jumpToRanks"></div>
-            </el-tooltip>
-          </el-card>
+          <pyramid-chart :chartData="pyramidChartData" v-on:jump="jumpToRanks"></pyramid-chart>
         </div>
         <div class="info">
-          <el-card >
-            <div class="title">排名</div>
-            <el-table :data="personalRankData" style="width: 100%; margin-top: 2rem;" stripe
-              ref="rankTable" highlight-current-row>
-              <el-table-column prop="rank" label="排名" width="50"></el-table-column>
-              <el-table-column prop="username" label="用户名" min-width="100"></el-table-column>
-              <el-table-column prop="acNumber" label="AC数" width="50"></el-table-column>
-            </el-table>
-          </el-card>
+          <rank-table :curRank="curRank" :personalRankData="personalRankData"></rank-table>
         </div>
       </div>
     </el-container>
@@ -63,14 +28,34 @@
 
 
 <script lang="ts">
+import AcChart from '@/components/statistic/AcChart.vue';
+import DataStatistic from '@/components/statistic/DataStatistic.vue';
+import PyramidChart from '@/components/statistic/PyramidChart.vue';
+import RankTable from '@/components/statistic/RankTable.vue';
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component({
-  name: 'statistic'
+  name: 'statistic',
+  components: {
+    AcChart,
+    DataStatistic,
+    RankTable,
+    PyramidChart
+  }
 })
 export default class Statistic extends Vue {
 
   curRank: number = 3;
+
+  // 个人做题信息统计: AC数/AC率/最高排名/做题总数
+  get statisticInfo() {
+    return {
+      acNum: 12,
+      acRate: 80,
+      topRank: 6,
+      totalProblems: 120
+    };
+  }
 
   // 获取个人排名数据，以及前后五个人的信息
   get personalRankData() {
@@ -97,8 +82,8 @@ export default class Statistic extends Vue {
     }];
   }
 
-  get chart1() {
-    const data = [{
+  get AcChartData() {
+    return [{
       week: '2018/05/28',
       AC: 15468
     }, {
@@ -126,32 +111,10 @@ export default class Statistic extends Vue {
       week: '2018/07/23',
       AC: 33233
     }];
-
-    const chart = new this.$G2.Chart({
-      container: 'chart-1',
-      forceFit: true,
-      height: 250,
-      padding: 40
-    });
-
-    chart.source(data);
-
-    chart.axis('AC', {
-      label: {
-        formatter: function formatter(val: any) {
-          return (val / 10000).toFixed(1) + 'k';
-        }
-      }
-    });
-
-    chart.tooltip(true);
-    chart.line().position('week*AC').size(2);
-    chart.area().position('week*AC');
-    return chart;
   }
 
-  get chart2() {
-    const data = [{
+  get pyramidChartData() {
+    return [{
       action: '浏览网站',
       pv: 50000
     }, {
@@ -167,32 +130,6 @@ export default class Statistic extends Vue {
       action: '完成交易',
       pv: 8000
     }];
-
-    const chart = new this.$G2.Chart({
-      container: 'chart-2',
-      forceFit: true,
-      height: 300,
-      padding: 70
-    });
-
-    chart.source(data);
-
-    chart.axis(false);
-    chart.coord('rect').transpose().scale(1, 1);
-    chart.tooltip(true);
-    chart.intervalSymmetric().position('action*pv').shape('pyramid')
-      .color('action', ['#0050B3', '#1890FF', '#40A9FF', '#69C0FF', '#BAE7FF'])
-      .label('action*pv', (action: any, pv: any) => {
-      return action + ' ' + pv;
-    });
-    return chart;
-  }
-
-  mounted() {
-    this.chart1.render();
-    this.chart2.render();
-    // 高亮当前所在行
-    (this.$refs.rankTable as any).setCurrentRow(this.personalRankData[this.curRank - 1]);
   }
 
   jumpToRanks() {
@@ -216,43 +153,11 @@ export default class Statistic extends Vue {
     justify-content: space-around;
   }
 
-  .title {
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-
-  .count {
-    font-size: 3.5rem;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 10px;
-    color: @color-primary;
-  }
-
-  .ac-chart, .pyramid-chart {
-    width: 50%;
-  }
-
   .info {
     width: 48%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
-    .el-card {
-      height: 100%;
-    }
-
-    .detail {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-
-      .item {
-        width: 48%;
-        height: 145px;
-      }
-    }
   }
 }
 </style>

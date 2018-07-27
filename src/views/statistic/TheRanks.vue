@@ -3,10 +3,10 @@
     <el-main>
       <el-header>
         <el-input placeholder="搜索排名/用户名" prefix-icon="el-icon-search" v-model="searchKey" clearable></el-input>
-        <el-button type="primary" @click="searchProblem">搜索</el-button>
+        <el-button type="primary" @click="searchUser">搜索</el-button>
       </el-header>
       <el-table :data="rankTable" stripe style="margin-bottom: 60px;"
-        ref="rankTable" highlight-current-row>
+        ref="rankTable" highlight-current-row @row-click="jumpToUser">
         <el-table-column prop="rank" label="名次" min-width="100"></el-table-column>
         <el-table-column prop="nickname" label="昵称" min-width="100"></el-table-column>
         <el-table-column prop="acNum" label="AC数" min-width="100"></el-table-column>
@@ -30,10 +30,12 @@
 
 <script lang="ts">
 import { Message } from 'element-ui';
+import { setTimeout } from 'timers';
 import { Component, Vue } from 'vue-property-decorator';
 
 interface IRankItem {
   rank: number;
+  userId: number;
   nickname: string;
   acNum: string;
   acRate: string;
@@ -67,7 +69,7 @@ export default class Ranks extends Vue {
       array.slice(offset, array.length) : array.slice(offset, offset + pageSize);
   }
 
-  searchProblem() {
+  searchUser() {
     if (!!this.searchKey) {
       for (let i = 0; i < this.rankData.length; i++) {
         // 这里的rank为number 进行了转换
@@ -79,12 +81,16 @@ export default class Ranks extends Vue {
           // 高亮当前行
           (this.$refs.rankTable as any).setCurrentRow(this.rankData[i]);
           // 滚动到当前行
-          const targetTop = (this.$refs.rankTable as any).$el
-            .querySelectorAll('.el-table__body tr')[i % this.pageSize].getBoundingClientRect().top;
-          const containerTop = (this.$refs.rankTable as any).$el.querySelector('.el-table__body')
-            .getBoundingClientRect().top;
-          const scrollParent = (this.$refs.rankTable as any).$el.querySelector('.el-table__body-wrapper');
-          window.scrollBy(0, targetTop - containerTop);
+          setTimeout(() => {
+            const targetTop = (this.$refs.rankTable as any).$el
+              .querySelectorAll('.el-table__body tr')[i % this.pageSize].getBoundingClientRect().top;
+            const containerTop = (this.$refs.rankTable as any).$el.querySelector('.el-table__body')
+              .getBoundingClientRect().top;
+            const scrollParent = (this.$refs.rankTable as any).$el.querySelector('.el-table__body-wrapper');
+            // window.scrollBy(0, targetTop - containerTop);
+            (this.$refs.rankTable as any).$el
+              .querySelectorAll('.el-table__body tr')[i % this.pageSize].scrollIntoView(true);
+          }, 0);
           return;
         }
       }
@@ -99,148 +105,176 @@ export default class Ranks extends Vue {
     }
   }
 
+  jumpToUser(row: IRankItem) {
+    this.$router.push({ path: '/user/' + row.userId});
+  }
+
   mounted() {
     // 获取完整排行榜数据
     this.rankData = [{
       rank: 1,
+      userId: 1,
       nickname: '假同学',
       acNum: '200',
       acRate: '99.7%',
       registerDate: '2018-07-18'
     }, {
       rank: 2,
+      userId: 2,
       nickname: '好同学',
       acNum: '200',
       acRate: '99.7%',
       registerDate: '2018-07-18'
     }, {
       rank: 3,
+      userId: 1,
       nickname: '坏同学',
       acNum: '200',
       acRate: '99.7%',
       registerDate: '2018-07-18'
     }, {
       rank: 4,
+      userId: 1,
       nickname: '假同学',
       acNum: '200',
       acRate: '99.7%',
       registerDate: '2018-07-18'
     }, {
       rank: 5,
+      userId: 1,
       nickname: '好同学',
       acNum: '200',
       acRate: '99.7%',
       registerDate: '2018-07-18'
     }, {
       rank: 6,
+      userId: 1,
       nickname: '坏同学',
       acNum: '200',
       acRate: '99.7%',
       registerDate: '2018-07-18'
     }, {
       rank: 7,
+      userId: 1,
       nickname: '假同学',
       acNum: '200',
       acRate: '99.7%',
       registerDate: '2018-07-18'
     }, {
       rank: 8,
+      userId: 1,
       nickname: '好同学',
       acNum: '200',
       acRate: '99.7%',
       registerDate: '2018-07-18'
     }, {
       rank: 9,
+      userId: 1,
       nickname: '坏同学',
       acNum: '200',
       acRate: '99.7%',
       registerDate: '2018-07-18'
     }, {
       rank: 10,
+      userId: 1,
       nickname: '假同学',
       acNum: '200',
       acRate: '99.7%',
       registerDate: '2018-07-18'
     }, {
       rank: 11,
+      userId: 1,
       nickname: '好同学',
       acNum: '200',
       acRate: '99.7%',
       registerDate: '2018-07-18'
     }, {
       rank: 12,
+      userId: 1,
       nickname: '坏同学',
       acNum: '200',
       acRate: '99.7%',
       registerDate: '2018-07-18'
     }, {
       rank: 13,
+      userId: 1,
       nickname: '假同学',
       acNum: '200',
       acRate: '99.7%',
       registerDate: '2018-07-18'
     }, {
       rank: 14,
+      userId: 1,
       nickname: '好同学',
       acNum: '200',
       acRate: '99.7%',
       registerDate: '2018-07-18'
     }, {
       rank: 15,
+      userId: 1,
       nickname: '坏同学',
       acNum: '200',
       acRate: '99.7%',
       registerDate: '2018-07-18'
     }, {
       rank: 16,
+      userId: 1,
       nickname: '假同学',
       acNum: '200',
       acRate: '99.7%',
       registerDate: '2018-07-18'
     }, {
       rank: 17,
+      userId: 1,
       nickname: '好同学',
       acNum: '200',
       acRate: '99.7%',
       registerDate: '2018-07-18'
     }, {
       rank: 18,
+      userId: 1,
       nickname: '坏同学',
       acNum: '200',
       acRate: '99.7%',
       registerDate: '2018-07-18'
     }, {
       rank: 19,
+      userId: 1,
       nickname: '假同学',
       acNum: '200',
       acRate: '99.7%',
       registerDate: '2018-07-18'
     }, {
       rank: 20,
+      userId: 1,
       nickname: '好同学',
       acNum: '200',
       acRate: '99.7%',
       registerDate: '2018-07-18'
     }, {
       rank: 21,
+      userId: 1,
       nickname: '坏同学',
       acNum: '200',
       acRate: '99.7%',
       registerDate: '2018-07-18'
     }, {
       rank: 22,
+      userId: 1,
       nickname: '假同学',
       acNum: '200',
       acRate: '99.7%',
       registerDate: '2018-07-18'
     }, {
       rank: 23,
+      userId: 1,
       nickname: '好同学',
       acNum: '200',
       acRate: '99.7%',
       registerDate: '2018-07-18'
     }, {
       rank: 24,
+      userId: 1,
       nickname: 'ss同学',
       acNum: '200',
       acRate: '99.7%',
@@ -286,6 +320,10 @@ export default class Ranks extends Vue {
     display: flex;
     align-items:center;
     justify-content:center;
+  }
+
+  .el-table__row:hover {
+    cursor: pointer;
   }
 }
 </style>
