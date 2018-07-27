@@ -8,7 +8,7 @@
         <el-aside width="240px" class="aside">
           <NavList></NavList>
         </el-aside>
-          <el-container direction="vertical">
+          <el-container style="height: 100vh">
             <LoginForm :dialogFormVisible="dialogFormVisible" @hideDialog="hideDialog"></LoginForm>
             <el-main class="main">
               <router-view></router-view>

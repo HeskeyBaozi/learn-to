@@ -54,6 +54,7 @@
 
 <script lang="ts">
 import { Message } from 'element-ui';
+import { setTimeout } from 'timers';
 import { Component, Vue } from 'vue-property-decorator';
 
 interface IRecord {
@@ -110,12 +111,15 @@ export default class RecentTests extends Vue {
           // 高亮当前行
           (this.$refs.recordTable as any).setCurrentRow(this.problemFilterData[i]);
           // TODO: 滚动到当前行
-          const targetTop = (this.$refs.recordTable as any).$el
-            .querySelectorAll('.el-table__body tr')[i % this.pageSize].getBoundingClientRect().top;
-          const containerTop = (this.$refs.recordTable as any).$el.querySelector('.el-table__body')
-            .getBoundingClientRect().top;
-          const scrollParent = (this.$refs.recordTable as any).$el.querySelector('.el-table__body-wrapper');
-          window.scrollBy(0, targetTop - containerTop);
+          setTimeout(() => {
+            const targetTop = (this.$refs.recordTable as any).$el
+              .querySelectorAll('.el-table__body tr')[i % this.pageSize].getBoundingClientRect().top;
+            const containerTop = (this.$refs.recordTable as any).$el.querySelector('.el-table__body')
+              .getBoundingClientRect().top;
+            const scrollParent = (this.$refs.recordTable as any).$el.querySelector('.el-table__body-wrapper');
+            (this.$refs.recordTable as any).$el
+              .querySelectorAll('.el-table__body tr')[i % this.pageSize].scrollIntoView(true);
+          }, 0);
           return;
         }
       }
@@ -308,7 +312,7 @@ export default class RecentTests extends Vue {
       },
       {
         problemId: 203,
-        problemName: 'xxxxxxx',
+        problemName: 'zzzz',
         submit: 10,
         lastSubmit: '2018-07-20',
         publishDate: '2018-7-7',

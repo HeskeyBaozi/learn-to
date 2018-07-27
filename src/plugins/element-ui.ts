@@ -11,6 +11,7 @@ import {
   Card,
   Carousel,
   CarouselItem,
+  Checkbox,
   Col,
   Container,
   Dialog,
@@ -34,7 +35,8 @@ import {
   Table,
   TableColumn,
   Tag,
-  Tooltip
+  Tooltip,
+  Upload
 } from 'element-ui';
 import { VueConstructor } from 'vue';
 
@@ -51,6 +53,7 @@ export default {
       Card,
       Carousel,
       CarouselItem,
+      Checkbox,
       Col,
       Container,
       Input,
@@ -74,7 +77,8 @@ export default {
       TableColumn,
       Tag,
       Tooltip,
-      (Loading as any).directive
+      (Loading as any).directive,
+      Upload
     ];
     for (const component of components) {
       Vue.use(component);
