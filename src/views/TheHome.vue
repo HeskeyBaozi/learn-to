@@ -1,5 +1,5 @@
 <template>
-  <el-container id="home">
+  <el-container id="home" direction="vertical">
     <el-main>
       <el-carousel height="200px" width="1000px">
         <el-carousel-item v-for="item in 3" :key="item">
@@ -45,8 +45,10 @@
           </el-table>
         </el-main>
       </el-container>
-
     </el-main>
+    <el-footer>
+      <img src="@/assets/u367.png" id="home-bottom-image"/>
+    </el-footer>
   </el-container>
 </template>
 
@@ -57,7 +59,8 @@ import { Component, Vue } from 'vue-property-decorator';
   name: 'home'
 })
 export default class Ranks extends Vue {
-  newProblems = [
+  get newProblems() {
+    return [
   {
     problemId: 10000,
     problemName: '第一题',
@@ -103,8 +106,9 @@ export default class Ranks extends Vue {
     problemName: '第六题',
     releaseTime: '2018-07-28'
   }
-  ];
-  hotProblems = [
+  ]; }
+  get hotProblems() {
+    return [
     {
       problemId: 10001,
       problemName: '第一题',
@@ -155,8 +159,9 @@ export default class Ranks extends Vue {
       problemName: '第三题',
       acRate: '12%'
     }
-  ];
-  ranks = [
+  ]; }
+  get ranks() {
+    return [
     {
       rank: 1,
       username: 'ljh',
@@ -207,7 +212,7 @@ export default class Ranks extends Vue {
       username: 'ljh',
       acNum: 100
     }
-  ];
+  ]; }
 }
 </script>
 
@@ -258,6 +263,17 @@ export default class Ranks extends Vue {
   }
   .home-module-3 .el-aside {
     padding-top: 16px;
+  }
+  #home {
+    .el-footer {
+      padding: 0px;
+      width: 105%;
+      margin-left: -20px;
+      padding-right: -20px;
+    }
+  }
+  #home-bottom-image {
+    width: 100%;
   }
 </style>
 
