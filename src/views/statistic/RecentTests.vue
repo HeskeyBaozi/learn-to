@@ -54,8 +54,8 @@
 
 <script lang="ts">
 import { Message } from 'element-ui';
-import { Component, Vue } from 'vue-property-decorator';
 import { setTimeout } from 'timers';
+import { Component, Vue } from 'vue-property-decorator';
 
 interface IRecord {
   problemId: number;
