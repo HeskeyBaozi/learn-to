@@ -8,17 +8,17 @@
         <el-aside width="240px" class="aside">
           <NavList></NavList>
         </el-aside>
-          <el-container>
+          <el-container direction="vertical">
             <LoginForm :dialogFormVisible="dialogFormVisible" @hideDialog="hideDialog"></LoginForm>
             <el-main class="main">
               <router-view></router-view>
             </el-main>
-            <!-- <el-footer>
+             <!--<el-footer>
               <div>
                 <p>现在是 {{ Date.now() | format }}</p>
                 <p>2017年10月1日距离现在 {{ Date.now() | formatDistance(new Date(2017, 10, 1)) }}</p>
               </div>
-            </el-footer> -->
+            </el-footer>-->
            </el-container>
       </el-container>
     </el-container>
