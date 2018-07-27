@@ -2,7 +2,7 @@
   <el-container>
     <el-header>
       <div id="buttons">
-        <el-button type="primary">标为已读</el-button>
+        <el-button type="primary">标记为已读</el-button>
         <el-button>删除</el-button>
       </div>
       <div id="checkBox">
@@ -1745,6 +1745,14 @@ export default class UserNotification extends Vue {
   }
   .isChecked{
     float: right;
+  }
+  .fixed-footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    height: 64px;
+    width: calc(100% - 200px);
+    background: #fff;
   }
 </style>
 

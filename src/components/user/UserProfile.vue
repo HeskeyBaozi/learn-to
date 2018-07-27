@@ -2,7 +2,9 @@
   <el-card class="box-card">
     <div slot="header" class="clearfix">
       <span id="title">个人信息</span>
-      <el-button type="primary" icon="el-icon-edit">编辑</el-button>
+      <el-button type="primary">
+        <icon-text icon="pencil-alt" text="编辑"/>
+      </el-button>
     </div>
     <div class="text-item">
       <span>手机:</span>{{mobile}}

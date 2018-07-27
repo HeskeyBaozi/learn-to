@@ -2,7 +2,7 @@
   <div>
     <div id='topInfo'>
       <div id="background">
-        <img id="backgroundImg" src="https://img-blog.csdn.net/20180725194648700?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0VtaWx5Qmx1c2U=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+        <img id="backgroundImg" src="https://github.com/EmilyBlues/Unity-learning/blob/master/Images/z3327.jpg">
       </div>
       <div class="profilePhoto">
         <img id="photo"/>
@@ -72,9 +72,13 @@ export default class UserInformation extends Vue {
   }
 
   .simpleInfo{
-    position: absolute;
-    margin-left: 23.6rem;
-    margin-top: -5.1rem;
+    position: relative;
+    margin-left: 22rem;
+    top: -5.1rem;
+  }
+
+  #user-information{
+    margin-top: -2.5rem;
   }
 
   #student{
@@ -92,11 +96,12 @@ export default class UserInformation extends Vue {
   }
 
   #background{
-    width: 80%;
+    width: calc(100% - 17.2rem);
     height: 14rem;
     position: absolute;
-    //margin-top: -1.5rem;
+    margin-top: -1.5rem;
     margin-left: -1.5rem;
+    border: solid 1px black;
     clip-path: polygon(100% 0%, 100% 20%, 0% 100%, 0% 0%);
   }
 </style>
