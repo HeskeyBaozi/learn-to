@@ -38,6 +38,7 @@ import {
   Tooltip,
   Upload
 } from 'element-ui';
+import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
 import { VueConstructor } from 'vue';
 
 export default {
@@ -83,6 +84,7 @@ export default {
     for (const component of components) {
       Vue.use(component);
     }
+    Vue.component(CollapseTransition.name, CollapseTransition);
 
     // 原型链方法引入
     Vue.prototype.$notify = Notification; // 通知

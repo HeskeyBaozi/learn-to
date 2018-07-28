@@ -1,74 +1,94 @@
 <template>
-  <div id="basic-layout">
-    <el-container>
+  <el-container id="basic-layout" :class="basicLayoutClassName">
+    <el-aside :width="leftSiderWidth" class="sider">
+      <left-sider :isCollapse="isCollapse"></left-sider>
+    </el-aside>
+    <el-container class="inner-container">
       <el-header class="header">
-        <top-nav @showDialog="showDialog"></top-nav>
+        <top-nav :isCollapse="isCollapse" @toggle-collapse="toggleCollapse"></top-nav>
       </el-header>
-      <el-container>
-        <el-aside width="240px" class="aside">
-          <NavList></NavList>
-        </el-aside>
-          <el-container style="height: 100vh">
-            <LoginForm :dialogFormVisible="dialogFormVisible" @hideDialog="hideDialog"></LoginForm>
-            <el-main class="main">
-              <router-view></router-view>
-            </el-main>
-             <!--<el-footer>
-              <div>
-                <p>现在是 {{ Date.now() | format }}</p>
-                <p>2017年10月1日距离现在 {{ Date.now() | formatDistance(new Date(2017, 10, 1)) }}</p>
-              </div>
-            </el-footer>-->
-           </el-container>
-      </el-container>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
+      <el-footer>Footer</el-footer>
     </el-container>
-  </div>
+  </el-container>
 </template>
 
 <script lang="ts">
 import NavList from '@/components/NavList.vue';
 import LoginForm from '@/components/user/LoginForm.vue';
+import LeftSider from '@/views/global/LeftSider.vue';
 import TopNav from '@/views/global/TopNav.vue';
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component({
   name: 'basic-layout',
   components: {
-    LoginForm,
-    TopNav,
-    NavList
+    LeftSider,
+    TopNav
   }
 })
 export default class BasicLayout extends Vue {
-  dialogFormVisible = false;
-  showDialog() {
-    this.dialogFormVisible = true;
+  isCollapse = true;
+
+  get leftSiderWidth() {
+    return this.isCollapse ? '64px' : '240px';
   }
-  hideDialog() {
-    this.dialogFormVisible = false;
+
+  get basicLayoutClassName() {
+    return {
+      ['is-collapse']: this.isCollapse
+    };
+  }
+
+  toggleCollapse() {
+    // tslint:disable-next-line:no-console
+    console.log('hello');
+    this.isCollapse = !this.isCollapse;
   }
 }
 </script>
 
 <style lang="less" scoped>
 #basic-layout {
-  .header {
-    background-color: @color-primary;
-    box-shadow: @box-shadow-base;
-    z-index: 1;
+  .sider {
     position: fixed;
-    width: 100%;
-    padding: 0px;
+    top: 0;
+    left: 0;
+    z-index: @index-top + 1;
+    box-shadow: @box-shadow-base;
+    transition: all 0.3s;
+    min-height: 100vh;
+    background-color: @color-white;
   }
 
-  .main {
-    background-color: @background-color-base;
-    z-index: 0;
-    margin-top: 60px;
+  .inner-container {
+    padding-top: @header-height;
+    padding-left: @aside-width;
+    transition: all 0.3s;
+    .header {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: @aside-width;
+      padding: 0; // override element-ui default padding.
+      z-index: @index-top;
+      box-shadow: @box-shadow-base;
+      transition: all 0.3s;
+      overflow: hidden;
+      background-color: @color-primary;
+      color: @color-white;
+    }
   }
-  .aside {
-    padding-top: 60px;
-    z-index: 0;
+}
+
+.is-collapse {
+  .inner-container {
+    padding-left: @aside-collapse-width !important;
+    .header {
+      left: @aside-collapse-width !important;
+    }
   }
 }
 </style>

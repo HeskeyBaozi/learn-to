@@ -1,51 +1,85 @@
 <template>
-  <el-container id="top-nav">
-    <div class="logo-wrapper" @click="backToHome">
-      MOJ Logo
+  <el-container id="top-nav" :class="topNavClassName">
+    <div class="collapse-button" @click="toggleCollapse">
+      <fa-icon :icon="['fas', 'indent']"></fa-icon>
     </div>
-    <div class="menu">
-      <el-menu
-        mode="horizontal"
-        background-color="#409EFF"
-        text-color="white"
-        active-text-color="white"
-        @select="showLogin"
-      >
-        <el-menu-item index="login" >
-          <icon-text icon="user-circle" text="登录/注册"/>
-        </el-menu-item>
-      </el-menu>
+    <div class="nav">
+      <div class="nav-item">
+        <icon-text icon="user-circle" text="登录" />
+      </div>
     </div>
   </el-container>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
 
 @Component({
   name: 'top-nav'
 })
 export default class TopNav extends Vue {
-  backToHome() {
-    this.$router.push('/');
+  @Prop({
+    type: Boolean,
+    required: true
+  })
+  isCollapse!: boolean;
+
+  get topNavClassName() {
+    return {
+      ['is-collapse']: this.isCollapse
+    };
   }
-  showLogin() {
-    this.$emit('showDialog');
+
+  @Emit('toggle-collapse')
+  toggleCollapse() {
+    // noop
   }
 }
 </script>
 
 <style lang="less" scoped>
+// General style fro navigation block.
+// For example: login block, sider block...
+.nav-block {
+  transition: all 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1rem;
+  cursor: pointer;
+  &:hover {
+    background-color: @color-primary-light-2;
+  }
+}
 #top-nav {
   height: 100%;
   justify-content: space-between;
+  padding-right: 1rem;
 
-  .logo-wrapper {
+  .collapse-button {
+    .nav-block;
+    transition: all 0.3s;
+    padding: 0 2rem;
+    svg {
+      transform: rotate(180deg);
+    }
+  }
+
+  .nav {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 10rem;
-    cursor: pointer;
+    flex-flow: row nowrap;
+
+    .nav-item {
+      .nav-block;
+    }
+  }
+}
+
+.is-collapse {
+  .collapse-button {
+    svg {
+      transform: rotate(0deg) !important;
+    }
   }
 }
 </style>
