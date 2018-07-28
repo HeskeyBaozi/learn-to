@@ -6,15 +6,13 @@
 
 ## 开发环境搭建
 
-安装`Node.js`、`yarn`、`vscode`、`python 2.7`、`vue-devtool`。
+安装`Node.js`、`yarn`、`vscode`、`vue-devtool`。
 
 `Node.js`：https://nodejs.org/en/ 安装`LTS`版本即可。
 
 `yarn`：安装地址：https://yarnpkg.com/zh-Hans/docs/install#windows-stable 如何使用：https://yarnpkg.com/zh-Hans/docs/usage
 
 `vscode`：https://code.visualstudio.com/ 请注意安装相关`Vetur`、`TSLint`、`TSLint Vue`、`EditorConfig for VS Code`四个插件
-
-`python 2.7`：https://www.python.org/downloads/ 用于解决安装`node-sass`失败问题
 
 `vue-devtool`：https://github.com/vuejs/vue-devtools `Chrome`插件，用于`Vuex`数据流可视化开发
 
@@ -48,6 +46,7 @@ yarn run test:unit # 单元测试
 - `Vuex`的组件类式写法：https://github.com/ktsn/vuex-class 语法糖
 - `Typescript`文档：https://www.tslang.cn/docs/handbook/modules.html 了解什么是接口（interface），如何导入模块，如何标注一个函数的类型？接口写法通常在其他静态语言中以字母`I`开头，此命名方式不同人各有所爱。特别地，在本项目中，模块名中的`@/`是路径语法糖，表示`src/`。
 - `Sass`语法：https://www.sass.hk/docs/ 了解嵌套规则、父选择器`&`、变量`$`
+- `Less`语法和`Sass`语法大同小异，注意变量通常以`@`
 - 发起请求通常是在`Vuex Action`中，请求到的数据通过`commit mutation`，将数据和状态（state）“融合”，反应到当前视图（view）中
 - 本项目中一个写`Vuex`模块的例子todo：[example.ts](./src/stores/example.ts)
 
@@ -58,3 +57,27 @@ yarn run test:unit # 单元测试
 命名遵循最小化描述原则，若新增一个组件A，则分支命名通常为`feature/component/A`。
 
 新增特性前缀用`feature/`，`bug`修复前缀用`hotfix/`。
+
+### 样式写法原则
+
+能用`class`选择器不用`id`选择器。
+
+只有设计稿特定的像素值外，其他一律使用`rem`作为基本单位。`1rem = 14px`。
+
+比如留一个小小的间隙：`margin-bottom: 1rem;`。
+
+嵌套写法好过不嵌套写法，因为嵌套写法特定级别更高，样式规则越优先。
+
+关于样式和`element-ui`样式，只有`scoped`有作用于的样式不起作用的时候，才使用没有作用域的样式。
+
+而且在没有作用域的样式下，**一定要嵌套写法**以最小化样式冲突。
+
+### 组件原则
+
+写一个组件就是写一个类，类的响应式数据（原对象中的`data`）应该越少越好，其他数据从原有的响应式数据通过计算属性衍生出来。
+
+一个组件只做一件事情，比如登录表单组件，应该只包含表单，而不应该包含对话框。
+
+### 其他
+
+确保`Vetur`安装之后，在`vscode`中使用快捷键`shift + alt + F`即可快速代码整洁化，通常只会整洁`ts`和`less`。`html`模板部分需要按`ctrl + 逗号`打开用户设置，在用户设置中设置`"vetur.format.defaultFormatter.html": "js-beautify-html"`即可。
