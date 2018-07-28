@@ -61,7 +61,8 @@
 
 /* Font
 -------------------------- */
-@font-size-base: 14px; // 在组件中也可以使用 1rem 来表示字体大小, 1rem = 14px
+@font-size-base: 14px; // 正文字体大小，在组件中也可以使用 1rem 来表示字体大小, 1rem = 14px
+@font-size-small-title: 16px; // 一般的小标题字体大小，注意！这个不是element-ui默认的变量，不会覆盖element-ui本身的样式
 @font-size-small: 13px;
 @font-size-large: 18px;
 @font-color-disabled-base: #bbb;
@@ -92,3 +93,10 @@
 @md: 992px;
 @lg: 1200px;
 @xl: 1920px;
+
+/* Other Custom 下面都是额外的变量，不会覆盖element-ui本身的样式
+--------------------------*/
+@aside-width: 240px; // 非折叠下侧边栏宽度
+@aside-collapse-width: 64px; // 折叠下侧边栏宽度
+@header-height: 60px; // 顶部高度
+

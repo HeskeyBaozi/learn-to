@@ -1,141 +1,103 @@
 <template>
-<div id="login-form">
-  <el-dialog :visible.sync="show" :show-close="true" width="720px"
-  @close="show=false;">
-    <el-container style="float: left; width: 720px;">
-      <el-aside width="360px">
-        <img src="@/assets/logo.png"/>
-      </el-aside>
-    <el-main width="360px">
-      <transition name="el-zoom-in-center">
-      <el-form v-show="showLogin">
-        <el-form-item style="text-align: center;" v-show="showLogin" key="1">
-          <img src="@/assets/test.jpg" id="login-userlogo"/>
-        </el-form-item>
-        <el-form-item  v-show="showLogin" key="2">
-          <el-input v-model="loginform.name" placeholder="请输入账号"></el-input>
-        </el-form-item>
-        <el-form-item  v-show="showLogin" key="3">
-          <el-input v-model="loginform.password" placeholder="请输入密码"></el-input>
-        </el-form-item> 
-        <el-form-item  v-show="showLogin" key="4">
-          <p id="forget-password">忘记密码</p>
-        </el-form-item>
-      </el-form>
-      </transition>
-      <transition name="el-zoom-in-center">
-        <el-form v-show="!showLogin" class="register-form">
-          <el-form-item  v-show="!showLogin" key="5" style="padding-top: 60px;">
-            <el-input v-model="registerform.name" placeholder="请输入用户名"></el-input>
+  <div id="login-form">
+    <el-tabs v-model="status">
+      <el-tab-pane label="登录" name="login">
+        <div class="avatar-wrapper">
+          <img class="avatar" src="http://via.placeholder.com/120x120" alt="avatar">
+        </div>
+        <el-form class="login-form" :model="loginForm" ref="loginForm">
+          <el-form-item prop="pass">
+            <el-input type="text" auto-complete="off" placeholder="请输入用户名">
+              <template slot="prefix">
+                <fa-icon class="prefix" icon="user-circle"></fa-icon>
+              </template>
+            </el-input>
           </el-form-item>
-          <el-form-item  v-show="!showLogin" key="6">
-            <el-input v-model="registerform.password" placeholder="请输入密码"></el-input>
+          <el-form-item prop="checkPass">
+            <el-input type="password" auto-complete="off" placeholder="请输入密码">
+              <template slot="prefix">
+                <fa-icon class="prefix" icon="lock"></fa-icon>
+              </template>
+            </el-input>
           </el-form-item>
-          <el-form-item  v-show="!showLogin" key="7">
-            <el-input v-model="registerform.repeatPassword" placeholder="确认密码"></el-input>
+          <el-form-item prop="age">
+            <el-col :span="12">
+              <el-checkbox>记住我</el-checkbox>
+            </el-col>
+            <el-col class="forget-password-wrapper" :span="12">
+              <a href="#">忘记密码</a>
+            </el-col>
           </el-form-item>
-          <el-form-item  v-show="!showLogin" key="8">
-            <el-input v-model="registerform.email" placeholder="请输入邮箱"></el-input>
+          <el-form-item>
+            <el-col :span="11">
+              <el-button class="form-button">
+                <icon-text icon="undo" text="清空"></icon-text>
+              </el-button>
+            </el-col>
+            <el-col :offset="2" :span="11">
+              <el-button class="form-button" type="primary">
+                <icon-text icon="check" text="登录"></icon-text>
+              </el-button>
+            </el-col>
           </el-form-item>
         </el-form>
-      </transition>
-      <el-button class="regOrLogin" v-show="showLogin" @click="showLogin=!showLogin"
-        key="register">快速注册</el-button>
-      <el-button v-show="showLogin"
-        key="login" class="enter">进入MOJ</el-button>
-      <el-button class="regOrLogin" v-show="!showLogin" @click="showLogin=!showLogin"
-        key="return">返回登陆</el-button>
-      <el-button v-show="!showLogin"
-        key="registered" class="enter">注册</el-button>
-    </el-main>
-    </el-container>
-  </el-dialog>
-</div>
+      </el-tab-pane>
+      <el-tab-pane label="注册" name="register">配置管理</el-tab-pane>
+    </el-tabs>
+
+  </div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+
+type LoginFormStatus = 'login' | 'register';
 
 @Component({
   name: 'LoginForm'
 })
 export default class LoginForm extends Vue {
-  @Prop(Boolean) dialogFormVisible!: boolean;
+  status: LoginFormStatus = 'login';
+
   loginform = {
     name: '',
     password: ''
   };
-  registerform = {
-    name : '',
-    password: '',
-    repeatPassword: '',
-    email: ''
-  };
-  showLogin = true;
-  get show(): boolean {
-    return this.dialogFormVisible;
-  }
-  set show(newValue) {
-    this.$emit('hideDialog');
-  }
 }
 </script>
 <style lang="less" scoped>
-  .el-dialog {
-    position:fixed;
-    margin: 0 auto;
-    height: 480px;
+#login-form {
+  .avatar-wrapper {
+    margin: 1rem 0 2rem 0;
+    text-align: center;
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      box-shadow: @box-shadow-base;
+    }
   }
-  #login-userlogo {
-    width: 120px;
-    border-radius: 50% 50% 50% 50%;
+  .login-form {
+    .prefix {
+      width: 1.5rem;
+    }
+    .forget-password-wrapper {
+      text-align: right;
+    }
+
+    .form-button {
+      width: 100%;
+    }
   }
-  #forget-password {
-    margin-top: -10px;
-    margin-bottom: 0px;
-    text-align: right;
-    color: rgb(64, 158, 255);
-  }
+}
 </style>
 <style lang="less">
- #login-form {
-    .el-dialog__body {
-      padding: 0px;
-    }
-    .el-dialog__header {
-      padding: 20px;
-    }
-    .el-form-item {
-      margin-bottom: 24px;
-    }
-    .el-dialog__footer {
-      padding-top: 0px;
-      padding-left: 24px;
-      padding-right: 24px;
-      text-align: left;
-    }
-    .el-dialog {
-      height: 480px;
-    }
-    .el-main {
-      padding-left: 32px;
-      padding-right: 32px;
-    }
-    .el-button {
-      box-sizing: border-box;
-      height: 40px;
-      width: 100px;
-      margin-left: 0px;
+#login-form {
+  .el-tabs__header {
+    width: min-content;
+    margin: 0 auto 1rem;
+    .el-tabs__nav-wrap::after {
+      background-color: initial;
     }
   }
-  .regOrLogin.el-button {
-    margin-right: 95px;
-  }
-  .el-button.enter {
-    background-color: rgb(64, 158, 255);
-    color: white;
-  }
-  .el-button.enter:hover {
-    background-color: rgb(102, 177, 255);
-    color: white;
-  }
+}
 </style>

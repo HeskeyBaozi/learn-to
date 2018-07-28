@@ -16,11 +16,6 @@ export default new Router({
       component: BasicLayout,
       children: [
         {
-          path: '',
-          name: '',
-          component: Home
-        },
-        {
           path: 'home',
           name: 'home',
           component: Home

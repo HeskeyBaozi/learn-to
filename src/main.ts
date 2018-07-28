@@ -1,6 +1,3 @@
-/**
- * App 应用入口
- */
 import CommonComponents from '@/plugins/common';
 import ElementUI from '@/plugins/element-ui';
 import FontAwesome from '@/plugins/font-awesome';

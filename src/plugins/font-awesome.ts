@@ -12,8 +12,19 @@
  */
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faGithub, faWeibo } from '@fortawesome/free-brands-svg-icons';
-import { faBell, faListAlt} from '@fortawesome/free-regular-svg-icons';
-import { faCheck, faList, faPencilAlt, faReply, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import {
+  faUser
+} from '@fortawesome/free-regular-svg-icons';
+import {
+  faChartBar,
+  faCheck,
+  faClipboardList,
+  faHome,
+  faIndent,
+  faLock,
+  faUndo,
+  faUserCircle
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import { VueConstructor } from 'vue';
@@ -22,15 +33,28 @@ export default {
   install(Vue: VueConstructor, options = {}) {
     // 添加 solid 图标，可以不用传数组，直接传入名称即可
     // e.g. <fa-icon icon="user"/>
-    library.add(...[faCheck, faList, faUserCircle, faReply, faPencilAlt]);
+    library.add(
+      faUserCircle,
+      faIndent,
+      faHome,
+      faClipboardList,
+      faChartBar,
+      faLock,
+      faCheck,
+      faUndo
+    );
 
     // 添加 regular 图标，需要传入数组
     // e.g. <fa-icon :icon="['far', 'list-alt']"/>
-    library.add(...[faListAlt, faBell]);
+    library.add(
+      faUser
+    );
 
     // 添加 brands 图标，需要传入数组
     // e.g. <fa-icon :icon="['fab', 'github']"/>
-    library.add(...[faGithub, faWeibo]);
+    library.add(
+
+    );
 
     Vue.component('fa-icon', FontAwesomeIcon);
   }
