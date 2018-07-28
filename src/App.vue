@@ -19,12 +19,21 @@ export default class App extends Vue {}
 <style src="element-ui/lib/theme-chalk/index.css"></style>
 
 <style lang="less">
-
 html {
   font-size: @font-size-base; // 正文文本 14px
-}
-body {
   font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
     "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  color: @color-text-primary;
+}
+
+body {
+  background-color: @background-color-base;
+}
+
+a {
+  color: @link-color;
+  &:hover {
+    color: @link-hover-color;
+  }
 }
 </style>
