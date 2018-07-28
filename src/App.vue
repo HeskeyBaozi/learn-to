@@ -21,8 +21,8 @@ export default class App extends Vue {}
 <style lang="less">
 html {
   font-size: @font-size-base; // 正文文本 14px
-  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
-    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
   color: @color-text-primary;
 }
 
@@ -32,6 +32,7 @@ body {
 
 a {
   color: @link-color;
+  text-decoration: none;
   &:hover {
     color: @link-hover-color;
   }

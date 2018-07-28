@@ -2,6 +2,9 @@
   <div id="login-form">
     <el-tabs v-model="status">
       <el-tab-pane label="登录" name="login">
+        <div class="avatar-wrapper">
+          <img class="avatar" src="http://via.placeholder.com/120x120" alt="avatar">
+        </div>
         <el-form class="login-form" :model="loginForm" ref="loginForm">
           <el-form-item prop="pass">
             <el-input type="text" auto-complete="off" placeholder="请输入用户名">
@@ -18,11 +21,24 @@
             </el-input>
           </el-form-item>
           <el-form-item prop="age">
-            <el-input></el-input>
+            <el-col :span="12">
+              <el-checkbox>记住我</el-checkbox>
+            </el-col>
+            <el-col class="forget-password-wrapper" :span="12">
+              <a href="#">忘记密码</a>
+            </el-col>
           </el-form-item>
           <el-form-item>
-            <el-button>重置</el-button>
-            <el-button type="primary">登录</el-button>
+            <el-col :span="11">
+              <el-button class="form-button">
+                <icon-text icon="undo" text="清空"></icon-text>
+              </el-button>
+            </el-col>
+            <el-col :offset="2" :span="11">
+              <el-button class="form-button" type="primary">
+                <icon-text icon="check" text="登录"></icon-text>
+              </el-button>
+            </el-col>
           </el-form-item>
         </el-form>
       </el-tab-pane>
@@ -50,9 +66,26 @@ export default class LoginForm extends Vue {
 </script>
 <style lang="less" scoped>
 #login-form {
+  .avatar-wrapper {
+    margin: 1rem 0 2rem 0;
+    text-align: center;
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      box-shadow: @box-shadow-base;
+    }
+  }
   .login-form {
     .prefix {
       width: 1.5rem;
+    }
+    .forget-password-wrapper {
+      text-align: right;
+    }
+
+    .form-button {
+      width: 100%;
     }
   }
 }

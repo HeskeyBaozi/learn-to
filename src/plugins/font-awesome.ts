@@ -17,10 +17,12 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 import {
   faChartBar,
+  faCheck,
   faClipboardList,
   faHome,
   faIndent,
   faLock,
+  faUndo,
   faUserCircle
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -37,7 +39,9 @@ export default {
       faHome,
       faClipboardList,
       faChartBar,
-      faLock
+      faLock,
+      faCheck,
+      faUndo
     );
 
     // 添加 regular 图标，需要传入数组
