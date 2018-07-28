@@ -34,6 +34,8 @@ import {
   Select,
   Table,
   TableColumn,
+  TabPane,
+  Tabs,
   Tag,
   Tooltip,
   Upload
@@ -79,7 +81,9 @@ export default {
       Tag,
       Tooltip,
       (Loading as any).directive,
-      Upload
+      Upload,
+      TabPane,
+      Tabs
     ];
     for (const component of components) {
       Vue.use(component);

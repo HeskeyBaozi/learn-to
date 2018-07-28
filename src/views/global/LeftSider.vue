@@ -100,6 +100,7 @@ export default class TopNav extends Vue {
       text-align: center;
       padding: .5rem 0;
       .user-name {
+        font-size: @font-size-small-title;
         margin-bottom: 0.5rem;
       }
 
@@ -114,7 +115,7 @@ export default class TopNav extends Vue {
   }
 
   .el-menu-item {
-    text-align: center;
+    font-size: @font-size-small-title;
     color: @color-text-secondary;
   }
 }

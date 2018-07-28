@@ -4,7 +4,7 @@
       <fa-icon :icon="['fas', 'indent']"></fa-icon>
     </div>
     <div class="nav">
-      <div class="nav-item">
+      <div class="nav-item" @click="selectItem('login')">
         <icon-text icon="user-circle" text="登录" />
       </div>
     </div>
@@ -13,6 +13,8 @@
 
 <script lang="ts">
 import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
+
+export type ItemNameType = 'login';
 
 @Component({
   name: 'top-nav'
@@ -32,6 +34,11 @@ export default class TopNav extends Vue {
 
   @Emit('toggle-collapse')
   toggleCollapse() {
+    // noop
+  }
+
+  @Emit('select')
+  selectItem(itemName: ItemNameType) {
     // noop
   }
 }
@@ -55,6 +62,7 @@ export default class TopNav extends Vue {
   height: 100%;
   justify-content: space-between;
   padding-right: 1rem;
+  font-size: @font-size-small-title;
 
   .collapse-button {
     .nav-block;

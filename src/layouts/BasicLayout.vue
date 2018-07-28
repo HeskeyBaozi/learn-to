@@ -5,13 +5,19 @@
     </el-aside>
     <el-container class="inner-container">
       <el-header class="header">
-        <top-nav :isCollapse="isCollapse" @toggle-collapse="toggleCollapse"></top-nav>
+        <top-nav :isCollapse="isCollapse" @toggle-collapse="toggleCollapse" @select="handleSelect"></top-nav>
       </el-header>
       <el-main>
         <router-view></router-view>
       </el-main>
       <el-footer>Footer</el-footer>
     </el-container>
+    <el-dialog custom-class="matrix-login-dialog" :visible.sync="isLoginDialogVisible" width="720px" :append-to-body="true" :show-close="false">
+      <div class="login-form-left">
+        <img src="http://via.placeholder.com/360x480" alt="holder">
+      </div>
+      <login-form class="login-form"></login-form>
+    </el-dialog>
   </el-container>
 </template>
 
@@ -19,18 +25,20 @@
 import NavList from '@/components/NavList.vue';
 import LoginForm from '@/components/user/LoginForm.vue';
 import LeftSider from '@/views/global/LeftSider.vue';
-import TopNav from '@/views/global/TopNav.vue';
+import TopNav, { ItemNameType } from '@/views/global/TopNav.vue';
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component({
   name: 'basic-layout',
   components: {
     LeftSider,
-    TopNav
+    TopNav,
+    LoginForm
   }
 })
 export default class BasicLayout extends Vue {
   isCollapse = true;
+  isLoginDialogVisible = false;
 
   get leftSiderWidth() {
     return this.isCollapse ? '64px' : '240px';
@@ -43,9 +51,18 @@ export default class BasicLayout extends Vue {
   }
 
   toggleCollapse() {
-    // tslint:disable-next-line:no-console
-    console.log('hello');
     this.isCollapse = !this.isCollapse;
+  }
+
+  handleSelect(name: ItemNameType) {
+    switch (name) {
+      case 'login':
+        // tslint:disable-next-line:no-console
+        this.isLoginDialogVisible = true;
+        break;
+      default:
+        break;
+    }
   }
 }
 </script>
@@ -91,5 +108,29 @@ export default class BasicLayout extends Vue {
     }
   }
 }
+
+.matrix-login-dialog {
+  .login-form-left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    max-width: 360px; // default to 360px
+  }
+  .login-form {
+    padding-left: calc(50% + 1.5rem);
+  }
+}
 </style>
 
+<style lang="less">
+.matrix-login-dialog {
+  .el-dialog__header {
+    padding: 0; // override element-ui default style
+  }
+  .el-dialog__body {
+    box-sizing: border-box;
+    padding: 1.5rem;
+    height: 480px;
+  }
+}
+</style>

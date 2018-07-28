@@ -12,12 +12,15 @@
  */
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faGithub, faWeibo } from '@fortawesome/free-brands-svg-icons';
-import { faBell, faListAlt } from '@fortawesome/free-regular-svg-icons';
+import {
+  faUser
+} from '@fortawesome/free-regular-svg-icons';
 import {
   faChartBar,
   faClipboardList,
   faHome,
   faIndent,
+  faLock,
   faUserCircle
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -33,13 +36,14 @@ export default {
       faIndent,
       faHome,
       faClipboardList,
-      faChartBar
+      faChartBar,
+      faLock
     );
 
     // 添加 regular 图标，需要传入数组
     // e.g. <fa-icon :icon="['far', 'list-alt']"/>
     library.add(
-
+      faUser
     );
 
     // 添加 brands 图标，需要传入数组
