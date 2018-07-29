@@ -58,7 +58,7 @@ type LoginFormStatus = 'login' | 'register';
 export default class LoginForm extends Vue {
   status: LoginFormStatus = 'login';
 
-  loginform = {
+  loginForm = {
     name: '',
     password: ''
   };

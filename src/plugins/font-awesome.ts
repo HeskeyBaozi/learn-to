@@ -22,6 +22,8 @@ import {
   faHome,
   faIndent,
   faLock,
+  faPencilAlt,
+  faReply,
   faUndo,
   faUserCircle
 } from '@fortawesome/free-solid-svg-icons';
@@ -40,6 +42,8 @@ export default {
       faClipboardList,
       faChartBar,
       faLock,
+      faPencilAlt,
+      faReply,
       faCheck,
       faUndo
     );

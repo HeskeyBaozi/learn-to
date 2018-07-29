@@ -272,9 +272,8 @@ export default class Ranks extends Vue {
 #home {
   .el-footer {
     padding: 0px;
-    width: 105%;
     margin-left: -20px;
-    padding-right: -20px;
+    margin-right: -20px;
   }
 }
 #home-bottom-image {

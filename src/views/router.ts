@@ -53,6 +53,7 @@ export default new Router({
         },
         {
           path: 'user',
+          name: 'user',
           component: () => import('./user/User.vue'),
           children: [
             {
