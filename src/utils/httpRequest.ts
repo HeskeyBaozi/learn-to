@@ -1,14 +1,13 @@
-/**
- * 请求用的函数工具，使用axios
- */
 import axios, { AxiosResponse } from 'axios';
 import { Notification } from 'element-ui';
 
-// 可添加其他相关配置，如csrf等
-export const httpRequest = axios.create({
+const instanceConfig = {
   timeout: 5000,
   baseURL: '/api'
-});
+};
+
+export const httpRequest = axios.create(instanceConfig); // 请求对象，通常情况下使用此请求器
+export const httpRequestSilence = axios.create(instanceConfig); // 请求对象，但不会在错误的时候调用 Notification
 
 // 请求拦截器
 httpRequest.interceptors.response.use(
@@ -21,11 +20,12 @@ httpRequest.interceptors.response.use(
         title: '请求超时',
         message
       });
+    } else {
+      Notification.error({
+        title: response && response.data && response.data.msg || `请求错误`,
+        message
+      });
     }
-    Notification.error({
-      title: response && response.data && response.data.msg || `请求错误`,
-      message
-    });
     return Promise.reject<AxiosResponse<any>>(response);
   }
 );
