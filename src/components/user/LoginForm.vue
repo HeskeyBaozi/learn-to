@@ -1,28 +1,41 @@
 <template>
   <div id="login-form">
     <el-tabs v-model="status">
+      <!-- 登录 -->
       <el-tab-pane label="登录" name="login">
         <div class="avatar-wrapper">
           <img class="avatar" src="http://via.placeholder.com/120x120" alt="avatar">
         </div>
-        <el-form class="login-form" :model="loginForm" ref="loginForm">
-          <el-form-item prop="pass">
-            <el-input type="text" auto-complete="off" placeholder="请输入用户名">
+        <el-form class="login-form" :model="loginForm" ref="loginForm" :rules="loginFormRules">
+          <el-form-item prop="username">
+            <el-input type="text" auto-complete="off" v-model="loginForm.username" placeholder="用户名">
               <template slot="prefix">
                 <fa-icon class="prefix" icon="user-circle"></fa-icon>
               </template>
             </el-input>
           </el-form-item>
-          <el-form-item prop="checkPass">
-            <el-input type="password" auto-complete="off" placeholder="请输入密码">
+          <el-form-item prop="password">
+            <el-input type="password" auto-complete="off" v-model="loginForm.password" placeholder="密码">
               <template slot="prefix">
                 <fa-icon class="prefix" icon="lock"></fa-icon>
               </template>
             </el-input>
           </el-form-item>
-          <el-form-item prop="age">
+          <el-form-item prop="captcha">
+            <el-col :span="14">
+              <el-input type="text" auto-complete="off" v-model="loginForm.captcha" placeholder="验证码">
+                <template slot="prefix">
+                  <fa-icon class="prefix" icon="keyboard"></fa-icon>
+                </template>
+              </el-input>
+            </el-col>
+            <el-col :offset="1" :span="9">
+              <img class="captcha" src="http://via.placeholder.com/100x32" alt="captcha">
+            </el-col>
+          </el-form-item>
+          <el-form-item prop="rememberMe">
             <el-col :span="12">
-              <el-checkbox>记住我</el-checkbox>
+              <el-checkbox v-model="loginForm.rememberMe">记住我</el-checkbox>
             </el-col>
             <el-col class="forget-password-wrapper" :span="12">
               <a href="#">忘记密码</a>
@@ -30,24 +43,71 @@
           </el-form-item>
           <el-form-item>
             <el-col :span="11">
-              <el-button class="form-button">
+              <el-button class="form-button" @click="reset('login')">
                 <icon-text icon="undo" text="清空"></icon-text>
               </el-button>
             </el-col>
             <el-col :offset="2" :span="11">
-              <el-button class="form-button" type="primary">
+              <el-button class="form-button" type="primary" @click="submit('login')">
                 <icon-text icon="check" text="登录"></icon-text>
               </el-button>
             </el-col>
           </el-form-item>
         </el-form>
       </el-tab-pane>
-      <el-tab-pane label="注册" name="register">配置管理</el-tab-pane>
+
+      <!-- 注册 -->
+      <el-tab-pane label="注册" name="register">
+        <el-form class="login-form" :model="registerForm" ref="registerForm" :rules="registerFormRules">
+          <el-form-item prop="username">
+            <el-input type="text" auto-complete="off" v-model="registerForm.username" placeholder="用户名">
+              <template slot="prefix">
+                <fa-icon class="prefix" icon="user-circle"></fa-icon>
+              </template>
+            </el-input>
+          </el-form-item>
+          <el-form-item prop="password">
+            <el-input type="password" auto-complete="off" v-model="registerForm.password" placeholder="密码">
+              <template slot="prefix">
+                <fa-icon class="prefix" icon="lock"></fa-icon>
+              </template>
+            </el-input>
+          </el-form-item>
+          <el-form-item prop="repassword">
+            <el-input type="password" auto-complete="off" v-model="registerForm.repassword" placeholder="重复密码">
+              <template slot="prefix">
+                <fa-icon class="prefix" icon="lock"></fa-icon>
+              </template>
+            </el-input>
+          </el-form-item>
+          <el-form-item prop="email">
+            <el-input type="text" auto-complete="off" v-model="registerForm.email" placeholder="邮箱">
+              <template slot="prefix">
+                <fa-icon class="prefix" icon="envelope"></fa-icon>
+              </template>
+            </el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-col :span="11">
+              <el-button class="form-button" @click="reset('register')">
+                <icon-text icon="undo" text="清空"></icon-text>
+              </el-button>
+            </el-col>
+            <el-col :offset="2" :span="11">
+              <el-button class="form-button" type="primary" @click="submit('register')">
+                <icon-text icon="check" text="注册"></icon-text>
+              </el-button>
+            </el-col>
+          </el-form-item>
+        </el-form>
+      </el-tab-pane>
     </el-tabs>
 
   </div>
 </template>
 <script lang="ts">
+import { RuleDescription, ValidatorCallback } from '@/typings/element-ui';
+import { ElForm } from 'element-ui/types/form';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 type LoginFormStatus = 'login' | 'register';
@@ -59,15 +119,109 @@ export default class LoginForm extends Vue {
   status: LoginFormStatus = 'login';
 
   loginForm = {
-    name: '',
-    password: ''
+    username: '',
+    password: '',
+    captcha: '',
+    rememberMe: false
   };
+
+  get loginFormRules() {
+    return {
+      username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+      password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+      captcha: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
+    };
+  }
+
+  registerForm = {
+    username: '',
+    password: '',
+    repassword: '',
+    email: ''
+  };
+
+  get registerFormRules() {
+    return {
+      username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+      password: [
+        {
+          trigger: 'blur',
+          validator: (
+            rule: RuleDescription<string>,
+            value: string,
+            callback: ValidatorCallback
+          ) => {
+            if (value === '') {
+              callback(new Error('请输入密码'));
+            } else {
+              if (this.registerForm.repassword !== '') {
+                (this.$refs.registerForm as any).validateField('repassword');
+              }
+              callback();
+            }
+          }
+        }
+      ],
+      repassword: [
+        {
+          trigger: 'blur',
+          validator: (
+            rule: RuleDescription<string>,
+            value: string,
+            callback: ValidatorCallback
+          ) => {
+            if (value === '') {
+              callback(new Error('请再次输入密码'));
+            } else if (value !== this.registerForm.password) {
+              callback(new Error('两次输入密码不一致'));
+            } else {
+              callback();
+            }
+          }
+        }
+      ],
+      email: [
+        { required: true, message: '请输入邮箱地址', trigger: 'blur' },
+        {
+          type: 'email',
+          message: '请输入正确格式的邮箱地址',
+          trigger: ['blur']
+        }
+      ]
+    };
+  }
+
+  reset(status: LoginFormStatus) {
+    if (status === 'login') {
+      (this.$refs.loginForm as ElForm).resetFields();
+      (this.$refs.loginForm as ElForm).clearValidate();
+    } else if (status === 'register') {
+      (this.$refs.registerForm as ElForm).resetFields();
+      (this.$refs.registerForm as ElForm).clearValidate();
+    }
+  }
+
+  async submit(status: LoginFormStatus) {
+    if (status === 'login') {
+      const isPassed = await (this.$refs.loginForm as ElForm).validate();
+      if (isPassed) {
+        // tslint:disable-next-line:no-console
+        console.log(Object.freeze({ ...this.loginForm }));
+      }
+    } else if (status === 'register') {
+      const isPassed = await (this.$refs.registerForm as ElForm).validate();
+      if (isPassed) {
+        // tslint:disable-next-line:no-console
+        console.log(Object.freeze({ ...this.registerForm }));
+      }
+    }
+  }
 }
 </script>
 <style lang="less" scoped>
 #login-form {
   .avatar-wrapper {
-    margin: 1rem 0 2rem 0;
+    margin-bottom: 1rem;
     text-align: center;
     .avatar {
       width: 120px;
@@ -85,6 +239,12 @@ export default class LoginForm extends Vue {
     }
 
     .form-button {
+      width: 100%;
+    }
+
+    .captcha {
+      display: block;
+      height: 32px; // specific the height
       width: 100%;
     }
   }

@@ -1,5 +1,5 @@
-import { IAction } from '@/stores';
 import { FINISHED_RUNNING, START_RUNNING } from '@/stores/modules/loading';
+import { ActionObject } from '@/typings/vuex';
 import { Store } from 'vuex';
 
 /**
@@ -13,7 +13,7 @@ export function enhanceWithLoadingModule<S>(store: Store<S>) {
   const oldDispatch = store.dispatch;
 
   store.dispatch = async function enhancedDispatch(
-    typeOrPayloadWithType: string | IAction,
+    typeOrPayloadWithType: string | ActionObject,
     second?: any,
     third?: any
   ) {
@@ -24,14 +24,17 @@ export function enhanceWithLoadingModule<S>(store: Store<S>) {
     const payload =
       typeof typeOrPayloadWithType === 'string'
         ? second
-        : typeOrPayloadWithType.payload;
+        : (() => {
+          const { type: t, ...payld } = typeOrPayloadWithType;
+          return payld;
+        })();
     const options = typeof typeOrPayloadWithType === 'string' ? third : second;
     if (!type.startsWith('loading')) {
-      store.commit(`loading/${START_RUNNING}`, { type, payload });
+      store.commit(`loading/${START_RUNNING}`, { type, ...payload });
     }
     const result = await oldDispatch(type, payload, options);
     if (!type.startsWith('loading')) {
-      store.commit(`loading/${FINISHED_RUNNING}`, { type, payload });
+      store.commit(`loading/${FINISHED_RUNNING}`, { type, ...payload });
     }
     return result;
   };

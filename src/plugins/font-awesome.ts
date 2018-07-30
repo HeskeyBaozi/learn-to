@@ -19,8 +19,10 @@ import {
   faChartBar,
   faCheck,
   faClipboardList,
+  faEnvelope,
   faHome,
   faIndent,
+  faKeyboard,
   faLock,
   faPencilAlt,
   faReply,
@@ -45,7 +47,9 @@ export default {
       faPencilAlt,
       faReply,
       faCheck,
-      faUndo
+      faUndo,
+      faKeyboard,
+      faEnvelope
     );
 
     // 添加 regular 图标，需要传入数组

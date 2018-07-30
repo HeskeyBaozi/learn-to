@@ -1,4 +1,4 @@
-import { IAction } from '@/stores';
+import { ActionObject } from '@/typings/vuex';
 import { Module } from 'vuex';
 
 export type IState = Map<string, object>;
@@ -10,10 +10,10 @@ export default {
   namespaced: true,
   state: () => new Map<string, object>(),
   mutations: {
-    [START_RUNNING](state, { type, payload }: IAction) {
+    [START_RUNNING](state, { type, ...payload }: ActionObject) {
       state.set(type, payload);
     },
-    [FINISHED_RUNNING](state, { type }: IAction) {
+    [FINISHED_RUNNING](state, { type }: ActionObject) {
       state.delete(type);
     }
   }

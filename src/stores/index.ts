@@ -1,25 +1,16 @@
-/**
- * 全局状态模块汇总
- */
-import todos from '@/stores/modules/example';
-import loading, { FINISHED_RUNNING, START_RUNNING } from '@/stores/modules/loading';
+import authorization from '@/stores/modules/authorization';
+import loading from '@/stores/modules/loading';
 import { enhanceWithLoadingModule } from '@/stores/plugins/enhanceAction';
+import { ModuleState } from '@/typings/vuex';
 import Vue from 'vue';
-import Vuex, { Module, Store } from 'vuex';
+import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
 // 模块放置于此对象中即可
 const modules = {
-  todos,
+  authorization,
   loading
-};
-
-type ModuleState<M> = M extends Module<infer S, any> ? S : {};
-
-// 根Store的状态类型, 常用于组件中根状态标注
-export type RootState = {
-  [P in keyof typeof modules]: ModuleState<(typeof modules)[P]>
 };
 
 const rootStore = new Vuex.Store<RootState>({
@@ -28,12 +19,10 @@ const rootStore = new Vuex.Store<RootState>({
   strict: process.env.NODE_ENV !== 'production'
 });
 
-export interface IAction {
-  type: string;
-  payload: any;
-}
-
-// 根Store类型
 export type RootStore = typeof rootStore;
+
+export type RootState = {
+  [P in keyof typeof modules]: ModuleState<(typeof modules)[P]>
+};
 
 export default rootStore;

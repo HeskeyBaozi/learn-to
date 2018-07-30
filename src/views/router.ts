@@ -1,22 +1,25 @@
-/**
- * 全局路由配置
- */
 import BasicLayout from '@/layouts/BasicLayout.vue';
+import store from '@/stores';
+import { QUERY_LOGIN_STATUS } from '@/stores/modules/authorization/contants';
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './TheHome.vue';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     {
       path: '/',
       component: BasicLayout,
+      async beforeEnter(to, from, next) {
+        await store.dispatch(`authorization/${QUERY_LOGIN_STATUS}`);
+        next();
+      },
       children: [
         {
-          path: 'home',
+          path: '',
           name: 'home',
           component: Home
         },
@@ -98,3 +101,5 @@ export default new Router({
     }
   ]
 });
+
+export default router;
