@@ -19,7 +19,7 @@
     </div>
     <el-menu :router="true">
 
-      <el-menu-item index="/home" title="首页">
+      <el-menu-item index="/" title="首页">
         <fa-icon class="el-icon-" icon="home"></fa-icon>
         <transition name="el-fade-in">
           <span v-show="!isCollapse">首页</span>
