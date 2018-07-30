@@ -1,89 +1,106 @@
 <template>
 <div id="modify-password">
-  <el-dialog :visible.sync="dialogVisible" :show-close="true" width="30rem" @close="$emit('hideDialog');" center>
-    <el-form :model="passForm" status-icon :rules="rules" ref="passForm"  class="demo-ruleForm">
-      <el-form-item prop="oldPass">
-        <el-input placeholder="请输入原密码" type="password" v-model="passForm.oldPass" auto-complete="off"></el-input>
-      </el-form-item>
-      <el-form-item prop="password">
-        <el-input placeholder="请输入新密码" type="password" v-model="passForm.password" auto-complete="off"></el-input>
-      </el-form-item>
-      <el-form-item prop="checkPass">
-        <el-input placeholder="请确认新密码" type="password" v-model="passForm.checkPass" auto-complete="off"></el-input>
-      </el-form-item>
-    </el-form>
-    <div slot="footer" class="dialog-footer">
-      <el-button @click="resetForm">取消</el-button>
-      <el-button type="primary" @click="submitForm('passForm')">确认修改</el-button>
-    </div>
-  </el-dialog>
+  <el-form :model="passForm" :rules="modifyRules" ref="passForm"  class="passForm">
+    <el-form-item prop="oldPass">
+      <el-input placeholder="请输入原密码" type="password" v-model="passForm.oldPass" auto-complete="off">
+        <template slot="prefix">
+          <fa-icon class="prefix" icon="lock"></fa-icon>
+        </template>
+      </el-input>
+    </el-form-item>
+    <el-form-item prop="password">
+      <el-input placeholder="请输入新密码" type="password" v-model="passForm.password" auto-complete="off">
+        <template slot="prefix">
+          <fa-icon class="prefix" icon="lock"></fa-icon>
+        </template>
+      </el-input>
+    </el-form-item>
+    <el-form-item prop="checkPass">
+      <el-input placeholder="请确认新密码" type="password" v-model="passForm.checkPass" auto-complete="off">
+        <template slot="prefix">
+          <fa-icon class="prefix" icon="lock"></fa-icon>
+        </template>
+      </el-input>
+    </el-form-item>
+    <el-form-item class='buttons'>
+      <el-col :span="11">
+        <el-button class='formButton' @click="resetForm">取消</el-button>
+      </el-col>
+      <el-col :offset="2" :span="11">
+        <el-button class='formButton' type="primary" @click="submitForm">确认修改</el-button>
+      </el-col>
+    </el-form-item>
+  </el-form>
 </div>
 </template>
 <script lang="ts">
-import Vue from 'vue';
-export default Vue.extend({
-  props: {
-    dialogVisible: Boolean
-  },
-  data() {
-    const checkOld = (rule: any, value: any, callback: any) => {
-      if (!value) {
-        return callback(new Error('未输入原密码'));
-      } else {
-        callback();
-      }
-    };
-    const validatePass = (rule: any, value: any, callback: any) => {
-      if (value === '') {
-        callback(new Error('未输入新密码'));
-      } else if (value !== '') {
-        callback();
-        }
-    };
-    const validatePass2 = (rule: any, value: any, callback: any) => {
-      if (value === '') {
-        callback(new Error('请再次输入密码'));
-      } else {
-        callback();
-      }
-    };
+
+import { RuleDescription, ValidatorCallback } from '@/typings/element-ui';
+import { ElForm } from 'element-ui/types/form';
+import { Component, Prop, Vue } from 'vue-property-decorator';
+
+@Component({
+  name: 'ModifyPassword'
+})
+export default class ModifyPassword extends Vue {
+  passForm = {
+    oldPass: '',
+    password: '',
+    checkPass: ''
+  };
+
+  get modifyRules() {
     return {
-      passForm: {
-        oldPass: '',
-        password: '',
-        checkPass: ''
-      },
-      rules: {
-        oldPass: [
-          { validator: checkOld, trigger: 'blur' }
-        ],
-        password: [
-          { validator: validatePass, trigger: 'blur' }
-        ],
-        checkPass: [
-          { validator: validatePass2, trigger: 'blur' }
-        ]
-      }
+      oldPass: [{ required: true, message: '请输入原密码', trigger: 'blur'}],
+      password: [
+        {
+          trigger: 'blur',
+          validator: (rule: RuleDescription<string>, value: string, callback: ValidatorCallback) => {
+            if (value === '') {
+              callback(new Error('请输入新密码'));
+            } else {
+              if (this.passForm.checkPass !== '') {
+                (this.$refs.passForm as any).validateField('checkPass');
+              }
+              callback();
+            }
+          }
+        }
+      ],
+      checkPass: [
+        {
+          trigger: 'blur',
+          validator:  (rule: RuleDescription<string>, value: string, callback: ValidatorCallback) => {
+            if (value === '') {
+              callback(new Error('请再次输入密码'));
+            } else if (value !== this.passForm.password) {
+              callback(new Error('两次输入密码不一致'));
+            } else {
+              callback();
+            }
+          }
+        }
+      ]
     };
-  },
-  computed: {
-    showModify: {
-      get(): boolean {
-        return this.dialogVisible;
-      },
-      set(newValue: boolean): void {
-        this.$emit('closeOrOpen');
-      }
-    }
-  },
-  methods: {
-    resetForm() {
-      this.$data.passForm.oldPass = '';
-      this.$data.passForm.password = '';
-      this.$data.passForm.checkPass = '';
-    }
   }
-});
+
+  resetForm() {
+    (this.$refs.passForm as ElForm).resetFields();
+    (this.$refs.passForm as ElForm).clearValidate();
+  }
+
+  async submitForm() {
+    const isPassed = await (this.$refs.passForm as ElForm).validate();
+  }
+}
 </script>
 <style lang="less" scoped>
+  .passForm {
+    .prefix {
+      width: 1.5rem;
+    }
+    .formButton{
+      width: 100%;
+    }
+  }
 </style>

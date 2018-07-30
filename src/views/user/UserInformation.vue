@@ -9,7 +9,9 @@
       <div class="simpleInfo">
         <span id="student">{{student}}</span>
         <el-button type="text" id="modify" @click="showModify">修改密码</el-button>
-        <ModifyPassword :dialogVisible="dialogVisible" @hideDialog="hideDialog"></ModifyPassword>
+          <el-dialog custom-class="modify-password-dialog" :visible.sync="isDialogVisible" width="400px" :show-close="false" center>
+            <modify-password></modify-password>
+          </el-dialog>
         <span id="mail">{{email}}</span>
       </div>
     </div>
@@ -42,14 +44,11 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class UserInformation extends Vue {
   student = '贾同学';
   email = 'moutongxue@matrix';
-  dialogVisible = false;
-  showModify() {
-    this.dialogVisible = true;
-  }
-  hideDialog() {
-    this.dialogVisible = false;
-  }
+  isDialogVisible = false;
 
+  showModify() {
+    this.isDialogVisible = true;
+  }
 }
 </script>
 
@@ -75,7 +74,7 @@ export default class UserInformation extends Vue {
 
   .simpleInfo{
     position: relative;
-    margin-left: 22rem;
+    left: 25rem;
     top: -5.1rem;
   }
 
@@ -98,7 +97,7 @@ export default class UserInformation extends Vue {
   }
 
   #background{
-    width: calc(100% - 17rem);
+    width: 100%;
     height: 14rem;
     position: absolute;
     margin-top: -1.5rem;
@@ -108,4 +107,3 @@ export default class UserInformation extends Vue {
     background-size: cover;
   }
 </style>
-

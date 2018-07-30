@@ -24,6 +24,8 @@ import {
   faIndent,
   faKeyboard,
   faLock,
+  faPencilAlt,
+  faReply,
   faUndo,
   faUserCircle
 } from '@fortawesome/free-solid-svg-icons';
@@ -45,7 +47,9 @@ export default {
       faCheck,
       faUndo,
       faKeyboard,
-      faEnvelope
+      faEnvelope,
+      faPencilAlt,
+      faReply
     );
 
     // 添加 regular 图标，需要传入数组

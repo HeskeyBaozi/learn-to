@@ -1703,30 +1703,40 @@ export default class UserNotification extends Vue {
     float: right;
     position: relative;
     top: -1.3rem;
-    right: 2.2rem;
+    right: 5rem;
   }
   .el-card{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: center;
     width: 90%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 2.3rem;
   }
   .background {
+    order: 1;
+    flex-shrink: 1;
     width: 150px;
     height: 150px;
     background: #ddd;
     padding: 1rem;
     font-weight: bold;
     display: inline-block;
-  }
-  .name {
-    font-size: 1.5rem;
-    margin-top: 3.7rem;
-    text-align: center;
+    .name {
+      font-size: 1.5rem;
+      margin-top: 3.7rem;
+      text-align: center;
+    }
   }
   .simpleInfo {
-    margin-left: 1.8rem;
-    display: inline-block;
+    order: 2;
+    flex-shrink: 1;
+    margin-left: 14.8rem;
+    margin-top: -12rem;
+    //display: inline-block;
     .title{
       font-size: 15pt;
       padding-bottom: 0.3rem;
@@ -1740,18 +1750,23 @@ export default class UserNotification extends Vue {
     }
   }
   .moreInfo {
-    float: right;
-    margin-top: 9rem;
+    order: 4;
+    flex-shrink: 1;
+    margin-left: 50rem;
+    margin-top: -1rem;
   }
   .isChecked{
+    order: 3;
+    flex-shrink: 1;
     float: right;
+    margin-top: -11rem;
   }
   .fixed-footer {
     position: fixed;
     bottom: 0;
     right: 0;
     height: 64px;
-    width: calc(100% - 200px);
+    width: 100%;
     background: #fff;
   }
 </style>
