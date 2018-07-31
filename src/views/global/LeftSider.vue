@@ -6,7 +6,9 @@
     </router-link>
     <div class="user-information">
       <div class="avatar-wrapper">
-        <img class="avatar" src="http://via.placeholder.com/80x80" alt="avatar">
+        <router-link to="/user">
+          <img class="avatar" src="http://via.placeholder.com/80x80" alt="avatar">
+        </router-link>
       </div>
       <transition name="el-fade-in">
         <div v-show="!isCollapse" class="user-meta">
@@ -17,21 +19,21 @@
     </div>
     <el-menu :router="true">
 
-      <el-menu-item index="home" title="首页">
+      <el-menu-item index="/" title="首页">
         <fa-icon class="el-icon-" icon="home"></fa-icon>
         <transition name="el-fade-in">
           <span v-show="!isCollapse">首页</span>
         </transition>
       </el-menu-item>
 
-      <el-menu-item index="problems" title="题库">
+      <el-menu-item index="/problems" title="题库">
         <fa-icon class="el-icon-" icon="clipboard-list"></fa-icon>
         <transition name="el-fade-in">
           <span v-show="!isCollapse">题库</span>
         </transition>
       </el-menu-item>
 
-      <el-menu-item index="statistic" title="统计">
+      <el-menu-item index="/statistic" title="统计">
         <fa-icon class="el-icon-" icon="chart-bar"></fa-icon>
         <transition name="el-fade-in">
           <span v-show="!isCollapse">统计</span>

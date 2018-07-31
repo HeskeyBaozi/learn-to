@@ -1174,7 +1174,7 @@ export default class ProblemList extends Vue {
       bottom: 0;
       right: 0;
       height: 64px;
-      width: calc(100% - 200px);
+      width: calc(100% - 64px);
       background: #fff;
     }
   }
