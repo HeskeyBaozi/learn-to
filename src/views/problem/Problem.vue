@@ -60,16 +60,19 @@ export default class Problem extends Vue {
 
   async mounted() {
     this.problemId = this.$route.params.problemId;
-    // const result = await httpRequest.get('/problem/201');
+    const result = await httpRequest.get(`/problem/${this.problemId}`);
+    if (result.status === 200 && result.statusText === 'OK') {
+      this.problem = result.data;
+    }
     // 获取当前题目的详细数据
-    this.problem = {
-      name: 'Hello World',
-      publish: '2018-07-18',
-      submit: 200,
-      passNum: 100,
-      spaceLimit: 32,
-      timeLimit: 2
-    };
+    // this.problem = {
+    //   name: 'Hello World',
+    //   publish: '2018-07-18',
+    //   submit: 200,
+    //   passNum: 100,
+    //   spaceLimit: 32,
+    //   timeLimit: 2
+    // };
   }
 
   handleSelect(key: string, keyPath: string[]) {

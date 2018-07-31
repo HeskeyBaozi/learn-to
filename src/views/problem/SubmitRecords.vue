@@ -25,6 +25,7 @@
 </template>
 
 <script lang="ts">
+import { httpRequest } from '@/utils/httpRequest.ts';
 import { Component, Vue } from 'vue-property-decorator';
 
 interface IRecord {
@@ -55,58 +56,10 @@ export default class SubmitRecords extends Vue {
     this.handleCurrentPageChange(1);
   }
 
-  mounted() {
+  async mounted() {
+    const result = await httpRequest.get(`/libraries/0/problems/record/${this.$route.params.problemId}`);
     // 获取提交记录数据
-    this.recordData = [{
-      submissionTime: '2018-07-18-18：59',
-      state: 'Accepted'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Accepted'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Wrong Answer'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Time Limit Exceeded'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Memory Limit Exceeded'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Runtime Error'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Runtime Error'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Compile Error'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Compile Error'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Compile Error'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Accepted'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Wrong Answer'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Time Limit Exceeded'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Memory Limit Exceeded'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Runtime Error'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Runtime Error'
-    }];
-
+    this.recordData = result.data;
     this.handleCurrentPageChange(1);
   }
 }
