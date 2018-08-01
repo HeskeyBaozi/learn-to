@@ -12,3 +12,12 @@ export interface IProblemItem {
   spaceLimit: number;
   timeLimit: number;
 }
+
+export interface IProblemListItem {
+  problemId: number;
+  problemName: string;
+  submissionNumber: number;
+  passRate: string;
+  publishDate: string;
+  meterState: string;
+}

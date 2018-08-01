@@ -76,8 +76,6 @@ export default class SubmitRecords extends Vue {
   async mounted() {
     // 获取提交记录数据
     await store.dispatch(`problem/${GET_SUBMIT_RECORD}`);
-    // const result = await httpRequest.get(`/libraries/0/problems/record/${this.$route.params.problemId}`);
-    // this.recordData = result.data;
     this.handleCurrentPageChange(1);
   }
 }

@@ -1,9 +1,13 @@
 import { httpRequestSilence } from '@/utils/httpRequest';
 import { Module } from 'vuex';
 import {
+  GET_PROBLEM_LIST,
   GET_PROBLEMITEM,
   GET_SUBMIT_RECORD,
+  PROBLEM_LIST_LENGTH,
   SET_ACTIVE_TAB,
+  SET_PROBLEM_INDEX,
+  SET_PROBLEM_LIST,
   SET_PROBLEMITEM,
   SET_RECORD,
   SET_SUBMIT_RECORD
@@ -23,12 +27,12 @@ export default {
     },
     problemSubmitRecord: [],
     submitRecord: '',
-    activeTab: 'description'
+    activeTab: 'description',
+    problemList: [],
+    problemIndex: 0
   }),
   mutations: {
     [SET_PROBLEMITEM](state, payload) {
-      // tslint:disable-next-line:no-console
-      console.log(payload);
       state.problemItem = payload;
     },
 
@@ -42,6 +46,19 @@ export default {
 
     [SET_ACTIVE_TAB](state, tab: string) {
       state.activeTab = tab;
+    },
+
+    [SET_PROBLEM_LIST](state, payload) {
+      state.problemList = payload;
+    },
+
+    [SET_PROBLEM_INDEX](state, index: number) {
+      state.problemIndex = index;
+    }
+  },
+  getters: {
+    [PROBLEM_LIST_LENGTH](state) {
+      return state.problemList.length;
     }
   },
   actions: {
@@ -63,6 +80,16 @@ export default {
         // tslint:disable-next-line:no-console
         console.log(result);
         commit(SET_SUBMIT_RECORD, result.data);
+      } catch (error) {
+        // tslint:disable-next-line:no-console
+        console.log(error);
+      }
+    },
+
+    async [GET_PROBLEM_LIST]({ commit }) {
+      try {
+        const result = await httpRequestSilence.get('/libraries/0/problems');
+        commit(SET_PROBLEM_LIST, result.data);
       } catch (error) {
         // tslint:disable-next-line:no-console
         console.log(error);

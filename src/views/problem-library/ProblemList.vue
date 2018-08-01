@@ -18,12 +18,6 @@
           </el-select>
           <el-button type="primary" @click="searchProblem">搜索</el-button>
         </div>
-        <!-- <div style="float: right">
-          <el-radio-group v-model="sortKey" class="col-item" @change="sortTable">
-            <el-radio label="problemId">按题号排序</el-radio>
-            <el-radio label="submitNum">按热度排序</el-radio>
-          </el-radio-group>
-        </div> -->
       </el-row>
     </el-header>
     <el-main>
@@ -59,19 +53,14 @@
 </template>
 
 <script lang="ts">
+import store from '@/stores';
+import { GET_PROBLEM_LIST, SET_PROBLEM_INDEX } from '@/stores/modules/problem/contants';
+import { IProblemListItem } from '@/typings/problem.ts';
 import { httpRequest } from '@/utils/httpRequest.ts';
 import { Message } from 'element-ui';
 import { setTimeout } from 'timers';
 import { Component, Vue } from 'vue-property-decorator';
 
-interface ProblemItem {
-  problemId: number;
-  problemName: string;
-  submissionNumber: number;
-  passRate: string;
-  publishDate: string;
-  meterState: string;
-}
 
 @Component({
   name: 'problem-list',
@@ -83,10 +72,13 @@ export default class ProblemList extends Vue {
   sortKey: string = '';
   pageSize: number = 100;
   currentPage: number = 1;
-  problemListData: ProblemItem[] = [];
-  problemFilterData: ProblemItem[] = [];
-  tableData: ProblemItem[] = [];
+  problemFilterData: IProblemListItem[] = [];
+  tableData: IProblemListItem[] = [];
   filterKey: string = '';
+
+  get problemListData(): IProblemListItem[] {
+    return store.state.problem.problemList;
+  }
 
   // get problemFilterData(): ProblemItem[] {
   //   return this.problemListData.filter((item) => {
@@ -109,20 +101,22 @@ export default class ProblemList extends Vue {
     this.handleCurrentPageChange(1);
   }
 
-  pagination(pageNo: number, pageSize: number, array: ProblemItem[]) {
+  pagination(pageNo: number, pageSize: number, array: IProblemListItem[]) {
     const offset: number = (pageNo - 1) * pageSize;
     return (offset + pageSize >= array.length) ?
       array.slice(offset, array.length) : array.slice(offset, offset + pageSize);
   }
 
   async mounted() {
-    const result = await httpRequest.get('/libraries/0/problems');
-    this.problemListData = result.data;
+    // 获取题库题目列表
+    await store.dispatch(`problem/${GET_PROBLEM_LIST}`);
     this.problemFilterData = this.problemListData;
     this.tableData = this.pagination(1, this.pageSize, this.problemFilterData);
   }
 
-  handleProblemClick(row: ProblemItem) {
+  handleProblemClick(row: IProblemListItem) {
+    const index = store.state.problem.problemList.findIndex((item) => item.problemId === row.problemId);
+    store.commit(`problem/${SET_PROBLEM_INDEX}`, index);
     this.$router.push({ path: `/problem/${row.problemId}`});
   }
 
