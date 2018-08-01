@@ -44,6 +44,8 @@ export default {
       faClipboardList,
       faChartBar,
       faLock,
+      faPencilAlt,
+      faReply,
       faCheck,
       faUndo,
       faKeyboard,
