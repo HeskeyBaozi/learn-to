@@ -24,6 +24,7 @@ import AcChart from '@/components/statistic/AcChart.vue';
 import DataStatistic from '@/components/statistic/DataStatistic.vue';
 import RecentProblem from '@/components/user/RecentProblem.vue';
 import UserCard from '@/components/user/UserCard.vue';
+import store from '@/stores';
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component({
@@ -108,6 +109,8 @@ export default class UserProfile extends Vue {
   }
 
   jumpToProblem(problemId: number) {
+    // const index = store.state.problem.problemList.findIndex((item) => item.problemId === row.problemId);
+    // store.commit(`problem/${SET_PROBLEM_INDEX}`, index);
     this.$router.push({ path: '/problem/' + problemId});
   }
 }

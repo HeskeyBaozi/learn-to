@@ -61,6 +61,250 @@ module.exports = {
     console.log('---->', req.params.id)
     res.send({ status: 'ok', message: '删除成功！' });
   },
+  'GET /api/statistic/recent': (req, res) => {
+    res.send([
+      {
+        problemId: 202,
+        problemName: 'A+B',
+        submit: 2,
+        lastSubmit: '2018-07-18',
+        publishDate: '2018-7-7',
+        meterState: 'Memory Limit Exceeded'
+      },
+      {
+        problemId: 203,
+        problemName: 'xxxxxxx',
+        submit: 10,
+        lastSubmit: '2018-07-20',
+        publishDate: '2018-7-7',
+        meterState: 'Runtime Error'
+      },
+      {
+        problemId: 202,
+        problemName: 'A+B',
+        submit: 2,
+        lastSubmit: '2018-07-18',
+        publishDate: '2018-7-7',
+        meterState: 'Memory Limit Exceeded'
+      },
+      {
+        problemId: 203,
+        problemName: 'xxxxxxx',
+        submit: 10,
+        lastSubmit: '2018-07-20',
+        publishDate: '2018-7-7',
+        meterState: 'Runtime Error'
+      },
+      {
+        problemId: 202,
+        problemName: 'A+B',
+        submit: 2,
+        lastSubmit: '2018-07-18',
+        publishDate: '2018-7-7',
+        meterState: 'Memory Limit Exceeded'
+      },
+      {
+        problemId: 203,
+        problemName: 'xxxxxxx',
+        submit: 10,
+        lastSubmit: '2018-07-20',
+        publishDate: '2018-7-7',
+        meterState: 'Runtime Error'
+      },
+      {
+        problemId: 202,
+        problemName: 'A+B',
+        submit: 2,
+        lastSubmit: '2018-07-18',
+        publishDate: '2018-7-7',
+        meterState: 'Memory Limit Exceeded'
+      },
+      {
+        problemId: 203,
+        problemName: 'xxxxxxx',
+        submit: 10,
+        lastSubmit: '2018-07-20',
+        publishDate: '2018-7-7',
+        meterState: 'Runtime Error'
+      },
+      {
+        problemId: 202,
+        problemName: 'A+B',
+        submit: 2,
+        lastSubmit: '2018-07-18',
+        publishDate: '2018-7-7',
+        meterState: 'Memory Limit Exceeded'
+      },
+      {
+        problemId: 203,
+        problemName: 'xxxxxxx',
+        submit: 10,
+        lastSubmit: '2018-07-20',
+        publishDate: '2018-7-7',
+        meterState: 'Runtime Error'
+      },
+      {
+        problemId: 202,
+        problemName: 'A+B',
+        submit: 2,
+        lastSubmit: '2018-07-18',
+        publishDate: '2018-7-7',
+        meterState: 'Memory Limit Exceeded'
+      },
+      {
+        problemId: 203,
+        problemName: 'xxxxxxx',
+        submit: 10,
+        lastSubmit: '2018-07-20',
+        publishDate: '2018-7-7',
+        meterState: 'Runtime Error'
+      },
+      {
+        problemId: 202,
+        problemName: 'A+B',
+        submit: 2,
+        lastSubmit: '2018-07-18',
+        publishDate: '2018-7-7',
+        meterState: 'Memory Limit Exceeded'
+      },
+      {
+        problemId: 203,
+        problemName: 'xxxxxxx',
+        submit: 10,
+        lastSubmit: '2018-07-20',
+        publishDate: '2018-7-7',
+        meterState: 'Runtime Error'
+      },
+      {
+        problemId: 202,
+        problemName: 'A+B',
+        submit: 2,
+        lastSubmit: '2018-07-18',
+        publishDate: '2018-7-7',
+        meterState: 'Memory Limit Exceeded'
+      },
+      {
+        problemId: 203,
+        problemName: 'xxxxxxx',
+        submit: 10,
+        lastSubmit: '2018-07-20',
+        publishDate: '2018-7-7',
+        meterState: 'Runtime Error'
+      },
+      {
+        problemId: 202,
+        problemName: 'A+B',
+        submit: 2,
+        lastSubmit: '2018-07-18',
+        publishDate: '2018-7-7',
+        meterState: 'Memory Limit Exceeded'
+      },
+      {
+        problemId: 203,
+        problemName: 'xxxxxxx',
+        submit: 10,
+        lastSubmit: '2018-07-20',
+        publishDate: '2018-7-7',
+        meterState: 'Runtime Error'
+      },
+      {
+        problemId: 202,
+        problemName: 'A+B',
+        submit: 2,
+        lastSubmit: '2018-07-18',
+        publishDate: '2018-7-7',
+        meterState: 'Memory Limit Exceeded'
+      },
+      {
+        problemId: 203,
+        problemName: 'zzzz',
+        submit: 10,
+        lastSubmit: '2018-07-20',
+        publishDate: '2018-7-7',
+        meterState: 'Runtime Error'
+      },
+      {
+        problemId: 202,
+        problemName: 'A+B',
+        submit: 2,
+        lastSubmit: '2018-07-18',
+        publishDate: '2018-7-7',
+        meterState: 'Memory Limit Exceeded'
+      },
+      {
+        problemId: 203,
+        problemName: 'xxxxxxx',
+        submit: 10,
+        lastSubmit: '2018-07-20',
+        publishDate: '2018-7-7',
+        meterState: 'Runtime Error'
+      },
+      {
+        problemId: 202,
+        problemName: 'A+B',
+        submit: 2,
+        lastSubmit: '2018-07-18',
+        publishDate: '2018-7-7',
+        meterState: 'Memory Limit Exceeded'
+      },
+      {
+        problemId: 203,
+        problemName: 'xxxxxxx',
+        submit: 10,
+        lastSubmit: '2018-07-20',
+        publishDate: '2018-7-7',
+        meterState: 'Runtime Error'
+      },
+      {
+        problemId: 202,
+        problemName: 'A+B',
+        submit: 2,
+        lastSubmit: '2018-07-18',
+        publishDate: '2018-7-7',
+        meterState: 'Memory Limit Exceeded'
+      },
+      {
+        problemId: 203,
+        problemName: 'xxxxxxx',
+        submit: 10,
+        lastSubmit: '2018-07-20',
+        publishDate: '2018-7-7',
+        meterState: 'Runtime Error'
+      },
+      {
+        problemId: 202,
+        problemName: 'A+B',
+        submit: 2,
+        lastSubmit: '2018-07-18',
+        publishDate: '2018-7-7',
+        meterState: 'Memory Limit Exceeded'
+      },
+      {
+        problemId: 203,
+        problemName: 'dddd',
+        submit: 10,
+        lastSubmit: '2018-07-20',
+        publishDate: '2018-7-7',
+        meterState: 'Runtime Error'
+      },
+      {
+        problemId: 202,
+        problemName: 'A+B',
+        submit: 2,
+        lastSubmit: '2018-07-18',
+        publishDate: '2018-7-7',
+        meterState: 'Memory Limit Exceeded'
+      },
+      {
+        problemId: 203,
+        problemName: 'xxxxxxx',
+        submit: 10,
+        lastSubmit: '2018-07-20',
+        publishDate: '2018-7-7',
+        meterState: 'Runtime Error'
+      }
+    ])
+  },
   'GET /api/libraries/0/problems/record/:pid': (req, res) =>{
     res.send([{
       submissionTime: '2018-07-18-18：59',

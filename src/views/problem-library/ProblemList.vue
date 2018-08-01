@@ -80,17 +80,6 @@ export default class ProblemList extends Vue {
     return store.state.problem.problemList;
   }
 
-  // get problemFilterData(): ProblemItem[] {
-  //   return this.problemListData.filter((item) => {
-  //     if (!!this.filterKey) {
-  //       return item.meterState === this.filterKey;
-  //     } else {
-  //       return item;
-  //     }
-  //   });
-  // }
-
-
   handleCurrentPageChange(val: number) {
     this.tableData = this.pagination(val, this.pageSize, this.problemFilterData);
   }
