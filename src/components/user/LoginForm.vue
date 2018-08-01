@@ -55,7 +55,6 @@
           </el-form-item>
         </el-form>
       </el-tab-pane>
-
       <!-- 注册 -->
       <el-tab-pane label="注册" name="register">
         <el-form class="login-form" :model="registerForm" ref="registerForm" :rules="registerFormRules">
@@ -102,7 +101,6 @@
         </el-form>
       </el-tab-pane>
     </el-tabs>
-
   </div>
 </template>
 <script lang="ts">

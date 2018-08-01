@@ -1,6 +1,6 @@
 <template>
 <div id="modify-password">
-  <el-dialog :visible.sync="dialogVisible" :show-close="true" width="30rem" @close="$emit('hideDialog');" center>
+  <el-dialog :visible.sync="showModify" :show-close="true" width="30rem" @close="$emit('hideDialog');" center>
     <el-form :model="passForm" status-icon :rules="rules" ref="passForm"  class="demo-ruleForm">
       <el-form-item prop="oldPass">
         <el-input placeholder="请输入原密码" type="password" v-model="passForm.oldPass" auto-complete="off"></el-input>
