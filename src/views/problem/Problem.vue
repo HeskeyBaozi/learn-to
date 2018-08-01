@@ -20,7 +20,7 @@
       </div>
     </el-card>
     <el-card class="detail-card">
-      <el-menu :default-active="'description'" mode="horizontal" @select="handleSelect" class="menu">
+      <el-menu :default-active="activeTab" mode="horizontal" @select="handleSelect" class="menu">
         <el-menu-item index="description">题目描述</el-menu-item>
         <el-menu-item index="solution">答题区域</el-menu-item>
         <el-menu-item index="records">提交记录</el-menu-item>
@@ -32,38 +32,36 @@
 </template>
 
 <script lang="ts">
+import store from '@/stores';
+import { GET_PROBLEMITEM, SET_ACTIVE_TAB, SET_RECORD } from '@/stores/modules/problem/contants';
+import { IProblemItem } from '@/typings/problem.ts';
 import { httpRequest } from '@/utils/httpRequest.ts';
 import { Component, Vue } from 'vue-property-decorator';
-
-interface ProblemItem {
-  name: string;
-  publish: string;
-  submit: number;
-  passNum: number;
-  spaceLimit: number;
-  timeLimit: number;
-}
 
 @Component({
   name: 'problem'
 })
 export default class Problem extends Vue {
   problemId: string = '';
-  problem: ProblemItem = {
-    name: '',
-    publish: '',
-    submit: 0,
-    passNum: 0,
-    spaceLimit: 0,
-    timeLimit: 0
-  };
+
+  get activeTab(): string {
+    return store.state.problem.activeTab;
+  }
+
+  get problem(): IProblemItem {
+    return store.state.problem.problemItem;
+  }
 
   async mounted() {
     this.problemId = this.$route.params.problemId;
-    const result = await httpRequest.get(`/problem/${this.problemId}`);
-    if (result.status === 200 && result.statusText === 'OK') {
-      this.problem = result.data;
-    }
+    await store.dispatch(`problem/${GET_PROBLEMITEM}`, this.problemId);
+    // 初始化代码记录
+    store.commit(`problem/${SET_RECORD}`, '');
+    store.commit(`problem/${SET_ACTIVE_TAB}`, 'description');
+    // const result = await httpRequest.get(`/problem/${this.problemId}`);
+    // if (result.status === 200 && result.statusText === 'OK') {
+    //   this.problem = result.data;
+    // }
     // 获取当前题目的详细数据
     // this.problem = {
     //   name: 'Hello World',
@@ -76,6 +74,7 @@ export default class Problem extends Vue {
   }
 
   handleSelect(key: string, keyPath: string[]) {
+    store.commit(`problem/${SET_ACTIVE_TAB}`, key);
     this.$router.push({ name: key, params: { problemId: this.$route.params.problemId }});
   }
 }

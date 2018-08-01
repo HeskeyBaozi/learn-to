@@ -64,52 +64,68 @@ module.exports = {
   'GET /api/libraries/0/problems/record/:pid': (req, res) =>{
     res.send([{
       submissionTime: '2018-07-18-18：59',
-      state: 'Accepted'
+      state: 'Accepted',
+      code: 'Hello World!'
     }, {
       submissionTime: '2018-07-18-18：59',
-      state: 'Accepted'
+      state: 'Accepted',
+      code: 'const a = b + 1;'
     }, {
       submissionTime: '2018-07-18-18：59',
-      state: 'Wrong Answer'
+      state: 'Wrong Answer',
+      code: 'return 0;'
     }, {
       submissionTime: '2018-07-18-18：59',
-      state: 'Time Limit Exceeded'
+      state: 'Time Limit Exceeded',
+      code: 'public void test(){}'
     }, {
       submissionTime: '2018-07-18-18：59',
-      state: 'Memory Limit Exceeded'
+      state: 'Memory Limit Exceeded',
+      code: 'for(;;)'
     }, {
       submissionTime: '2018-07-18-18：59',
-      state: 'Runtime Error'
+      state: 'Runtime Error',
+      code: 'Hello World!'
     }, {
       submissionTime: '2018-07-18-18：59',
-      state: 'Runtime Error'
+      state: 'Runtime Error',
+      code: 'Hello World!'
     }, {
       submissionTime: '2018-07-18-18：59',
-      state: 'Compile Error'
+      state: 'Compile Error',
+      code: 'const a = b + 1;'
     }, {
       submissionTime: '2018-07-18-18：59',
-      state: 'Compile Error'
+      state: 'Compile Error',
+      code: 'return 0;'
     }, {
       submissionTime: '2018-07-18-18：59',
-      state: 'Compile Error'
+      state: 'Compile Error',
+      code: 'return 0;'
     }, {
       submissionTime: '2018-07-18-18：59',
-      state: 'Accepted'
+      state: 'Accepted',
+      code: 'return 0;'
     }, {
       submissionTime: '2018-07-18-18：59',
-      state: 'Wrong Answer'
+      state: 'Wrong Answer',
+      code: 'return 0;'
     }, {
       submissionTime: '2018-07-18-18：59',
-      state: 'Time Limit Exceeded'
+      state: 'Time Limit Exceeded',
+      code: 'return 0;'
     }, {
       submissionTime: '2018-07-18-18：59',
-      state: 'Memory Limit Exceeded'
+      state: 'Memory Limit Exceeded',
+      code: 'return 0;'
     }, {
       submissionTime: '2018-07-18-18：59',
-      state: 'Runtime Error'
+      state: 'Runtime Error',
+      code: 'return 0;'
     }, {
       submissionTime: '2018-07-18-18：59',
-      state: 'Runtime Error'
+      state: 'Runtime Error',
+      code: 'return 0;'
     }])
   },
   'GET /api/libraries/0/problems': [
