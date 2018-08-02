@@ -15,12 +15,13 @@
         </div>
       </div>
       <div>
-        <el-button>上一题</el-button>
-        <el-button type="primary">下一题</el-button>
+        <el-button @click="changeProblem('last')" :disabled="isFirstProblem">上一题</el-button>
+        <el-button type="primary" @click="changeProblem('next')"
+          :disabled="isLastProblem">下一题</el-button>
       </div>
     </el-card>
     <el-card class="detail-card">
-      <el-menu :default-active="'description'" mode="horizontal" @select="handleSelect" class="menu">
+      <el-menu :default-active="activeTab" mode="horizontal" @select="handleSelect" class="menu">
         <el-menu-item index="description">题目描述</el-menu-item>
         <el-menu-item index="solution">答题区域</el-menu-item>
         <el-menu-item index="records">提交记录</el-menu-item>
@@ -32,48 +33,67 @@
 </template>
 
 <script lang="ts">
+import store from '@/stores';
+import { GET_PROBLEMITEM, PROBLEM_LIST_LENGTH,
+  SET_ACTIVE_TAB, SET_PROBLEM_INDEX, SET_RECORD
+} from '@/stores/modules/problem/contants';
+import { IProblemItem } from '@/typings/problem.ts';
 import { httpRequest } from '@/utils/httpRequest.ts';
 import { Component, Vue } from 'vue-property-decorator';
 
-interface ProblemItem {
-  name: string;
-  publish: string;
-  submit: number;
-  passNum: number;
-  spaceLimit: number;
-  timeLimit: number;
-}
-
 @Component({
-  name: 'problem'
+  name: 'problem',
+  async beforeRouteUpdate(to: any, from: any, next: any) {
+    if (to.params.problemId !== from.params.problemId) {
+      await store.dispatch(`problem/${GET_PROBLEMITEM}`, to.params.problemId);
+      store.commit(`problem/${SET_RECORD}`, '');
+      store.commit(`problem/${SET_ACTIVE_TAB}`, 'description');
+    }
+    next();
+  }
 })
 export default class Problem extends Vue {
-  problemId: string = '';
-  problem: ProblemItem = {
-    name: '',
-    publish: '',
-    submit: 0,
-    passNum: 0,
-    spaceLimit: 0,
-    timeLimit: 0
-  };
+  get activeTab(): string {
+    return store.state.problem.activeTab;
+  }
+
+  get problem(): IProblemItem {
+    return store.state.problem.problemItem;
+  }
+
+  get problemId(): string {
+    return this.$route.params.problemId;
+  }
+
+  get isFirstProblem(): boolean {
+    return store.state.problem.problemIndex === 0;
+  }
+
+  get isLastProblem(): boolean {
+    return store.state.problem.problemIndex === store.getters[`problem/${PROBLEM_LIST_LENGTH}`] - 1;
+  }
 
   async mounted() {
-    this.problemId = this.$route.params.problemId;
-    // const result = await httpRequest.get('/problem/201');
-    // 获取当前题目的详细数据
-    this.problem = {
-      name: 'Hello World',
-      publish: '2018-07-18',
-      submit: 200,
-      passNum: 100,
-      spaceLimit: 32,
-      timeLimit: 2
-    };
+    // 获取当前题目的详情数据
+    await store.dispatch(`problem/${GET_PROBLEMITEM}`, this.$route.params.problemId);
+    // 初始化代码记录
+    store.commit(`problem/${SET_RECORD}`, '');
+    store.commit(`problem/${SET_ACTIVE_TAB}`, 'description');
   }
 
   handleSelect(key: string, keyPath: string[]) {
+    store.commit(`problem/${SET_ACTIVE_TAB}`, key);
     this.$router.push({ name: key, params: { problemId: this.$route.params.problemId }});
+  }
+
+  changeProblem(type: string) {
+    if (type === 'last') {
+      store.commit(`problem/${SET_PROBLEM_INDEX}`, store.state.problem.problemIndex - 1);
+    } else if (type === 'next') {
+      store.commit(`problem/${SET_PROBLEM_INDEX}`, store.state.problem.problemIndex + 1);
+    }
+    this.$router.push({ path: '/problem/' +
+      store.state.problem.problemList[store.state.problem.problemIndex].problemId});
   }
 }
 </script>
