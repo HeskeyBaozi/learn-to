@@ -3,14 +3,14 @@
     <el-aside :width="leftSiderWidth" class="sider">
       <left-sider :isCollapse="isCollapse"></left-sider>
     </el-aside>
-    <el-container class="inner-container">
+    <el-container class="inner-container" style="height: 100vh;">
       <el-header class="header">
         <top-nav :isCollapse="isCollapse" @toggle-collapse="toggleCollapse" @select="handleSelect"></top-nav>
       </el-header>
       <el-main>
         <router-view></router-view>
       </el-main>
-      <el-footer>Footer</el-footer>
+      <!--<el-footer>Footer</el-footer>-->
     </el-container>
     <el-dialog custom-class="matrix-login-dialog" :visible.sync="isLoginDialogVisible" width="720px" :append-to-body="true" :show-close="false">
       <div class="login-form-left">

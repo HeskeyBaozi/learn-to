@@ -15,6 +15,7 @@ export default class User extends Vue {}
 
 <style lang="less" scoped>
 #user {
+  width: 100%;
 }
 </style>
 
