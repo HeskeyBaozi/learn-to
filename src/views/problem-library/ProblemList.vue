@@ -2,21 +2,25 @@
   <el-container id="problem-list">
     <el-header>
       <el-row>
-        <div class="col-item" style="display: inline-block;">
-          <el-input placeholder="请输入内容" prefix-icon="el-icon-search" v-model="searchKey" clearable></el-input>
-          <el-select v-model="sortKey" placeholder="请选择排序方式" @change="sortTable">
-            <el-option label="题号" value="problemId"></el-option>
-            <el-option label="热度" value="submitNum"></el-option>
-          </el-select>
-          <el-select v-model="filterKey" placeholder="请选择评测状态" clearable  @change="filterTable">
-            <el-option label="Accepted" value="Accepted"></el-option>
-            <el-option label="Compile Error" value="Compile Error"></el-option>
-            <el-option label="Wrong Answer" value="Wrong Answer"></el-option>
-            <el-option label="Time Limit Exceeded" value="Time Limit Exceeded"></el-option>
-            <el-option label="Memory Limit Exceeded" value="Memory Limit Exceeded"></el-option>
-            <el-option label="Runtime Error" value="Runtime Error"></el-option>
-          </el-select>
-          <el-button type="primary" @click="searchProblem">搜索</el-button>
+        <div class="col-item" style="">
+          <div>
+            <el-input placeholder="请输入内容" prefix-icon="el-icon-search" v-model="searchKey" clearable></el-input>
+            <el-button type="primary" @click="searchProblem">搜索</el-button>
+          </div>
+          <div>
+            <el-select v-model="sortKey" placeholder="请选择排序方式" @change="sortTable">
+              <el-option label="题号" value="problemId"></el-option>
+              <el-option label="热度" value="submitNum"></el-option>
+            </el-select>
+            <el-select v-model="filterKey" placeholder="请选择评测状态" clearable  @change="filterTable" style="margin-left: 1rem;">
+              <el-option label="Accepted" value="Accepted"></el-option>
+              <el-option label="Compile Error" value="Compile Error"></el-option>
+              <el-option label="Wrong Answer" value="Wrong Answer"></el-option>
+              <el-option label="Time Limit Exceeded" value="Time Limit Exceeded"></el-option>
+              <el-option label="Memory Limit Exceeded" value="Memory Limit Exceeded"></el-option>
+              <el-option label="Runtime Error" value="Runtime Error"></el-option>
+            </el-select>
+          </div>
         </div>
       </el-row>
     </el-header>
@@ -130,9 +134,10 @@ export default class ProblemList extends Vue {
               .getBoundingClientRect().top;
             const scrollParent = (this.$refs.problemTable as any).$el.querySelector('.el-table__body-wrapper');
             // 不知道为什么不会滚动
-            // window.scrollBy(0, targetTop - containerTop);
-            (this.$refs.problemTable as any).$el
-              .querySelectorAll('.el-table__body tr')[i % this.pageSize].scrollIntoView(true);
+            // 60为顶部topnav的高度
+            window.scrollBy(0, targetTop - containerTop - 60);
+            // (this.$refs.problemTable as any).$el
+            //   .querySelectorAll('.el-table__body tr')[i % this.pageSize].scrollIntoView(true);
           }, 0);
           return;
         }
@@ -177,6 +182,8 @@ export default class ProblemList extends Vue {
     .col-item {
       height: 49px;
       line-height: 49px;
+      display: flex;
+      justify-content: space-between;
 
       label {
         vertical-align: middle;
@@ -200,7 +207,10 @@ export default class ProblemList extends Vue {
   .el-header {
     .el-input  {
       width: 180px;
-      margin-right: 1rem;
+    }
+
+    .el-button  {
+      margin-left: 1rem;
     }
   }
 
