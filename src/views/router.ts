@@ -1,5 +1,6 @@
 import BasicLayout from '@/layouts/BasicLayout.vue';
 import store from '@/stores';
+import { IS_LOGIN } from '@/stores/modules/authorization/contants';
 import { QUERY_LOGIN_STATUS } from '@/stores/modules/authorization/contants';
 import Vue from 'vue';
 import Router from 'vue-router';
@@ -73,7 +74,14 @@ const router = new Router({
         },
         {
           path: 'statistic',
-          component: () => import('./statistic/Statistic.vue')
+          component: () => import('./statistic/Statistic.vue'),
+          async beforeEnter(to, from, next) {
+            if (store.getters[`authorization/${IS_LOGIN}`]) {
+              next();
+            } else {
+              next('/');
+            }
+          }
         },
         {
           path: 'statistic/ranks',

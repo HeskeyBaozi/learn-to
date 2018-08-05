@@ -4,15 +4,15 @@
       <el-row>
         <div class="col-item">
           <div>
-              <el-input placeholder="请输入内容" prefix-icon="el-icon-search" v-model="searchKey" clearable></el-input>
+              <el-input placeholder="请输入内容" prefix-icon="el-icon-search" v-model="searchKey" clearable @change="handleInputChange"></el-input>
               <el-button type="primary" @click="searchProblem">搜索</el-button>
           </div>
           <div>
-            <el-select v-model="sortKey" placeholder="请选择排序方式" @change="sortTable">
-              <el-option label="题号" value="problemId"></el-option>
-              <el-option label="热度" value="submitNum"></el-option>
+            <el-select v-model="sortKey" placeholder="按题号排序" clearable @change="sortTable">
+              <el-option label="按发布时间排序" value="publish"></el-option>
+              <el-option label="按热度排序" value="submitNum"></el-option>
             </el-select>
-            <el-select v-model="filterKey" placeholder="请选择评测状态" clearable  @change="filterTable"  style="margin-left: 1rem;">
+            <el-select v-model="filterKey" placeholder="All" clearable  @change="filterTable"  style="margin-left: 1rem;">
               <el-option label="Accepted" value="Accepted"></el-option>
               <el-option label="Compile Error" value="Compile Error"></el-option>
               <el-option label="Wrong Answer" value="Wrong Answer"></el-option>
@@ -83,8 +83,7 @@ export default class RecentTests extends Vue {
 
   handleSizeChange(val: number) {
     this.pageSize = val;
-    this.currentPage = 1;
-    this.handleCurrentPageChange(1);
+    this.resetPage();
   }
 
   pagination(pageNo: number, pageSize: number, array: IRecentProblem[]) {
@@ -99,34 +98,34 @@ export default class RecentTests extends Vue {
     this.$router.push({ path: `/problem/${row.problemId}`});
   }
 
+  handleInputChange(value: string | number) {
+    if (value === '') {
+      [ ...this.problemFilterData ] = this.problemListData;
+      this.sortKey = '';
+      this.filterKey = '';
+      this.resetPage();
+    }
+  }
+
   searchProblem() {
     if (!!this.searchKey) {
       for (let i = 0; i < this.problemFilterData.length; i++) {
-        // 这里的problemId为int 进行了转换
-        if (this.problemFilterData[i].problemName.indexOf(this.searchKey) !== -1
+        if (this.problemFilterData[i].problemName.toLowerCase().indexOf(this.searchKey.toLowerCase()) !== -1
           || this.problemFilterData[i].problemId.toString() === this.searchKey) {
-          // 获取题目所在页数
-          this.currentPage = Math.floor(i / this.pageSize + 1);
-          this.handleCurrentPageChange(this.currentPage);
-          // 高亮当前行
-          (this.$refs.recordTable as any).setCurrentRow(this.problemFilterData[i]);
-          // TODO: 滚动到当前行
-          setTimeout(() => {
-            const targetTop = (this.$refs.recordTable as any).$el
-              .querySelectorAll('.el-table__body tr')[i % this.pageSize].getBoundingClientRect().top;
-            const containerTop = (this.$refs.recordTable as any).$el.querySelector('.el-table__body')
-              .getBoundingClientRect().top;
-            const scrollParent = (this.$refs.recordTable as any).$el.querySelector('.el-table__body-wrapper');
-            (this.$refs.recordTable as any).$el
-              .querySelectorAll('.el-table__body tr')[i % this.pageSize].scrollIntoView(true);
-          }, 0);
-          return;
+          // noop
+        } else {
+          // 删除不满足搜索条件的项
+          this.problemFilterData.splice(i, 1);
+          --i;
         }
       }
-      Message({
-        message: '找不到相关题目~',
-        type: 'warning'
-      });
+      this.resetPage();
+      if (this.problemFilterData.length === 0) {
+        Message({
+          message: '找不到相关题目~',
+          type: 'warning'
+        });
+      }
     } else {
       Message({
         message: '请输入查找信息:)'
@@ -135,16 +134,26 @@ export default class RecentTests extends Vue {
   }
 
   sortTable(method: string) {
-    if (method === 'problemId') {
-      this.problemFilterData.sort((problem1, problem2) => problem1.problemId - problem2.problemId);
-    } else {
+    if (method === 'publish') {
+      this.problemFilterData.sort((problem1, problem2) => {
+        if (problem1.publishDate < problem2.publishDate) {
+          return 1;
+        } else if (problem1.publishDate > problem2.publishDate) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+    } else if (method === 'submitNum') {
       this.problemFilterData.sort((problem1, problem2) => problem2.submit - problem1.submit);
+    } else {
+      this.problemFilterData.sort((problem1, problem2) => problem1.problemId - problem2.problemId);
     }
-    this.currentPage = 1;
-    this.handleCurrentPageChange(1);
+    this.resetPage();
   }
 
   filterTable(key: string) {
+    this.searchKey = '';
     this.problemFilterData = this.problemListData.filter((item) => {
       if (!!this.filterKey) {
         return item.meterState === this.filterKey;
@@ -152,16 +161,21 @@ export default class RecentTests extends Vue {
         return item;
       }
     });
-    this.currentPage = 1;
-    this.handleCurrentPageChange(1);
+    this.sortTable(this.sortKey);
+    this.resetPage();
   }
 
   async mounted() {
     // 获取最近题目列表
     const result =  await httpRequest.get('statistic/recent');
     this.problemListData = result.data;
-    this.problemFilterData = this.problemListData;
+    [ ...this.problemFilterData ] = this.problemListData;
     this.tableData = this.pagination(1, this.pageSize, this.problemFilterData);
+  }
+
+  resetPage() {
+    this.currentPage = 1;
+    this.handleCurrentPageChange(1);
   }
 }
 </script>
