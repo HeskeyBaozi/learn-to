@@ -9,7 +9,9 @@
       <el-container class="home-module-1">
           <el-aside>
             <img src="@/assets/u361.svg" style="width: 100%;"/>
-            <p style="text-align: center;font-size: 16px;">新题</p>
+            <p style="text-align: center;font-size: 16px;">
+              <el-button>新题</el-button>
+              </p>
           </el-aside>
           <el-main>
             <el-table :data="newProblems" stripe>
@@ -22,7 +24,9 @@
       <el-container class="home-module-2">
         <el-aside>
           <img src="@/assets/u363.svg" style="width: 100%"/>
-          <p style="text-align: center; font-size: 16px">热题</p>
+          <p style="text-align: center; font-size: 16px">
+            <el-button>热题</el-button>
+            </p>
         </el-aside>
         <el-main>
           <el-table :data="hotProblems" stripe>
@@ -35,7 +39,9 @@
       <el-container class="home-module-3">
         <el-aside>
           <img src="@/assets/u351.svg" style="width: 100%"/>
-          <p style="text-align: center; font-size: 16px">前十排名</p>
+          <p style="text-align: center; font-size: 16px">
+            <el-button>查看排名</el-button>
+            </p>
         </el-aside>
         <el-main>
           <el-table :data="ranks" stripe>
@@ -48,6 +54,17 @@
     </el-main>
     <el-footer>
       <img src="@/assets/u367.png" id="home-bottom-image"/>
+      <div>
+        <p>
+          <img src="@/assets/u358.png" style="vertical-align: -30%; margin: 5px; margin-bottom: 0px;"/> MOJ
+        </p>
+        <p>
+          <a>关于我们 | </a>
+          <a>公众号 | </a>
+          <a>技术博客 | </a>
+          <a>联系我们</a>
+        </p>
+      </div>
     </el-footer>
   </el-container>
 </template>
@@ -274,6 +291,18 @@ export default class Ranks extends Vue {
     padding: 0px;
     margin-left: -20px;
     margin-right: -20px;
+    div {
+      background-color: rgb(87, 158, 239);
+      text-align: center;
+      color: rgb(195, 195, 195);
+      font-size: 1.25rem;
+      p {
+        margin-top: -3px;
+        a {
+          color: rgb(195, 195, 195);
+        }
+      }
+    }
   }
 }
 #home-bottom-image {

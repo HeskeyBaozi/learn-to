@@ -1,0 +1,15 @@
+// Mutations
+export const SET_PROBLEMITEM = 'SET_PROBLEMITEM';
+export const SET_SUBMIT_RECORD = 'SET_SUBMIT_RECORD';
+export const SET_RECORD = 'SET_RECORD';
+export const SET_ACTIVE_TAB = 'SET_ACTIVE_TAB';
+export const SET_PROBLEM_LIST = 'SET_PROBLEM_LIST';
+export const SET_PROBLEM_INDEX = 'SET_PROBLEM_INDEX';
+
+// Getters
+export const PROBLEM_LIST_LENGTH = 'PROBLEM_LIST_LENGTH';
+
+// Actions
+export const GET_PROBLEMITEM = 'GET_PROBLEMITEM';
+export const GET_SUBMIT_RECORD = 'GET_SUBMIT_RECORD';
+export const GET_PROBLEM_LIST = 'GET_PROBLEM_LIST';

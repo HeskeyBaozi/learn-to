@@ -53,18 +53,13 @@
 </template>
 
 <script lang="ts">
+import store from '@/stores';
+import { IRecentProblem } from '@/typings/statistic.ts';
+import { httpRequest } from '@/utils/httpRequest';
 import { Message } from 'element-ui';
 import { setTimeout } from 'timers';
 import { Component, Vue } from 'vue-property-decorator';
 
-interface IRecord {
-  problemId: number;
-  problemName: string;
-  submit: number;
-  lastSubmit: string;
-  publishDate: string;
-  meterState: string;
-}
 
 @Component({
   name: 'recent-tests'
@@ -74,9 +69,9 @@ export default class RecentTests extends Vue {
   sortKey: string = '';
   pageSize: number = 100;
   currentPage: number = 1;
-  problemListData: IRecord[] = [];
-  problemFilterData: IRecord[] = [];
-  tableData: IRecord[] = [];
+  problemListData: IRecentProblem[] = [];
+  problemFilterData: IRecentProblem[] = [];
+  tableData: IRecentProblem[] = [];
   filterKey: string = '';
 
   handleCurrentPageChange(val: number) {
@@ -89,13 +84,15 @@ export default class RecentTests extends Vue {
     this.handleCurrentPageChange(1);
   }
 
-  pagination(pageNo: number, pageSize: number, array: IRecord[]) {
+  pagination(pageNo: number, pageSize: number, array: IRecentProblem[]) {
     const offset: number = (pageNo - 1) * pageSize;
     return (offset + pageSize >= array.length) ?
       array.slice(offset, array.length) : array.slice(offset, offset + pageSize);
   }
 
-  handleProblemClick(row: IRecord) {
+  handleProblemClick(row: IRecentProblem) {
+    // const index = store.state.problem.problemList.findIndex((item) => item.problemId === row.problemId);
+    // store.commit(`problem/${SET_PROBLEM_INDEX}`, index);
     this.$router.push({ path: `/problem/${row.problemId}`});
   }
 
@@ -124,7 +121,7 @@ export default class RecentTests extends Vue {
         }
       }
       Message({
-        message: '>.< 找不到相关题目~',
+        message: '找不到相关题目~',
         type: 'warning'
       });
     } else {
@@ -156,250 +153,10 @@ export default class RecentTests extends Vue {
     this.handleCurrentPageChange(1);
   }
 
-  mounted() {
-    this.problemListData = [
-      {
-        problemId: 202,
-        problemName: 'A+B',
-        submit: 2,
-        lastSubmit: '2018-07-18',
-        publishDate: '2018-7-7',
-        meterState: 'Memory Limit Exceeded'
-      },
-      {
-        problemId: 203,
-        problemName: 'xxxxxxx',
-        submit: 10,
-        lastSubmit: '2018-07-20',
-        publishDate: '2018-7-7',
-        meterState: 'Runtime Error'
-      },
-      {
-        problemId: 202,
-        problemName: 'A+B',
-        submit: 2,
-        lastSubmit: '2018-07-18',
-        publishDate: '2018-7-7',
-        meterState: 'Memory Limit Exceeded'
-      },
-      {
-        problemId: 203,
-        problemName: 'xxxxxxx',
-        submit: 10,
-        lastSubmit: '2018-07-20',
-        publishDate: '2018-7-7',
-        meterState: 'Runtime Error'
-      },
-      {
-        problemId: 202,
-        problemName: 'A+B',
-        submit: 2,
-        lastSubmit: '2018-07-18',
-        publishDate: '2018-7-7',
-        meterState: 'Memory Limit Exceeded'
-      },
-      {
-        problemId: 203,
-        problemName: 'xxxxxxx',
-        submit: 10,
-        lastSubmit: '2018-07-20',
-        publishDate: '2018-7-7',
-        meterState: 'Runtime Error'
-      },
-      {
-        problemId: 202,
-        problemName: 'A+B',
-        submit: 2,
-        lastSubmit: '2018-07-18',
-        publishDate: '2018-7-7',
-        meterState: 'Memory Limit Exceeded'
-      },
-      {
-        problemId: 203,
-        problemName: 'xxxxxxx',
-        submit: 10,
-        lastSubmit: '2018-07-20',
-        publishDate: '2018-7-7',
-        meterState: 'Runtime Error'
-      },
-      {
-        problemId: 202,
-        problemName: 'A+B',
-        submit: 2,
-        lastSubmit: '2018-07-18',
-        publishDate: '2018-7-7',
-        meterState: 'Memory Limit Exceeded'
-      },
-      {
-        problemId: 203,
-        problemName: 'xxxxxxx',
-        submit: 10,
-        lastSubmit: '2018-07-20',
-        publishDate: '2018-7-7',
-        meterState: 'Runtime Error'
-      },
-      {
-        problemId: 202,
-        problemName: 'A+B',
-        submit: 2,
-        lastSubmit: '2018-07-18',
-        publishDate: '2018-7-7',
-        meterState: 'Memory Limit Exceeded'
-      },
-      {
-        problemId: 203,
-        problemName: 'xxxxxxx',
-        submit: 10,
-        lastSubmit: '2018-07-20',
-        publishDate: '2018-7-7',
-        meterState: 'Runtime Error'
-      },
-      {
-        problemId: 202,
-        problemName: 'A+B',
-        submit: 2,
-        lastSubmit: '2018-07-18',
-        publishDate: '2018-7-7',
-        meterState: 'Memory Limit Exceeded'
-      },
-      {
-        problemId: 203,
-        problemName: 'xxxxxxx',
-        submit: 10,
-        lastSubmit: '2018-07-20',
-        publishDate: '2018-7-7',
-        meterState: 'Runtime Error'
-      },
-      {
-        problemId: 202,
-        problemName: 'A+B',
-        submit: 2,
-        lastSubmit: '2018-07-18',
-        publishDate: '2018-7-7',
-        meterState: 'Memory Limit Exceeded'
-      },
-      {
-        problemId: 203,
-        problemName: 'xxxxxxx',
-        submit: 10,
-        lastSubmit: '2018-07-20',
-        publishDate: '2018-7-7',
-        meterState: 'Runtime Error'
-      },
-      {
-        problemId: 202,
-        problemName: 'A+B',
-        submit: 2,
-        lastSubmit: '2018-07-18',
-        publishDate: '2018-7-7',
-        meterState: 'Memory Limit Exceeded'
-      },
-      {
-        problemId: 203,
-        problemName: 'xxxxxxx',
-        submit: 10,
-        lastSubmit: '2018-07-20',
-        publishDate: '2018-7-7',
-        meterState: 'Runtime Error'
-      },
-      {
-        problemId: 202,
-        problemName: 'A+B',
-        submit: 2,
-        lastSubmit: '2018-07-18',
-        publishDate: '2018-7-7',
-        meterState: 'Memory Limit Exceeded'
-      },
-      {
-        problemId: 203,
-        problemName: 'zzzz',
-        submit: 10,
-        lastSubmit: '2018-07-20',
-        publishDate: '2018-7-7',
-        meterState: 'Runtime Error'
-      },
-      {
-        problemId: 202,
-        problemName: 'A+B',
-        submit: 2,
-        lastSubmit: '2018-07-18',
-        publishDate: '2018-7-7',
-        meterState: 'Memory Limit Exceeded'
-      },
-      {
-        problemId: 203,
-        problemName: 'xxxxxxx',
-        submit: 10,
-        lastSubmit: '2018-07-20',
-        publishDate: '2018-7-7',
-        meterState: 'Runtime Error'
-      },
-      {
-        problemId: 202,
-        problemName: 'A+B',
-        submit: 2,
-        lastSubmit: '2018-07-18',
-        publishDate: '2018-7-7',
-        meterState: 'Memory Limit Exceeded'
-      },
-      {
-        problemId: 203,
-        problemName: 'xxxxxxx',
-        submit: 10,
-        lastSubmit: '2018-07-20',
-        publishDate: '2018-7-7',
-        meterState: 'Runtime Error'
-      },
-      {
-        problemId: 202,
-        problemName: 'A+B',
-        submit: 2,
-        lastSubmit: '2018-07-18',
-        publishDate: '2018-7-7',
-        meterState: 'Memory Limit Exceeded'
-      },
-      {
-        problemId: 203,
-        problemName: 'xxxxxxx',
-        submit: 10,
-        lastSubmit: '2018-07-20',
-        publishDate: '2018-7-7',
-        meterState: 'Runtime Error'
-      },
-      {
-        problemId: 202,
-        problemName: 'A+B',
-        submit: 2,
-        lastSubmit: '2018-07-18',
-        publishDate: '2018-7-7',
-        meterState: 'Memory Limit Exceeded'
-      },
-      {
-        problemId: 203,
-        problemName: 'dddd',
-        submit: 10,
-        lastSubmit: '2018-07-20',
-        publishDate: '2018-7-7',
-        meterState: 'Runtime Error'
-      },
-      {
-        problemId: 202,
-        problemName: 'A+B',
-        submit: 2,
-        lastSubmit: '2018-07-18',
-        publishDate: '2018-7-7',
-        meterState: 'Memory Limit Exceeded'
-      },
-      {
-        problemId: 203,
-        problemName: 'xxxxxxx',
-        submit: 10,
-        lastSubmit: '2018-07-20',
-        publishDate: '2018-7-7',
-        meterState: 'Runtime Error'
-      }
-    ];
-
+  async mounted() {
+    // 获取最近题目列表
+    const result =  await httpRequest.get('statistic/recent');
+    this.problemListData = result.data;
     this.problemFilterData = this.problemListData;
     this.tableData = this.pagination(1, this.pageSize, this.problemFilterData);
   }

@@ -1,3 +1,4 @@
+import problem from '@//stores/modules/problem';
 import authorization from '@/stores/modules/authorization';
 import loading from '@/stores/modules/loading';
 import { enhanceWithLoadingModule } from '@/stores/plugins/enhanceAction';
@@ -10,7 +11,8 @@ Vue.use(Vuex);
 // 模块放置于此对象中即可
 const modules = {
   authorization,
-  loading
+  loading,
+  problem
 };
 
 const rootStore = new Vuex.Store<RootState>({

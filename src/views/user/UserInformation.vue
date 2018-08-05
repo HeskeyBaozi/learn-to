@@ -1,8 +1,7 @@
 <template>
   <div>
     <div id='topInfo'>
-      <div id="background">
-      </div>
+      <div id="background"></div>
       <div class="profilePhoto">
         <img id="photo" src="@/assets/test.jpg"/>
       </div>
@@ -22,7 +21,6 @@
         <user-presentation></user-presentation>
       </el-main>
     </el-container>
-
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
   <el-container id="submit-records">
     <div class="sub-containter">
-      <el-table :data="tableData" stripe>
+      <el-table :data="tableData" stripe @row-click="handleClick">
         <el-table-column prop="submissionTime" label="提交时间" min-width="180"></el-table-column>
         <el-table-column label="评测状态" width="180">
           <template slot-scope="scope">
@@ -25,26 +25,30 @@
 </template>
 
 <script lang="ts">
+import store from '@/stores';
+import { GET_SUBMIT_RECORD, SET_ACTIVE_TAB, SET_RECORD } from '@/stores/modules/problem/contants';
+import { ISubmitRecord } from '@/typings/problem.ts';
+import { httpRequest } from '@/utils/httpRequest.ts';
+import { MessageBox } from 'element-ui';
 import { Component, Vue } from 'vue-property-decorator';
 
-interface IRecord {
-  submissionTime: string;
-  state: string;
-}
 
 @Component({
   name: 'submit-records'
 })
 export default class SubmitRecords extends Vue {
-  recordData: IRecord[] = [];
-  tableData: IRecord[] = [];
+  tableData: ISubmitRecord[] = [];
   pageSize: number = 10;
+
+  get recordData(): ISubmitRecord[] {
+    return store.state.problem.problemSubmitRecord;
+  }
 
   handleCurrentPageChange(val: number) {
     this.tableData = this.pagination(val, this.pageSize, this.recordData);
   }
 
-  pagination(pageNo: number, pageSize: number, array: IRecord[]) {
+  pagination(pageNo: number, pageSize: number, array: ISubmitRecord[]) {
     const offset: number = (pageNo - 1) * pageSize;
     return (offset + pageSize >= array.length) ?
       array.slice(offset, array.length) : array.slice(offset, offset + pageSize);
@@ -55,58 +59,23 @@ export default class SubmitRecords extends Vue {
     this.handleCurrentPageChange(1);
   }
 
-  mounted() {
-    // 获取提交记录数据
-    this.recordData = [{
-      submissionTime: '2018-07-18-18：59',
-      state: 'Accepted'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Accepted'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Wrong Answer'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Time Limit Exceeded'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Memory Limit Exceeded'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Runtime Error'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Runtime Error'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Compile Error'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Compile Error'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Compile Error'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Accepted'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Wrong Answer'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Time Limit Exceeded'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Memory Limit Exceeded'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Runtime Error'
-    }, {
-      submissionTime: '2018-07-18-18：59',
-      state: 'Runtime Error'
-    }];
+  handleClick(row: ISubmitRecord) {
+    MessageBox.confirm('是否前往查看该次提交？当前代码不予保存', '提示', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning'
+    }).then(() => {
+      store.commit(`problem/${SET_RECORD}`, row.code);
+      store.commit(`problem/${SET_ACTIVE_TAB}`, 'solution');
+      this.$router.push({ name: 'solution'});
+    }).catch(() => {
+      // noop
+    });
+  }
 
+  async mounted() {
+    // 获取提交记录数据
+    await store.dispatch(`problem/${GET_SUBMIT_RECORD}`);
     this.handleCurrentPageChange(1);
   }
 }
@@ -117,6 +86,14 @@ export default class SubmitRecords extends Vue {
   .paging {
     margin-top: 20px;
     text-align: center;
+  }
+}
+</style>
+
+<style lang="less">
+#submit-records {
+  .el-table__row:hover {
+    cursor: pointer;
   }
 }
 </style>

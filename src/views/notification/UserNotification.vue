@@ -2186,7 +2186,11 @@ export default class UserNotification extends Vue {
     bottom: 0;
     right: 0;
     height: 64px;
+<<<<<<< HEAD
     width: 100%;
+=======
+    width: calc(100% - 64px);
+>>>>>>> a481790085a47424c93fb03d78a8c4282f3b23f4
     background: #fff;
   }
 </style>
