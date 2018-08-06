@@ -49,7 +49,9 @@ export default {
       faCheck,
       faUndo,
       faKeyboard,
-      faEnvelope
+      faEnvelope,
+      faPencilAlt,
+      faReply
     );
 
     // 添加 regular 图标，需要传入数组
