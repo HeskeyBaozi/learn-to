@@ -1,27 +1,27 @@
 <template>
-  <div>
-    <div id='topInfo'>
-      <div id="background"></div>
-      <div class="profilePhoto">
-        <img id="photo" src="@/assets/test.jpg"/>
-      </div>
-      <div class="simpleInfo">
-        <span id="student">{{student}}</span>
-        <el-button type="text" id="modify" @click="showModify">修改密码</el-button>
-          <el-dialog custom-class="modify-password-dialog" :visible.sync="isDialogVisible" width="400px" :show-close="false" center>
-            <modify-password></modify-password>
-          </el-dialog>
-        <span id="mail">{{email}}</span>
+  <el-container id="user-infomation">
+    <div class="header">
+      <div class="background"></div>
+      <div class="container">
+        <el-row class="inner">
+          <div class="profilePhoto">
+            <img id="photo" src="@/assets/test.jpg"/>
+          </div>
+          <el-col span="12" class="simpleInfo">
+            <span>{{student}}</span>
+            <el-button type="text" class="modify-btn" @click="showModify">修改密码</el-button>
+              <el-dialog :visible.sync="isDialogVisible" width="400px" :show-close="false" center>
+                <modify-password></modify-password>
+              </el-dialog>
+            <span id="mail">{{email}}</span>
+          </el-col>
+        </el-row>
       </div>
     </div>
-    <el-container id="user-information">
-      <el-main>
-        <user-profile></user-profile>
-        <div id="inline"></div>
-        <user-presentation></user-presentation>
-      </el-main>
-    </el-container>
-  </div>
+
+    <user-profile></user-profile>
+    <user-presentation style="margin-top: 2rem;"></user-presentation>
+  </el-container>
 </template>
 
 <script lang="ts">
@@ -51,57 +51,60 @@ export default class UserInformation extends Vue {
 </script>
 
 <style lang="less" scoped>
-  #inline{
+#user-infomation {
+  flex-direction: column;
+
+  .header {
+    height: 25rem;
     position: relative;
-    height: 32px;
-  }
+    top: -60px;
 
-  .profilePhoto{
-    position: relative;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    margin-left: 10%;
-  }
+    .background {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url('../../assets/u367.png');
+      background-size: cover;
+      transform-origin: 0%;
+      transform: skewY(-9deg);
+    }
 
-  #photo{
-    border-radius: 50% 50% 50% 50%;
-    width: 200px;
-    height: 200px;
-  }
+    .container {
+      margin-left: auto;
+      margin-right: auto;
+      height: 100%;
+      width: 85%;
 
-  .simpleInfo{
-    position: relative;
-    left: 25rem;
-    top: -5.1rem;
-  }
+      .inner {
+        height: 100%;
+        display: flex;
+        align-items: flex-end;
+      }
 
-  #user-information{
-    margin-top: -2.5rem;
-  }
+      .profilePhoto {
+        float: left;
+        width: 200px;
+        height: 200px;
 
-  #student{
-    position: relative;
-  }
+        #photo{
+          border-radius: 50%;
+          width: 200px;
+          height: 200px;
+        }
+      }
 
-  #modify{
-    position: relative;
-    padding-left: 0.8rem;
-  }
+      .simpleInfo{
+        margin-left: 1rem;
 
-  #mail{
-    position: relative;
-    display: block;
-  }
+        #mail{
+          display: block;
+        }
 
-  #background{
-    width: 100%;
-    height: 14rem;
-    position: absolute;
-    margin-top: -1.5rem;
-    margin-left: -1.5rem;
-    clip-path: polygon(100% 0%, 100% 20%, 0% 100%, 0% 0%);
-    background-image: url('../../assets/u367.png');
-    background-size: cover;
+        .modify-btn {
+          padding-left: 0.8rem;
+        }
+      }
+    }
   }
+}
 </style>
