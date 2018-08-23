@@ -7,13 +7,13 @@
           <div class="profilePhoto">
             <img id="photo" src="@/assets/test.jpg"/>
           </div>
-          <el-col span="12" class="simpleInfo">
-            <span>{{student}}</span>
+          <el-col :span="12" class="simpleInfo">
+            <span>{{ user.username }}</span>
             <el-button type="text" class="modify-btn" @click="showModify">修改密码</el-button>
               <el-dialog :visible.sync="isDialogVisible" width="400px" :show-close="false" center>
                 <modify-password></modify-password>
               </el-dialog>
-            <span id="mail">{{email}}</span>
+            <span id="mail">{{ user.email }}</span>
           </el-col>
         </el-row>
       </div>
@@ -28,6 +28,8 @@
 import ModifyPassword from '@/components/user/ModifyPassword.vue';
 import UserPresentation from '@/components/user/UserPresentation.vue';
 import UserProfile from '@/components/user/UserProfile.vue';
+import { IUserProfile } from '@/typings/user.ts';
+import { httpRequest } from '@/utils/httpRequest';
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component({
@@ -40,9 +42,28 @@ import { Component, Vue } from 'vue-property-decorator';
 })
 
 export default class UserInformation extends Vue {
-  student = '贾同学';
-  email = 'moutongxue@matrix';
+  user: IUserProfile = {
+    user_Id: 0,
+    username: '贾同学',
+    realname: null,
+    description: null,
+    email: 'moutongxue@matrix',
+    phone_number: null,
+    major: null,
+    website: null
+  };
   isDialogVisible = false;
+
+  async mounted() {
+    try {
+      const res = await httpRequest.get('users/profile');
+      // mock data
+      this.user = res.data;
+    } catch (err) {
+      // tslint:disable-next-line:no-console
+      console.log(err.data);
+    }
+  }
 
   showModify() {
     this.isDialogVisible = true;

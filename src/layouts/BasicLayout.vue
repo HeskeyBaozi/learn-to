@@ -57,8 +57,12 @@ export default class BasicLayout extends Vue {
   handleSelect(name: ItemNameType) {
     switch (name) {
       case 'login':
-        // tslint:disable-next-line:no-console
         this.isLoginDialogVisible = true;
+        break;
+      case 'logout':
+        break;
+      case 'message':
+        this.$router.push({ path: '/notification' });
         break;
       default:
         break;

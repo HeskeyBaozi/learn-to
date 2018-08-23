@@ -120,6 +120,7 @@ export default class UserProfile extends Vue {
 #user-profile {
   display: flex;
   flex-direction: column;
+  margin: 20px;
 
   .row {
     width: 100%;

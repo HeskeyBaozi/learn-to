@@ -35,7 +35,7 @@ module.exports = {
     name: "matrix-online-judge"
   },
   devServer: {
-    proxy: null,
+    proxy: 'http://oj.vmatrix.org.cn',
     before(app) {
       if (process.env.MOCK_DATA) {
         apiMocker(app, path.resolve(__dirname, './mock/index.js'));

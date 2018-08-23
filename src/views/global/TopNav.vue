@@ -4,7 +4,13 @@
       <fa-icon :icon="['fas', 'indent']"></fa-icon>
     </div>
     <div class="nav">
-      <div class="nav-item" @click="selectItem('login')">
+      <div v-if="isLogin" class="nav-item" @click="selectItem('message')">
+        <icon-text icon="envelope" text="消息" />
+      </div>
+      <div v-if="isLogin" class="nav-item" @click="selectItem('logout')">
+        <icon-text icon="sign-out-alt" text="登出" />
+      </div>
+      <div v-if="!isLogin" class="nav-item" @click="selectItem('login')">
         <icon-text icon="user-circle" text="登录" />
       </div>
     </div>
@@ -12,9 +18,11 @@
 </template>
 
 <script lang="ts">
+import store from '@/stores';
+import { IS_LOGIN } from '@/stores/modules/authorization/contants';
 import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
 
-export type ItemNameType = 'login';
+export type ItemNameType = 'login' | 'logout' | 'message';
 
 @Component({
   name: 'top-nav'
@@ -25,6 +33,10 @@ export default class TopNav extends Vue {
     required: true
   })
   isCollapse!: boolean;
+
+  get isLogin(): boolean {
+    return store.getters[`authorization/${IS_LOGIN}`];
+  }
 
   get topNavClassName() {
     return {

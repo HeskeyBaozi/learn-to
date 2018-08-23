@@ -1,7 +1,7 @@
 <template>
   <el-container id="ac-chart">
     <el-card style="width: 100%;">
-      <div class="title">近60天AC题数</div>
+      <div class="title">近8周AC题数</div>
       <div id="chart-1" @click="handleClick"></div>
     </el-card>
   </el-container>
@@ -25,7 +25,13 @@ export default class AcChart extends Vue {
       padding: 40
     });
 
-    chart.source(this.chartData);
+    chart.source(this.chartData, {
+      week: {
+        type: 'time',
+        nice: false,
+        tickCount: 8
+      }
+    });
 
     chart.axis('AC', {
       label: {
