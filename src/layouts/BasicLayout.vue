@@ -1,7 +1,7 @@
 <template>
   <el-container id="basic-layout" :class="basicLayoutClassName">
     <el-aside :width="leftSiderWidth" class="sider">
-      <left-sider :isCollapse="isCollapse"></left-sider>
+      <left-sider :isCollapse="isCollapse" @select="handleSelect"></left-sider>
     </el-aside>
     <el-container class="inner-container" style="height: 100vh;">
       <el-header class="header">

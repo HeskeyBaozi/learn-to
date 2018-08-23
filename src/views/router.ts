@@ -78,7 +78,7 @@ const router = new Router({
             if (store.getters[`authorization/${IS_LOGIN}`]) {
               next();
             } else {
-              next('/');
+              next(false);
             }
           }
         },
