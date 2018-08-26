@@ -57,7 +57,6 @@ const router = new Router({
         },
         {
           path: 'user',
-          name: 'user',
           component: () => import('./user/User.vue'),
           children: [
             {
@@ -67,7 +66,7 @@ const router = new Router({
             },
             {
               path: ':userId',
-              name: 'as',
+              name: 'profile',
               component: () => import('./user/UserProfile.vue')
             }
           ]
@@ -79,7 +78,7 @@ const router = new Router({
             if (store.getters[`authorization/${IS_LOGIN}`]) {
               next();
             } else {
-              next('/');
+              next(false);
             }
           }
         },

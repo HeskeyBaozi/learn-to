@@ -1,7 +1,7 @@
 <template>
   <el-container id="basic-layout" :class="basicLayoutClassName">
     <el-aside :width="leftSiderWidth" class="sider">
-      <left-sider :isCollapse="isCollapse"></left-sider>
+      <left-sider :isCollapse="isCollapse" @select="handleSelect"></left-sider>
     </el-aside>
     <el-container class="inner-container" style="height: 100vh;">
       <el-header class="header">
@@ -57,8 +57,12 @@ export default class BasicLayout extends Vue {
   handleSelect(name: ItemNameType) {
     switch (name) {
       case 'login':
-        // tslint:disable-next-line:no-console
         this.isLoginDialogVisible = true;
+        break;
+      case 'logout':
+        break;
+      case 'message':
+        this.$router.push({ path: '/notification' });
         break;
       default:
         break;

@@ -107,9 +107,6 @@ export default class Statistic extends Vue {
     }, {
       week: '2018/07/16',
       AC: 32040
-    }, {
-      week: '2018/07/23',
-      AC: 33233
     }];
   }
 

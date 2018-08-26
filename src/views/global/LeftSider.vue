@@ -6,9 +6,9 @@
     </router-link>
     <div class="user-information">
       <div class="avatar-wrapper">
-        <router-link to="/user">
+        <div @click="jumpToUser">
           <img class="avatar" src="http://via.placeholder.com/80x80" alt="avatar">
-        </router-link>
+        </div>
       </div>
       <transition name="el-fade-in">
         <div v-show="!isCollapse" class="user-meta">
@@ -17,7 +17,7 @@
         </div>
       </transition>
     </div>
-    <el-menu :router="true">
+    <el-menu :router="true" @select="handleMenuClick">
 
       <el-menu-item index="/" title="首页">
         <fa-icon class="el-icon-" icon="home"></fa-icon>
@@ -45,6 +45,8 @@
 </template>
 
 <script lang="ts">
+import store from '@/stores';
+import { IS_LOGIN } from '@/stores/modules/authorization/contants';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component({
@@ -57,10 +59,28 @@ export default class TopNav extends Vue {
   })
   isCollapse!: boolean;
 
+  get isLogin(): boolean {
+    return store.getters[`authorization/${IS_LOGIN}`];
+  }
+
   get leftSiderClassName() {
     return {
       ['is-collapse']: this.isCollapse
     };
+  }
+
+  handleMenuClick(index: string) {
+    if (index === '/statistic' && !this.isLogin) {
+      this.$emit('select', 'login');
+    }
+  }
+
+  jumpToUser() {
+    if (!this.isLogin) {
+      this.$emit('select', 'login');
+    } else {
+      this.$router.push({ path: '/user'});
+    }
   }
 }
 </script>
@@ -93,6 +113,10 @@ export default class TopNav extends Vue {
         height: 80px;
         border-radius: 50%;
         box-shadow: @box-shadow-base;
+
+        &:hover {
+          cursor: pointer;
+        }
       }
     }
 

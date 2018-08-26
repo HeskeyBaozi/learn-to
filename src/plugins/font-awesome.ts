@@ -26,6 +26,7 @@ import {
   faLock,
   faPencilAlt,
   faReply,
+  faSignOutAlt,
   faUndo,
   faUserCircle
 } from '@fortawesome/free-solid-svg-icons';
@@ -51,7 +52,8 @@ export default {
       faKeyboard,
       faEnvelope,
       faPencilAlt,
-      faReply
+      faReply,
+      faSignOutAlt
     );
 
     // 添加 regular 图标，需要传入数组

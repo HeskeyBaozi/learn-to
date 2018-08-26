@@ -88,8 +88,11 @@ export default {
 
     async [GET_PROBLEM_LIST]({ commit }) {
       try {
+        // mock data
         const result = await httpRequestSilence.get('/libraries/0/problems');
         commit(SET_PROBLEM_LIST, result.data);
+        // const result = await httpRequestSilence.get('/problems');
+        // commit(SET_PROBLEM_LIST, result.data.data);
       } catch (error) {
         // tslint:disable-next-line:no-console
         console.log(error);
