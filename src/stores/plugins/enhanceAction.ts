@@ -25,9 +25,9 @@ export function enhanceWithLoadingModule<S>(store: Store<S>) {
       typeof typeOrPayloadWithType === 'string'
         ? second
         : (() => {
-          const { type: t, ...payld } = typeOrPayloadWithType;
-          return payld;
-        })();
+            const { type: t, ...payld } = typeOrPayloadWithType;
+            return payld;
+          })();
     const options = typeof typeOrPayloadWithType === 'string' ? third : second;
     if (!type.startsWith('loading')) {
       store.commit(`loading/${START_RUNNING}`, { type, ...payload });

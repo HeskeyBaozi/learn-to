@@ -11,7 +11,6 @@
  * !!所有图标必须通过 fontawesome.library.add(...) 引入了才能使用
  */
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faGithub, faWeibo } from '@fortawesome/free-brands-svg-icons';
 import {
   faUser
 } from '@fortawesome/free-regular-svg-icons';

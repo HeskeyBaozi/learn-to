@@ -1,6 +1,7 @@
 stages:
   - lint
   - test
+  - build
 
 before_script:
   - node -v
@@ -16,3 +17,8 @@ unit:
   stage: test
   script:
     - npm run test:unit
+
+build:
+  stage: build
+  script:
+    - npm run build

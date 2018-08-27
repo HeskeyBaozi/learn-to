@@ -1,5 +1,6 @@
 import problem from '@//stores/modules/problem';
 import authorization from '@/stores/modules/authorization';
+import layout from '@/stores/modules/layout';
 import loading from '@/stores/modules/loading';
 import { enhanceWithLoadingModule } from '@/stores/plugins/enhanceAction';
 import { ModuleState } from '@/typings/vuex';
@@ -12,7 +13,8 @@ Vue.use(Vuex);
 const modules = {
   authorization,
   loading,
-  problem
+  problem,
+  layout
 };
 
 const rootStore = new Vuex.Store<RootState>({

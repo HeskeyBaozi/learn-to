@@ -22,7 +22,7 @@ httpRequest.interceptors.response.use(
       });
     } else {
       Notification.error({
-        title: response && response.data && response.data.msg || `请求错误`,
+        title: response && response.data && response.data.message || `请求错误`,
         message
       });
     }

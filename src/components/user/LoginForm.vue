@@ -35,21 +35,21 @@
           </el-form-item>
           <el-form-item prop="rememberMe">
             <el-col :span="12">
-              <el-checkbox v-model="loginForm.rememberMe">记住我</el-checkbox>
+              <el-checkbox v-show="false" v-model="loginForm.rememberMe">记住我</el-checkbox>
             </el-col>
-            <el-col class="forget-password-wrapper" :span="12">
+            <el-col class="forget-password-wrapper" :span="12" :offset="12">
               <a href="#">忘记密码</a>
             </el-col>
           </el-form-item>
           <el-form-item>
             <el-col :span="11">
-              <el-button class="form-button" @click="reset('login')">
-                <icon-text icon="undo" text="清空"></icon-text>
+              <el-button :loading="loading" class="form-button" @click="reset('login')">
+                <icon-text :hideIcon="loading" icon="undo" text="清空"></icon-text>
               </el-button>
             </el-col>
             <el-col :offset="2" :span="11">
-              <el-button class="form-button" type="primary" @click="submit('login')">
-                <icon-text icon="check" text="登录"></icon-text>
+              <el-button :loading="loading" class="form-button" type="primary" @click="submit('login')">
+                <icon-text :hideIcon="loading" icon="check" text="登录"></icon-text>
               </el-button>
             </el-col>
           </el-form-item>
@@ -88,13 +88,13 @@
           </el-form-item>
           <el-form-item>
             <el-col :span="11">
-              <el-button class="form-button" @click="reset('register')">
-                <icon-text icon="undo" text="清空"></icon-text>
+              <el-button :loading="loading" class="form-button" @click="reset('register')">
+                <icon-text :hideIcon="loading" icon="undo" text="清空"></icon-text>
               </el-button>
             </el-col>
             <el-col :offset="2" :span="11">
-              <el-button class="form-button" type="primary" @click="submit('register')">
-                <icon-text icon="check" text="注册"></icon-text>
+              <el-button :loading="loading" class="form-button" type="primary" @click="submit('register')">
+                <icon-text :hideIcon="loading" icon="check" text="注册"></icon-text>
               </el-button>
             </el-col>
           </el-form-item>
@@ -104,6 +104,7 @@
   </div>
 </template>
 <script lang="ts">
+import { LoginFormFields, RegisterFormFields } from '@/typings/auth';
 import { RuleDescription, ValidatorCallback } from '@/typings/element-ui';
 import { ElForm } from 'element-ui/types/form';
 import { Component, Prop, Vue } from 'vue-property-decorator';
@@ -114,9 +115,13 @@ type LoginFormStatus = 'login' | 'register';
   name: 'LoginForm'
 })
 export default class LoginForm extends Vue {
+  @Prop({
+    type: Boolean
+  })
+  loading!: boolean;
   status: LoginFormStatus = 'login';
 
-  loginForm = {
+  loginForm: LoginFormFields = {
     username: '',
     password: '',
     captcha: '',
@@ -131,7 +136,7 @@ export default class LoginForm extends Vue {
     };
   }
 
-  registerForm = {
+  registerForm: RegisterFormFields = {
     username: '',
     password: '',
     repassword: '',
@@ -189,6 +194,15 @@ export default class LoginForm extends Vue {
     };
   }
 
+  mounted() {
+    this.resetAll();
+  }
+
+  resetAll() {
+    this.reset('login');
+    this.reset('register');
+  }
+
   reset(status: LoginFormStatus) {
     if (status === 'login') {
       (this.$refs.loginForm as ElForm).resetFields();
@@ -203,14 +217,12 @@ export default class LoginForm extends Vue {
     if (status === 'login') {
       const isPassed = await (this.$refs.loginForm as ElForm).validate();
       if (isPassed) {
-        // tslint:disable-next-line:no-console
-        console.log(Object.freeze({ ...this.loginForm }));
+        this.$emit('submit', Object.freeze({ ...this.loginForm }));
       }
     } else if (status === 'register') {
       const isPassed = await (this.$refs.registerForm as ElForm).validate();
       if (isPassed) {
-        // tslint:disable-next-line:no-console
-        console.log(Object.freeze({ ...this.registerForm }));
+        this.$emit('register', Object.freeze({ ...this.loginForm }));
       }
     }
   }

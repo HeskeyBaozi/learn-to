@@ -4,38 +4,64 @@
       <fa-icon :icon="['fas', 'indent']"></fa-icon>
     </div>
     <div class="nav">
-      <div v-if="isLogin" class="nav-item" @click="selectItem('message')">
-        <icon-text icon="envelope" text="消息" />
-      </div>
-      <div v-if="isLogin" class="nav-item" @click="selectItem('logout')">
-        <icon-text icon="sign-out-alt" text="登出" />
-      </div>
-      <div v-if="!isLogin" class="nav-item" @click="selectItem('login')">
-        <icon-text icon="user-circle" text="登录" />
-      </div>
+      <authorized-view v-for="item of menu" :key="item.key" :authorities="item.authorities">
+        <div :key="item.key" class="nav-item" @click="item.onClick">
+          <icon-text :icon="item.icon" :text="item.name" />
+        </div>
+      </authorized-view>
     </div>
   </el-container>
 </template>
 
 <script lang="ts">
-import store from '@/stores';
-import { IS_LOGIN } from '@/stores/modules/authorization/contants';
-import { Component, Emit, Prop, Vue } from 'vue-property-decorator';
+import { LOG_OUT } from '@/stores/modules/authorization/contants';
+import {
+  IS_COLLAPSE,
+  MODIFY_IS_LOGIN_DIALOG_VISIBLE,
+  TOGGLE_COLLAPSE
+} from '@/stores/modules/layout/contants';
+import { LayoutMenuDataItem } from '@/typings/layout';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 
 export type ItemNameType = 'login' | 'logout' | 'message';
-
 @Component({
   name: 'top-nav'
 })
 export default class TopNav extends Vue {
-  @Prop({
-    type: Boolean,
-    required: true
-  })
-  isCollapse!: boolean;
+  get menu(): LayoutMenuDataItem[] {
+    return [
+      {
+        name: '消息',
+        key: 'message',
+        icon: 'envelope',
+        authorities: ['user', 'admin'],
+        onClick: () => this.$router.push({ name: 'notification' })
+      },
+      {
+        name: '登出',
+        key: 'logout',
+        icon: 'sign-out-alt',
+        authorities: ['user', 'admin'],
+        onClick: async () => {
+          await this.$store.dispatch(`authorization/${LOG_OUT}`);
+        }
+      },
+      {
+        name: '登录',
+        key: 'login',
+        icon: 'user-circle',
+        authorities: ['guest'],
+        onClick: () => {
+          this.$store.commit(`layout/${MODIFY_IS_LOGIN_DIALOG_VISIBLE}`, {
+            isLoginDialogVisible: true
+          });
+        }
+      }
+    ];
+  }
 
-  get isLogin(): boolean {
-    return store.getters[`authorization/${IS_LOGIN}`];
+  get isCollapse(): boolean {
+    return this.$store.getters[`layout/${IS_COLLAPSE}`];
   }
 
   get topNavClassName() {
@@ -44,14 +70,8 @@ export default class TopNav extends Vue {
     };
   }
 
-  @Emit('toggle-collapse')
   toggleCollapse() {
-    // noop
-  }
-
-  @Emit('select')
-  selectItem(itemName: ItemNameType) {
-    // noop
+    this.$store.commit(`layout/${TOGGLE_COLLAPSE}`);
   }
 }
 </script>
@@ -74,7 +94,6 @@ export default class TopNav extends Vue {
   height: 100%;
   justify-content: space-between;
   padding-right: 1rem;
-  font-size: @font-size-small-title;
 
   .collapse-button {
     .nav-block;

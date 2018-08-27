@@ -2,6 +2,7 @@ import BasicLayout from '@/layouts/BasicLayout.vue';
 import store from '@/stores';
 import { IS_LOGIN } from '@/stores/modules/authorization/contants';
 import { QUERY_LOGIN_STATUS } from '@/stores/modules/authorization/contants';
+import EntryPage from '@/views/EntryPage.vue';
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './TheHome.vue';
@@ -13,6 +14,10 @@ const router = new Router({
   routes: [
     {
       path: '/',
+      component: EntryPage
+    },
+    {
+      path: '/oj',
       component: BasicLayout,
       async beforeEnter(to, from, next) {
         await store.dispatch(`authorization/${QUERY_LOGIN_STATUS}`);
@@ -73,8 +78,9 @@ const router = new Router({
         },
         {
           path: 'statistic',
+          name: 'statistic',
           component: () => import('./statistic/Statistic.vue'),
-          async beforeEnter(to, from, next) {
+          beforeEnter(to, from, next) {
             if (store.getters[`authorization/${IS_LOGIN}`]) {
               next();
             } else {
@@ -102,6 +108,7 @@ const router = new Router({
         },
         {
           path: 'notification',
+          name: 'notification',
           component: () => import('./notification/UserNotification.vue')
         }
       ]
